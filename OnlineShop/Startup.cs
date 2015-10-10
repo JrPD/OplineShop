@@ -1,6 +1,6 @@
 ﻿using Owin;
 
-namespace IdentitySample
+namespace OnlineShop
 {
     public partial class Startup
     {

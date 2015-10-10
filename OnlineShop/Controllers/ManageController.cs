@@ -1,4 +1,4 @@
-﻿using IdentitySample.Models;
+﻿using OnlineShop.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace IdentitySample.Controllers
+namespace OnlineShop.Controllers
 {
     [Authorize]
     public class ManageController : Controller

@@ -1,10 +1,11 @@
-﻿using IdentitySample.Models;
+﻿using OnlineShop.Models;
 using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using OnlineShop.Models.Db;
 
-namespace IdentitySample
+namespace OnlineShop
 {
     // Note: For instructions on enabling IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=301868
@@ -16,6 +17,7 @@ namespace IdentitySample
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+			Database.SetInitializer(new Initializer());
         }
     }
 }

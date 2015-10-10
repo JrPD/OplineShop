@@ -179,6 +179,12 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\Db\Initializer.cs" />
+    <Compile Include="Models\Db\Context.cs" />
+    <Compile Include="Models\Db\Categories.cs" />
+    <Compile Include="Models\Db\Map\ProductMap.cs" />
+    <Compile Include="Models\Db\Map\CartMap.cs" />
+    <Compile Include="Models\Db\Map\CategoryMap.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
