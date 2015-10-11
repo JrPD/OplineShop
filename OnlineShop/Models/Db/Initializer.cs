@@ -6,11 +6,16 @@ using System.Web;
 
 namespace OnlineShop.Models.Db
 {
-	public class Initializer : CreateDatabaseIfNotExists<DbContext>
-	{
-		protected override void Seed(DbContext context)
-		{
-			//todo тут дефолтні дані до бази
-		}
-	}
+	//public class DbInitializer : DropCreateDatabaseIfModelChanges<Context>
+	//{
+	//	protected override void Seed(Context context)
+	//	{
+	//		context.Categories.Add(new Category()
+	//		{
+	//			Cat_Level = 1,
+	//			Cat_Name = "Cameras",
+	//			Cat_Parent_Cat_Id = 0,
+	//		});
+	//	}
+	//}
 }
