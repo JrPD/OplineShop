@@ -7,13 +7,13 @@ namespace OnlineShop.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class allTablesWithIdentity : IMigrationMetadata
+    public sealed partial class ChangeFK : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(allTablesWithIdentity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangeFK));
         
         string IMigrationMetadata.Id
         {
-            get { return "201510131127418_allTablesWithIdentity"; }
+            get { return "201510131647133_ChangeFK"; }
         }
         
         string IMigrationMetadata.Source

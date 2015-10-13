@@ -188,20 +188,24 @@
     <Compile Include="Migrations\201510131125039_allTables.Designer.cs">
       <DependentUpon>201510131125039_allTables.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201510131127418_allTablesWithIdentity.cs" />
-    <Compile Include="Migrations\201510131127418_allTablesWithIdentity.Designer.cs">
-      <DependentUpon>201510131127418_allTablesWithIdentity.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201510131136305_AllFixRelations.cs" />
     <Compile Include="Migrations\201510131136305_AllFixRelations.Designer.cs">
       <DependentUpon>201510131136305_AllFixRelations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510131647133_ChangeFK.cs" />
+    <Compile Include="Migrations\201510131647133_ChangeFK.Designer.cs">
+      <DependentUpon>201510131647133_ChangeFK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\Db\Tables\Image.cs" />
+    <Compile Include="Models\Db\Tables\Description.cs" />
+    <Compile Include="Models\Db\Tables\Cart.cs" />
+    <Compile Include="Models\Db\Tables\Product.cs" />
     <Compile Include="Models\Db\Initializer.cs" />
     <Compile Include="Models\Db\AppContext.cs" />
-    <Compile Include="Models\Db\Categories.cs" />
+    <Compile Include="Models\Db\Tables\Category.cs" />
     <Compile Include="Models\Db\Map\ProductMap.cs" />
     <Compile Include="Models\Db\Map\CartMap.cs" />
     <Compile Include="Models\Db\Map\CategoryMap.cs" />
@@ -288,11 +292,11 @@
     <EmbeddedResource Include="Migrations\201510131125039_allTables.resx">
       <DependentUpon>201510131125039_allTables.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510131127418_allTablesWithIdentity.resx">
-      <DependentUpon>201510131127418_allTablesWithIdentity.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510131136305_AllFixRelations.resx">
       <DependentUpon>201510131136305_AllFixRelations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510131647133_ChangeFK.resx">
+      <DependentUpon>201510131647133_ChangeFK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

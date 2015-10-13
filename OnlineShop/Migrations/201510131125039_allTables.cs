@@ -40,12 +40,12 @@ namespace OnlineShop.Migrations
                 .ForeignKey("dbo.Products", t => t.Product_Pr_Id)
                 .Index(t => t.Product_Pr_Id);
             
-            AddColumn("dbo.Products", "Pr_Description_Desc_Id", c => c.Long());
-            AddColumn("dbo.Products", "Cart_Cart_Id", c => c.Long());
-            CreateIndex("dbo.Products", "Pr_Description_Desc_Id");
-            CreateIndex("dbo.Products", "Cart_Cart_Id");
-            AddForeignKey("dbo.Products", "Pr_Description_Desc_Id", "dbo.Descriptions", "Desc_Id");
-            AddForeignKey("dbo.Products", "Cart_Cart_Id", "dbo.Carts", "Cart_Id");
+			//AddColumn("dbo.Products", "Pr_Description_Desc_Id", c => c.Long());
+			//AddColumn("dbo.Products", "Cart_Cart_Id", c => c.Long());
+			//CreateIndex("dbo.Products", "Pr_Description_Desc_Id");
+			//CreateIndex("dbo.Products", "Cart_Cart_Id");
+			//AddForeignKey("dbo.Products", "Pr_Description_Desc_Id", "dbo.Descriptions", "Desc_Id");
+			//AddForeignKey("dbo.Products", "Cart_Cart_Id", "dbo.Carts", "Cart_Id");
         }
         
         public override void Down()
