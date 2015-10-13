@@ -163,9 +163,9 @@
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="WebGrease, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -180,10 +180,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510131123480_CP.cs" />
+    <Compile Include="Migrations\201510131123480_CP.Designer.cs">
+      <DependentUpon>201510131123480_CP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510131125039_allTables.cs" />
+    <Compile Include="Migrations\201510131125039_allTables.Designer.cs">
+      <DependentUpon>201510131125039_allTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510131127418_allTablesWithIdentity.cs" />
+    <Compile Include="Migrations\201510131127418_allTablesWithIdentity.Designer.cs">
+      <DependentUpon>201510131127418_allTablesWithIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510131136305_AllFixRelations.cs" />
+    <Compile Include="Migrations\201510131136305_AllFixRelations.Designer.cs">
+      <DependentUpon>201510131136305_AllFixRelations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\Db\Initializer.cs" />
-    <Compile Include="Models\Db\Context.cs" />
+    <Compile Include="Models\Db\AppContext.cs" />
     <Compile Include="Models\Db\Categories.cs" />
     <Compile Include="Models\Db\Map\ProductMap.cs" />
     <Compile Include="Models\Db\Map\CartMap.cs" />
@@ -245,6 +262,9 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -260,6 +280,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201510131123480_CP.resx">
+      <DependentUpon>201510131123480_CP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510131125039_allTables.resx">
+      <DependentUpon>201510131125039_allTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510131127418_allTablesWithIdentity.resx">
+      <DependentUpon>201510131127418_allTablesWithIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510131136305_AllFixRelations.resx">
+      <DependentUpon>201510131136305_AllFixRelations.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
