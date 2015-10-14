@@ -10,10 +10,12 @@ namespace OnlineShop.Models.Db
 	
 	public class Image
 	{
-		[Key]
-		public long Im_Id { get; set; }
-		public string Im_Path { get; set; }
-	}
+		public long Img_Id { get; set; }
+
+		public string Img_Path { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
+    }
 
 
 }

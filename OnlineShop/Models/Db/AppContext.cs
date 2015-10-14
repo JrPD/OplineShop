@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineShop.Models.Db.Map;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -13,20 +14,24 @@ namespace OnlineShop.Models.Db
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Product> Products { get; set; }
 		public DbSet<Cart> Carts { get; set; }
-		//public DbSet<Image> Images { get; set; }
-		//public DbSet<Description> Descriptions { get; set; }
-            
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Description> Descriptions { get; set; }
+
 
         public AppContext()
             : base("DefaultConnection")
         {
         }
-        //protected override void OnModelCreating(DbModelBuilder
-        //	modelBuilder)
-        //{
-        //	modelBuilder.Configurations.Add(new ProductMap());
-        //	modelBuilder.Configurations.Add(new CategoryMap());
-        //}
+        protected override void OnModelCreating(DbModelBuilder
+            modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new ProductMap());
+            modelBuilder.Configurations.Add(new CategoryMap());
+            modelBuilder.Configurations.Add(new DescriptionMap());
+            modelBuilder.Configurations.Add(new ImageMap());
+            modelBuilder.Configurations.Add(new CartMap());
+            modelBuilder.Configurations.Add(new ProductCounterMap());
+        }
     }
 
 
