@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using OnlineShop.Models.Db;
+using OnlineShop.Models.Db.Tables;
 
 namespace OnlineShop.Controllers
 {
@@ -11,8 +12,8 @@ namespace OnlineShop.Controllers
         public ActionResult Index()
         {
 
-	        context.Products.Add(new Product() {Pr_Name = "Product", Description = new Description(){Desc_Path = "dfd"}, Images = new List<Image>(), Pr_Price = 500});
-	        context.SaveChanges();
+			//context.Products.Add(new Product() {Pr_Name = "Product", Description = new Description(){Desc_Path = "dfd"}, Images = new List<Image>(), Pr_Price = 500});
+			//context.SaveChanges();
 
             return View();
         }

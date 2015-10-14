@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
-namespace OnlineShop.Models.Db
+namespace OnlineShop.Models.Db.Tables
 {
 
 	public class Product

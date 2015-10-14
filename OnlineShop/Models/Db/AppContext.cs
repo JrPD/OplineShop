@@ -1,9 +1,6 @@
-﻿using OnlineShop.Models.Db.Map;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
+using OnlineShop.Models.Db.Map;
+using OnlineShop.Models.Db.Tables;
 
 namespace OnlineShop.Models.Db
 {
@@ -14,8 +11,8 @@ namespace OnlineShop.Models.Db
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Product> Products { get; set; }
 		public DbSet<Cart> Carts { get; set; }
-        public DbSet<Image> Images { get; set; }
-        public DbSet<Description> Descriptions { get; set; }
+		public DbSet<Image> Images { get; set; }
+		public DbSet<Description> Descriptions { get; set; }
 
 
         public AppContext()
