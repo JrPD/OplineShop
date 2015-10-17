@@ -8,12 +8,10 @@ namespace OnlineShop.Controllers
 
     public class HomeController : Controller
     {
-		public static AppContext context = new AppContext();
         public ActionResult Index()
         {
 
-			//context.Products.Add(new Product() {Pr_Name = "Product", Description = new Description(){Desc_Path = "dfd"}, Images = new List<Image>(), Pr_Price = 500});
-			//context.SaveChanges();
+			//MvcApplication.ContextRepository.Context.Products.Add(new Product() {Pr_Name = "Product", Description = new Description(){Desc_Path = "dfd"}, Images = new List<Image>(), Pr_Price = 500});
 
             return View();
         }

@@ -9,7 +9,7 @@ namespace OnlineShop.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(OnlineShop.Models.Db.AppContext context)

@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using OnlineShop.Models.Db;
+using System.Web;
 
 namespace OnlineShop
 {
@@ -19,5 +20,31 @@ namespace OnlineShop
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 			Database.SetInitializer(new DbInitializer());
         }
+
+        public static ContextRepository ContextRepository
+        {
+            get
+            {
+                if (!HttpContext.Current.Items.Contains("_EntityContext"))
+                {
+                    HttpContext.Current.Items.Add("_EntityContext", new ContextRepository());
+                }
+                return HttpContext.Current.Items["_EntityContext"] as ContextRepository;
+            }
+        }
+
+        protected virtual void Application_BeginRequest()
+        {
+            HttpContext.Current.Items["_EntityContext"] = new ContextRepository();
+        }
+
+        protected virtual void Application_EndRequest()
+        {
+            var entityContext = HttpContext.Current.Items["_EntityContext"] as ContextRepository;
+
+            if (entityContext != null)
+                entityContext.Dispose();
+        }
+
     }
 }
