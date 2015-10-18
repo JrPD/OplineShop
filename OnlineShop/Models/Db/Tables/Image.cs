@@ -15,7 +15,11 @@ namespace OnlineShop.Models.Db.Tables
 		public string Img_Path { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
-    }
 
+        public Image()
+        {
+            Products = new HashSet<Product>();
+        }
+    }
 
 }

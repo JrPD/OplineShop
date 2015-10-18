@@ -11,7 +11,7 @@ namespace OnlineShop.Controllers
         public ActionResult Index()
         {
 
-			//MvcApplication.ContextRepository.Context.Products.Add(new Product() {Pr_Name = "Product", Description = new Description(){Desc_Path = "dfd"}, Images = new List<Image>(), Pr_Price = 500});
+            MvcApplication.ContextRepository.Context.Products.Add(new Product() { Pr_Name = "Product", Description = new Description() { Desc_Path = "dfd" }, Images = new List<Image>(), Pr_Price = 500 });
 
             return View();
         }

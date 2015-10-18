@@ -20,7 +20,7 @@ namespace OnlineShop.Models.Db.Tables
 		//[StringLength(200)]
 		public string Cat_Name  { get; set; }
 
-		public string Availability { get; set; }// todo ???
+		public bool IsAvailable { get; set; }// todo ???
 
 		public virtual ICollection<Product> Products { get; set; }//one to many
 

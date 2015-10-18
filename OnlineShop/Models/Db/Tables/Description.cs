@@ -15,5 +15,10 @@ namespace OnlineShop.Models.Db.Tables
 		public string Desc_Path { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
-	}
+
+        public Description()
+        {
+            Products = new HashSet<Product>();
+        }
+    }
 }

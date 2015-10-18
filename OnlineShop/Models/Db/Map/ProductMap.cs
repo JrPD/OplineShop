@@ -30,8 +30,10 @@ namespace OnlineShop.Models.Db.Map
                 pi.ToTable("ProductsImages");
             });
 
-			//HasOptional<Description>(p => p.Description)
-			//	.WithMany(p => p.Products).HasForeignKey(p => p.Pr_Descr_Id);
+            HasOptional<Description>(p => p.Description)
+                .WithMany(p => p.Products).HasForeignKey(p => p.Pr_Descr_Id);
+
+            Property(p => p.Pr_Descr_Id).IsOptional();
 
             HasOptional<ProductCounter>(p => p.ProductCounter)
                 .WithRequired(pc => pc.Product);

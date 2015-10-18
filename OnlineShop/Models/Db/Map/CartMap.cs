@@ -14,7 +14,7 @@ namespace OnlineShop.Models.Db.Map
             HasKey(c => c.Cart_Id);
             Property(c => c.Cart_Count).IsRequired();
             Property(c => c.Cart_DataCreation).IsOptional();
-            Property(c => c.Cart_Pr_Id).IsOptional();
+            Property(c => c.Cart_Pr_Id).IsRequired();
             Property(c => c.User).IsOptional();
         }
 

@@ -17,8 +17,7 @@ namespace OnlineShop.Models.Db.Map
             Property(c => c.Cat_Name).HasMaxLength(200).IsRequired();
             Property(c => c.Cat_Level).IsRequired();
             Property(c => c.Cat_Parent_Cat_Id).IsOptional();
-
-
+            Property(c => c.IsAvailable).IsRequired();
         }
     }
 }
