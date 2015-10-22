@@ -4,6 +4,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -139,6 +144,69 @@ namespace OnlineShop.Controllers
         {
             return View();
         }
+		[AllowAnonymous]
+		public ActionResult GetCaptchaImage(char[] captcha)
+		{
+			Random rand = new Random((int)DateTime.Now.Ticks);
+			int widthImage = 160;
+			int heightImage = 40;
+			FileContentResult img = null;
+			using (var mem = new MemoryStream())
+			using (var bmp = new Bitmap(widthImage, heightImage))
+			using (var gfi = Graphics.FromImage((Image)bmp))
+			{
+				gfi.TextRenderingHint = TextRenderingHint.ClearTypeGridFit; //якісь символів
+				gfi.SmoothingMode = SmoothingMode.AntiAlias;                //зглажування
+				//Фон
+				HatchBrush hatchBrush = new HatchBrush(HatchStyle.ZigZag, Color.FromArgb(
+																						(rand.Next(0, 255)),
+																						(rand.Next(0, 255)),
+																						(rand.Next(0, 255))), Color.White);
+				gfi.FillRectangle(hatchBrush, new Rectangle(0, 0, bmp.Width, bmp.Height));
+				//Шуми
+				int r, x, y;
+				Pen pen = new Pen(Color.Yellow);
+				for (int i = 1; i < 10; i++)
+				{
+					pen.Color = Color.FromArgb(
+					(rand.Next(0, 255)),
+					(rand.Next(0, 255)),
+					(rand.Next(0, 255)));
+
+					r = rand.Next((heightImage / 4), (widthImage / 3));
+					x = rand.Next(0, widthImage - 10);
+					y = rand.Next((-r / 2), heightImage - 10);
+					gfi.DrawEllipse(pen, x, y, r, r);
+				}
+
+				int interval = widthImage - 20;
+				for (int i = 0; i < captcha.Length; i++)
+				{
+					char[] symbol = new char[1];
+					symbol[0] = captcha[i];
+					gfi.DrawString(new String(symbol), new Font("Tahoma", rand.Next(16, 18)), Brushes.Gray,
+									widthImage - interval, rand.Next(-5, 5));
+					interval -= rand.Next(12, 17);
+				}
+				bmp.Save(mem, ImageFormat.Jpeg);
+				img = this.File(mem.GetBuffer(), "image/Jpeg");
+			}
+			return img;
+		}
+		[AllowAnonymous]
+		public ActionResult GetCaptcha()
+		{
+			Random rand = new Random((int)DateTime.Now.Ticks);
+			int captchaSize = 8;
+			string symbols = "23456789qertyupasdfghjkzxcbnm";
+			char[] captcha = new char[captchaSize];
+			for (int i = 0; i < captcha.Length; i++)
+			{
+				captcha[i] = symbols[rand.Next(symbols.Count())];
+			}
+			Session["Captcha"] = new String(captcha);
+			return GetCaptchaImage(captcha);
+		}
 
         //
         // POST: /Account/Register
@@ -147,7 +215,12 @@ namespace OnlineShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+			if (string.IsNullOrEmpty(Session["Captcha"].ToString()) || 
+				Session["Captcha"].ToString() != model.Captcha)
+	        {
+				return View(model);
+	        }
+			if (ModelState.IsValid && Session["Captcha"].ToString() == model.Captcha)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);

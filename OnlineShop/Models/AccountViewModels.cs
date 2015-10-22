@@ -76,6 +76,11 @@ namespace OnlineShop.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+		
+		[Display(Name = "Captcha")]
+		[Required]
+		[Compare("Captcha", ErrorMessage = "The characters that you entered didn't match the word verification. Please try again.")]
+		public string Captcha { get; set; }
     }
 
     public class ResetPasswordViewModel
