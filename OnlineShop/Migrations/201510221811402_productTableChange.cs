@@ -3,7 +3,7 @@ namespace OnlineShop.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class DelTable : DbMigration
+    public partial class productTableChange : DbMigration
     {
         public override void Up()
         {
@@ -29,7 +29,7 @@ namespace OnlineShop.Migrations
                         Pr_Name = c.String(nullable: false, maxLength: 200),
                         Pr_Price = c.Double(nullable: false),
                         Pr_IsAviable = c.Boolean(nullable: false),
-                        Pr_Count = c.Int(nullable: false),
+                        Pr_Count = c.Int(),
                     })
                 .PrimaryKey(t => t.Pr_Id)
                 .ForeignKey("dbo.Categories", t => t.Pr_Cat_Id, cascadeDelete: true)

@@ -206,9 +206,9 @@
     </Compile>
     <Compile Include="Mappers\CommonMapper.cs" />
     <Compile Include="Mappers\IMapper.cs" />
-    <Compile Include="Migrations\201510221729523_DelTable.cs" />
-    <Compile Include="Migrations\201510221729523_DelTable.Designer.cs">
-      <DependentUpon>201510221729523_DelTable.cs</DependentUpon>
+    <Compile Include="Migrations\201510221811402_productTableChange.cs" />
+    <Compile Include="Migrations\201510221811402_productTableChange.Designer.cs">
+      <DependentUpon>201510221811402_productTableChange.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -312,8 +312,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201510221729523_DelTable.resx">
-      <DependentUpon>201510221729523_DelTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510221811402_productTableChange.resx">
+      <DependentUpon>201510221811402_productTableChange.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Res.resx">
       <Generator>ResXFileCodeGenerator</Generator>

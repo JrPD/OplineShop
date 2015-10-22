@@ -118,14 +118,8 @@ namespace OnlineShop.Models
             const string password = "a";
             //string Admin = Res.Roles_Admin;
 
-            //Create Role Admin if it does not exist
-			var role = roleManager.FindByName(Res.Roles_Admin);
-            if (role == null) {
-				role = new IdentityRole(Res.Roles_Admin);
-                var roleresult = roleManager.Create(role);
-            }
 
-			role = roleManager.FindByName(Res.Roles_Manager);
+			var role = roleManager.FindByName(Res.Roles_Manager);
 			if (role == null)
 			{
 				role = new IdentityRole(Res.Roles_Manager);
@@ -146,6 +140,14 @@ namespace OnlineShop.Models
 				var roleresult = roleManager.Create(role);
 			}
 
+
+			//Create Role Admin if it does not exist
+			 role = roleManager.FindByName(Res.Roles_Admin);
+			if (role == null)
+			{
+				role = new IdentityRole(Res.Roles_Admin);
+				var roleresult = roleManager.Create(role);
+			}
             var user = userManager.FindByName(name);
             if (user == null) {
                 user = new ApplicationUser { UserName = name, Email = name };
