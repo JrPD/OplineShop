@@ -19,6 +19,8 @@ namespace OnlineShop.Models.Db.Map
 
             Property(p => p.Pr_IsAviable).IsRequired();
 
+            Property(p => p.Pr_Count).IsOptional();
+
             HasRequired<Category>(p => p.Category).WithMany(p => p.Products)
                 .HasForeignKey(p => p.Pr_Cat_Id);
 
