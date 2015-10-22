@@ -206,22 +206,20 @@
     </Compile>
     <Compile Include="Mappers\CommonMapper.cs" />
     <Compile Include="Mappers\IMapper.cs" />
-    <Compile Include="Migrations\201510181902383_init.cs" />
-    <Compile Include="Migrations\201510181902383_init.Designer.cs">
-      <DependentUpon>201510181902383_init.cs</DependentUpon>
+    <Compile Include="Migrations\201510221729523_DelTable.cs" />
+    <Compile Include="Migrations\201510221729523_DelTable.Designer.cs">
+      <DependentUpon>201510221729523_DelTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\Db\IRepository.cs" />
-    <Compile Include="Models\Db\Map\ProductCounterMap.cs" />
     <Compile Include="Models\Db\Map\DescriptionMap.cs" />
     <Compile Include="Models\Db\Map\ImageMap.cs" />
     <Compile Include="Models\Db\Repository.cs" />
     <Compile Include="Models\Db\Tables\Image.cs" />
     <Compile Include="Models\Db\Tables\Description.cs" />
     <Compile Include="Models\Db\Tables\Cart.cs" />
-    <Compile Include="Models\Db\Tables\ProductCounter.cs" />
     <Compile Include="Models\Db\Tables\Product.cs" />
     <Compile Include="Models\Db\Initializer.cs" />
     <Compile Include="Models\Db\AppContext.cs" />
@@ -232,6 +230,11 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Res.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Res.resx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -309,8 +312,12 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201510181902383_init.resx">
-      <DependentUpon>201510181902383_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510221729523_DelTable.resx">
+      <DependentUpon>201510221729523_DelTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Res.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Res.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

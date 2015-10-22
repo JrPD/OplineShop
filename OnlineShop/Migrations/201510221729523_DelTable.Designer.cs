@@ -7,13 +7,13 @@ namespace OnlineShop.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class init : IMigrationMetadata
+    public sealed partial class DelTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DelTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201510181902383_init"; }
+            get { return "201510221729523_DelTable"; }
         }
         
         string IMigrationMetadata.Source

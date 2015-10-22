@@ -27,7 +27,6 @@ namespace OnlineShop.Models.Db
             modelBuilder.Configurations.Add(new DescriptionMap());
             modelBuilder.Configurations.Add(new ImageMap());
             modelBuilder.Configurations.Add(new CartMap());
-            modelBuilder.Configurations.Add(new ProductCounterMap());
         }
     }
 

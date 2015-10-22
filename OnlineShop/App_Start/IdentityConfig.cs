@@ -106,24 +106,45 @@ namespace OnlineShop.Models
     public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext> 
     {
         protected override void Seed(ApplicationDbContext context) {
-            InitializeIdentityForEF(context);
+            InitializeIdentityForEf(context);
             base.Seed(context);
         }
 
         //Create User=Admin@Admin.com with password=Admin@123456 in the Admin role        
-        public static void InitializeIdentityForEF(ApplicationDbContext db) {
+        public static void InitializeIdentityForEf(ApplicationDbContext db) {
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
             const string name = "a@a.a";
             const string password = "a";
-            const string roleName = "Admin";
+            //string Admin = Res.Roles_Admin;
 
             //Create Role Admin if it does not exist
-            var role = roleManager.FindByName(roleName);
+			var role = roleManager.FindByName(Res.Roles_Admin);
             if (role == null) {
-                role = new IdentityRole(roleName);
+				role = new IdentityRole(Res.Roles_Admin);
                 var roleresult = roleManager.Create(role);
             }
+
+			role = roleManager.FindByName(Res.Roles_Manager);
+			if (role == null)
+			{
+				role = new IdentityRole(Res.Roles_Manager);
+				var roleresult = roleManager.Create(role);
+			}
+
+			role = roleManager.FindByName(Res.Roles_Editor);
+			if (role == null)
+			{
+				role = new IdentityRole(Res.Roles_Editor);
+				var roleresult = roleManager.Create(role);
+			}
+
+			role = roleManager.FindByName(Res.Roles_User);
+			if (role == null)
+			{
+				role = new IdentityRole(Res.Roles_User);
+				var roleresult = roleManager.Create(role);
+			}
 
             var user = userManager.FindByName(name);
             if (user == null) {

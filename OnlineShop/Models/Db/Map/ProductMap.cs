@@ -35,8 +35,6 @@ namespace OnlineShop.Models.Db.Map
 
             Property(p => p.Pr_Descr_Id).IsOptional();
 
-            HasOptional<ProductCounter>(p => p.ProductCounter)
-                .WithRequired(pc => pc.Product);
 
             HasMany<Cart>(p => p.Carts).WithMany(p => p.Products)
                .Map(pc =>

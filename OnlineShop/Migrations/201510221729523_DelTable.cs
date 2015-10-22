@@ -3,7 +3,7 @@ namespace OnlineShop.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class DelTable : DbMigration
     {
         public override void Up()
         {
@@ -29,6 +29,7 @@ namespace OnlineShop.Migrations
                         Pr_Name = c.String(nullable: false, maxLength: 200),
                         Pr_Price = c.Double(nullable: false),
                         Pr_IsAviable = c.Boolean(nullable: false),
+                        Pr_Count = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Pr_Id)
                 .ForeignKey("dbo.Categories", t => t.Pr_Cat_Id, cascadeDelete: true)
@@ -67,17 +68,6 @@ namespace OnlineShop.Migrations
                 .PrimaryKey(t => t.Img_Id);
             
             CreateTable(
-                "dbo.ProductCounters",
-                c => new
-                    {
-                        Pr_Id = c.Long(nullable: false),
-                        Pr_Count = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Pr_Id)
-                .ForeignKey("dbo.Products", t => t.Pr_Id)
-                .Index(t => t.Pr_Id);
-            
-            CreateTable(
                 "dbo.ProductsCarts",
                 c => new
                     {
@@ -107,7 +97,6 @@ namespace OnlineShop.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.ProductCounters", "Pr_Id", "dbo.Products");
             DropForeignKey("dbo.ProductsImages", "Img_Id", "dbo.Images");
             DropForeignKey("dbo.ProductsImages", "Pr_Id", "dbo.Products");
             DropForeignKey("dbo.Products", "Pr_Descr_Id", "dbo.Descriptions");
@@ -118,12 +107,10 @@ namespace OnlineShop.Migrations
             DropIndex("dbo.ProductsImages", new[] { "Pr_Id" });
             DropIndex("dbo.ProductsCarts", new[] { "Cart_Id" });
             DropIndex("dbo.ProductsCarts", new[] { "Pr_Id" });
-            DropIndex("dbo.ProductCounters", new[] { "Pr_Id" });
             DropIndex("dbo.Products", new[] { "Pr_Descr_Id" });
             DropIndex("dbo.Products", new[] { "Pr_Cat_Id" });
             DropTable("dbo.ProductsImages");
             DropTable("dbo.ProductsCarts");
-            DropTable("dbo.ProductCounters");
             DropTable("dbo.Images");
             DropTable("dbo.Descriptions");
             DropTable("dbo.Categories");
