@@ -11,7 +11,7 @@ namespace OnlineShop.Models.Db.Tables
 	{
 		public long Cat_Id { get; set; }
 
-		//[Range(0, 5,  ErrorMessage = "Category level up to 5")]
+		//[Range(1, 5,  ErrorMessage = "Category level up to 5")]
 		public byte Cat_Level { get; set; }
 
 		public long Cat_Parent_Cat_Id { get; set; }

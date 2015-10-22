@@ -30,15 +30,13 @@ namespace OnlineShop.Models.Db.Tables
 
 		public virtual Description Description { get; set; }
 
-        public virtual ProductCounter ProductCounter { get; set; }
-
+        public int Pr_Count { get; set; }
 
         public Product()
 		{
 			Images = new HashSet<Image>();
 			Description = new Description();
             Category = new Category();
-            ProductCounter = new ProductCounter();
             Carts = new HashSet<Cart>();
 		}
 	}
