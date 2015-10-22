@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web;
+using chatdna.Models;
 
 namespace OnlineShop.Models
 {
@@ -87,7 +88,9 @@ namespace OnlineShop.Models
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+			EmailSender sender = new SendPassRestoreRequest(new ResetPasswordModel() { UserName = message.Body, Email = message.Destination });
+			sender.SendEmail();
+			return Task.FromResult(0);
         }
     }
 
