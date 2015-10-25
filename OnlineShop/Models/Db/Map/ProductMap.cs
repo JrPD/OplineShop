@@ -17,7 +17,7 @@ namespace OnlineShop.Models.Db.Map
 
             Property(p => p.Pr_Price).IsRequired();
 
-            Property(p => p.Pr_IsAviable).IsRequired();
+            Property(p => p.Pr_IsAvailable).IsRequired();
 
             Property(p => p.Pr_Count).IsOptional();
 

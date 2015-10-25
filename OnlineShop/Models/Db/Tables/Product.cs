@@ -22,7 +22,7 @@ namespace OnlineShop.Models.Db.Tables
 
 		public virtual  Category Category { get; set; }
 		
-		public bool  Pr_IsAviable { get; set; }
+		public bool Pr_IsAvailable { get; set; }
 
         public  ICollection<Image> Images { get; set; }
 

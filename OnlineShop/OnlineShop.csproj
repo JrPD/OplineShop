@@ -199,6 +199,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageShopController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -229,6 +230,8 @@
     <Compile Include="Models\Db\Map\CartMap.cs" />
     <Compile Include="Models\Db\Map\CategoryMap.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageShopModels\CategoryView.cs" />
+    <Compile Include="Models\ManageShopModels\ProductView.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Res.Designer.cs">
@@ -322,7 +325,7 @@
       <DependentUpon>201510221811402_productTableChange.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Res.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Res.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
