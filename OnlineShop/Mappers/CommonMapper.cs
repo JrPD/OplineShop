@@ -31,6 +31,30 @@ namespace OnlineShop.Mappers
                 //todo ??? хз чи так піде треба стестувати
                 .ForMember(dest => dest.Products,
                     opt => opt.MapFrom(src => src.Products.ToList()));
+            Mapper.CreateMap<ProductView, Product>()
+                .ForMember(dest => dest.Pr_Count,
+                    opt => opt.MapFrom(src => src.Count))
+                //todo ??? вроді це фігово
+                .ForMember(dest => dest.Pr_Cat_Id,
+                    opt => opt.MapFrom(src => src.Category.Cat_Id))
+                //todo ??? і це тоже
+                .ForMember(dest => dest.Pr_Descr_Id,
+                    opt => opt.MapFrom(src => src.Description.Desc_Id))
+                .ForMember(dest => dest.Pr_Price,
+                    opt => opt.MapFrom(src => src.Price))
+                .ForMember(dest => dest.Pr_Name,
+                    opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Pr_IsAvailable,
+                    opt => opt.MapFrom(src => src.IsAvailable));
+            Mapper.CreateMap<Product,ProductView>()
+                .ForMember(dest => dest.Count,
+                    opt => opt.MapFrom(src => src.Pr_Count))
+                .ForMember(dest => dest.Price,
+                    opt => opt.MapFrom(src => src.Pr_Price))
+                .ForMember(dest => dest.Name,
+                    opt => opt.MapFrom(src => src.Pr_Name))
+                .ForMember(dest => dest.IsAvailable,
+                    opt => opt.MapFrom(src => src.Pr_IsAvailable));
         }
         public object Map(object source, Type sourceType, Type destinationType)
         {

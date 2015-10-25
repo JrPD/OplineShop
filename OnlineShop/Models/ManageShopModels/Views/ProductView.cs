@@ -62,7 +62,7 @@ namespace OnlineShop.Models.ManageShopModels
         }
 
         public bool IsAvailable { get; set; }
-
+        //todo ??? чот мені здаєтся тут повинно бути CategoryView, чи не так йопта?
         public Category Category
         {
             get
