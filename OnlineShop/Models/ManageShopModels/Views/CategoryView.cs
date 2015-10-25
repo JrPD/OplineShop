@@ -69,15 +69,21 @@ namespace OnlineShop.Models.ManageShopModels
             }
         }
 
-        public bool SetParentId(long id)
+        public long ParentId
         {
-            Contract.Requires<ArgumentException>(id <= 0,
-                string.Format(IncorrectId, id));
-            Contract.Requires<ArgumentException>(!MvcApplication.ContextRepository
-                .Select<Category>().Any(c => c.Cat_Id == id),
-                string.Format(IncorrectId, id));
-            parent_id = id;
-            return true;
+            get
+            {
+                return parent_id;
+            }
+            set
+            {
+                Contract.Requires<ArgumentException>(value <= 0,
+                    string.Format(IncorrectId, value));
+                Contract.Requires<ArgumentException>(!MvcApplication.ContextRepository
+                    .Select<Category>().Any(c => c.Cat_Id == value),
+                    string.Format(IncorrectId, value));
+                parent_id = value;
+            }
         }
 
         public List<Product> Products

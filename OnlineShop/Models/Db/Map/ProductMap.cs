@@ -4,6 +4,8 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
 using OnlineShop.Models.Db.Tables;
+using System.Data.Entity.Infrastructure.Annotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineShop.Models.Db.Map
 {
@@ -13,7 +15,13 @@ namespace OnlineShop.Models.Db.Map
         {
             HasKey(p => p.Pr_Id);
 
-            Property(p => p.Pr_Name).HasMaxLength(200).IsRequired();
+            Property(p => p.Pr_Name)
+                .HasMaxLength(200)
+                .IsRequired()
+                .HasColumnAnnotation(
+                    IndexAnnotation.AnnotationName,new IndexAnnotation(
+                        new IndexAttribute("Pr_Name_UN", 1) { IsUnique = true }));
+            
 
             Property(p => p.Pr_Price).IsRequired();
 
