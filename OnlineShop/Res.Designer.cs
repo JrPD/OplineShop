@@ -22,7 +22,7 @@ namespace OnlineShop {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Res {
+    public class Res {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace OnlineShop {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OnlineShop.Res", typeof(Res).Assembly);
@@ -51,7 +51,7 @@ namespace OnlineShop {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,27 @@ namespace OnlineShop {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parent category name was Not Found!!!.
+        /// </summary>
+        public static string CatView_NameNotFound {
+            get {
+                return ResourceManager.GetString("CatView_NameNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Was sent an incorrect {0} =&gt; {1}.
+        /// </summary>
+        public static string IncorrectInput {
+            get {
+                return ResourceManager.GetString("IncorrectInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
-        internal static string Roles_Admin {
+        public static string Roles_Admin {
             get {
                 return ResourceManager.GetString("Roles_Admin", resourceCulture);
             }
@@ -72,7 +90,7 @@ namespace OnlineShop {
         /// <summary>
         ///   Looks up a localized string similar to Editor.
         /// </summary>
-        internal static string Roles_Editor {
+        public static string Roles_Editor {
             get {
                 return ResourceManager.GetString("Roles_Editor", resourceCulture);
             }
@@ -81,7 +99,7 @@ namespace OnlineShop {
         /// <summary>
         ///   Looks up a localized string similar to Manager.
         /// </summary>
-        internal static string Roles_Manager {
+        public static string Roles_Manager {
             get {
                 return ResourceManager.GetString("Roles_Manager", resourceCulture);
             }
@@ -90,7 +108,7 @@ namespace OnlineShop {
         /// <summary>
         ///   Looks up a localized string similar to User.
         /// </summary>
-        internal static string Roles_User {
+        public static string Roles_User {
             get {
                 return ResourceManager.GetString("Roles_User", resourceCulture);
             }

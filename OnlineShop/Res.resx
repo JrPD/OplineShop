@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CatView_NameNotFound" xml:space="preserve">
+    <value>Parent category name was Not Found!!!</value>
+  </data>
+  <data name="IncorrectInput" xml:space="preserve">
+    <value>Was sent an incorrect {0} =&gt; {1}</value>
+  </data>
   <data name="Roles_Admin" xml:space="preserve">
     <value>Admin</value>
   </data>
