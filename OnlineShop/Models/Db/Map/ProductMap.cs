@@ -13,45 +13,53 @@ namespace OnlineShop.Models.Db.Map
     {
         public ProductMap()
         {
-            HasKey(p => p.Pr_Id);
+            HasKey(p => p.Pr_Id);//PK
 
-            Property(p => p.Pr_Name)
-                .HasMaxLength(200)
-                .IsRequired()
-                .HasColumnAnnotation(
+            Property(p => p.Pr_Name)//name of product
+                .HasMaxLength(200)//max length
+                .IsRequired()//is required to fill
+                .HasColumnAnnotation(//is unique
                     IndexAnnotation.AnnotationName,new IndexAnnotation(
                         new IndexAttribute("Pr_Name_UN", 1) { IsUnique = true }));
             
 
-            Property(p => p.Pr_Price).IsRequired();
+            Property(p => p.Pr_Price)//price of product if
+                .IsRequired();//is required to fill
 
-            Property(p => p.Pr_IsAvailable).IsRequired();
+            Property(p => p.Pr_IsAvailable)//show is our product is available now
+                .IsRequired();//is required to fill
 
-            Property(p => p.Pr_Count).IsOptional();
+            Property(p => p.Pr_Count)//count of available products
+                .IsOptional();//can be null
 
-            HasRequired<Category>(p => p.Category).WithMany(p => p.Products)
-                .HasForeignKey(p => p.Pr_Cat_Id);
+            HasRequired<Category>(p => p.Category)//one-to-many relation
+                .WithMany(p => p.Products)//from category to product
+                .HasForeignKey(p => p.Pr_Cat_Id);//by this FK
 
-            HasMany<Image>(p => p.Images).WithMany(p => p.Products)
+            HasMany<Image>(p => p.Images)//many-to-many relation
+                .WithMany(p => p.Products)//from images to products
                 .Map(pi =>
             {
-                pi.MapLeftKey("Pr_Id");
-                pi.MapRightKey("Img_Id");
-                pi.ToTable("ProductsImages");
+                pi.MapLeftKey("Pr_Id");//for product
+                pi.MapRightKey("Img_Id");//for image
+                pi.ToTable("ProductsImages");//in this new table for our relations
             });
 
-            HasOptional<Description>(p => p.Description)
-                .WithMany(p => p.Products).HasForeignKey(p => p.Pr_Descr_Id);
+            HasOptional<Description>(p => p.Description)//one-to-many relation
+                .WithMany(p => p.Products)//from description to products
+                .HasForeignKey(p => p.Pr_Descr_Id);//by this FK
 
-            Property(p => p.Pr_Descr_Id).IsOptional();
+            Property(p => p.Pr_Descr_Id)
+                .IsOptional();//this FK can be null
 
 
-            HasMany<Cart>(p => p.Carts).WithMany(p => p.Products)
+            HasMany<Cart>(p => p.Carts)//many-to-many relation
+               .WithMany(p => p.Products)//from carts to products
                .Map(pc =>
                {
-                   pc.MapLeftKey("Pr_Id");
-                   pc.MapRightKey("Cart_Id");
-                   pc.ToTable("ProductsCarts");
+                   pc.MapLeftKey("Pr_Id");//for product
+                   pc.MapRightKey("Cart_Id");//for cart
+                   pc.ToTable("ProductsCarts");//in this new table for our relations
                });
         }
     }

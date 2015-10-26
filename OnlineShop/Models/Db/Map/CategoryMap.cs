@@ -14,16 +14,19 @@ namespace OnlineShop.Models.Db.Map
     {
         public CategoryMap()
         {
-            HasKey(c => c.Cat_Id);
-            Property(c => c.Cat_Name)
-                .HasMaxLength(200)
-                .IsRequired()
-                .HasColumnAnnotation(
+            HasKey(c => c.Cat_Id);//PK
+            Property(c => c.Cat_Name)//Name of category
+                .HasMaxLength(200)//max length
+                .IsRequired()//is required
+                .HasColumnAnnotation(//is unique field
                     IndexAnnotation.AnnotationName, new IndexAnnotation(
                         new IndexAttribute("Cat_Name_UN", 1) { IsUnique = true }));
-            Property(c => c.Cat_Level).IsRequired();
-            Property(c => c.Cat_Parent_Cat_Id).IsOptional();
-            Property(c => c.IsAvailable).IsRequired();
+            Property(c => c.Cat_Level)//category level can be from 1(top category) to 5(end subcategory)
+                .IsRequired();//is required
+            Property(c => c.Cat_Parent_Cat_Id)//parent id if level not 1
+                .IsOptional();//can be null
+            Property(c => c.IsAvailable)//is available cat
+                .IsRequired();//is required
         }
     }
 }

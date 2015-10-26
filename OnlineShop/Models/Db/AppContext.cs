@@ -4,7 +4,9 @@ using OnlineShop.Models.Db.Tables;
 
 namespace OnlineShop.Models.Db
 {
-
+    /// <summary>
+    /// Context for connect to DB by EF
+    /// </summary>
     public class AppContext : DbContext
     {
 
@@ -15,13 +17,13 @@ namespace OnlineShop.Models.Db
 		public DbSet<Description> Descriptions { get; set; }
 
 
-        public AppContext()
+        public AppContext()//our default context
             : base("DefaultConnection")
         {
         }
         protected override void OnModelCreating(DbModelBuilder
             modelBuilder)
-        {
+        {//adding here our custom maps for EF
             modelBuilder.Configurations.Add(new ProductMap());
             modelBuilder.Configurations.Add(new CategoryMap());
             modelBuilder.Configurations.Add(new DescriptionMap());

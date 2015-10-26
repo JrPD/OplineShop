@@ -7,6 +7,9 @@ using System.Web;
 
 namespace OnlineShop.Models.ManageShopModels
 {
+    /// <summary>
+    /// View Model for Category DB Object
+    /// </summary>
     public class CategoryView
     {
         public const byte MinLevel = 1;

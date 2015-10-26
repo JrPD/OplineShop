@@ -11,8 +11,9 @@ namespace OnlineShop.Models.Db.Map
     {
         public ImageMap()
         {
-            HasKey(i => i.Img_Id);
-            Property(i => i.Img_Path).IsRequired();
+            HasKey(i => i.Img_Id);//PK
+            Property(i => i.Img_Path)//path to local image
+                .IsRequired();//is required
         }
 
     }

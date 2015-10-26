@@ -11,8 +11,9 @@ namespace OnlineShop.Models.Db.Map
     {
         public DescriptionMap()
         {
-            HasKey(d => d.Desc_Id);
-            Property(d => d.Desc_Path).IsRequired();
+            HasKey(d => d.Desc_Id);//PK
+            Property(d => d.Desc_Path)//path for local description in file
+                .IsRequired();//is required
         }
 
     }

@@ -7,6 +7,9 @@ using System.Web;
 
 namespace OnlineShop.Models.ManageShopModels
 {
+    /// <summary>
+    /// View Model for Product DB Object
+    /// </summary>
     public class ProductView
     {
         public const byte MaxNameLength = 200;
@@ -18,7 +21,10 @@ namespace OnlineShop.Models.ManageShopModels
         private string name;
         private double price;
         private int count;
-
+        
+        /// <summary>
+        /// Count of some Product
+        /// </summary>
         public int Count
         {
             get
@@ -27,11 +33,14 @@ namespace OnlineShop.Models.ManageShopModels
             }
             set
             {
-                Contract.Requires<ArgumentException>(value > 0,
+                Contract.Requires<ArgumentException>(value >= 0,
                     string.Format(Incorrect, "count", value));
             }
         }
 
+        /// <summary>
+        /// Price of our Product
+        /// </summary>
         public double Price
         {
             get
@@ -46,6 +55,9 @@ namespace OnlineShop.Models.ManageShopModels
             }
         }
 
+        /// <summary>
+        /// Product Name
+        /// </summary>
         public string Name
         {
             get
@@ -61,6 +73,9 @@ namespace OnlineShop.Models.ManageShopModels
             }
         }
 
+        /// <summary>
+        /// Is this Product available now
+        /// </summary>
         public bool IsAvailable { get; set; }
         //todo ??? чот мені здаєтся тут повинно бути CategoryView, чи не так йопта?
         public Category Category
@@ -75,9 +90,9 @@ namespace OnlineShop.Models.ManageShopModels
                 category = value;
             }
         }
-
+        
         public Description Description
-        {
+        {//todo ??? може йолки тут таки достати дескрипшон з нашого файла на диску?
             get
             {
                 return description ?? new Description();
@@ -90,7 +105,7 @@ namespace OnlineShop.Models.ManageShopModels
         }
 
         public List<Image> Images
-        {
+        {//todo ??? і тут тоже вже фотки а не клас?
             get
             {
                 return images ?? new List<Image>();

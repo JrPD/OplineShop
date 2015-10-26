@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace OnlineShop.Models.Db
 {
     interface IRepository : IDisposable
-    {
+    {//interface for using our COntext in right way
         T Insert<T>(T item, bool saveNow)
             where T : class;
         T Update<T>(T item, bool saveNow)
