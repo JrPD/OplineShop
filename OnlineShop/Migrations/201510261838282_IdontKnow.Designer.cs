@@ -7,18 +7,18 @@ namespace OnlineShop.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class productTableChange : IMigrationMetadata
+    public sealed partial class IdontKnow : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(productTableChange));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(IdontKnow));
         
         string IMigrationMetadata.Id
         {
-            get { return "201510221811402_productTableChange"; }
+            get { return "201510261838282_IdontKnow"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return null; }
+            get { return Resources.GetString("Source"); }
         }
         
         string IMigrationMetadata.Target
