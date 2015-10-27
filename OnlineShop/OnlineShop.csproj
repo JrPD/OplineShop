@@ -207,9 +207,9 @@
     </Compile>
     <Compile Include="Mappers\CommonMapper.cs" />
     <Compile Include="Mappers\IMapper.cs" />
-    <Compile Include="Migrations\201510271927317_init.cs" />
-    <Compile Include="Migrations\201510271927317_init.Designer.cs">
-      <DependentUpon>201510271927317_init.cs</DependentUpon>
+    <Compile Include="Migrations\201510272029196_init.cs" />
+    <Compile Include="Migrations\201510272029196_init.Designer.cs">
+      <DependentUpon>201510272029196_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Email.cs" />
@@ -325,8 +325,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201510271927317_init.resx">
-      <DependentUpon>201510271927317_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510272029196_init.resx">
+      <DependentUpon>201510272029196_init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Res.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
