@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineShop.Models.ManageShopModels.Managers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,14 @@ namespace OnlineShop.Controllers
     [Authorize(Roles = "Admin")]
     public class ManageShopController : Controller
     {
+        private CategoryManager catManager;
+
+        public ManageShopController()
+        {
+            catManager = new CategoryManager();
+        }
+
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -18,6 +27,7 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public ActionResult EditCategories()
         {
+            var list = catManager.GetAllCategories();
             return View();
         }
 

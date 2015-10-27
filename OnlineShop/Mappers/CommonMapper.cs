@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OnlineShop.Models.Db.Tables;
 using OnlineShop.Models.ManageShopModels;
+using OnlineShop.Models.ManageShopModels.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace OnlineShop.Mappers
     {
         public CommonMapper()
         {
-            Mapper.CreateMap<CategoryView, Category>()
+            Mapper.CreateMap<CategoryViewVld, Category>()
                 .ForMember(dest => dest.Cat_Level,
                     opt => opt.MapFrom(src => src.Level))
                 .ForMember(dest => dest.Cat_Parent_Cat_Id,
@@ -21,7 +22,7 @@ namespace OnlineShop.Mappers
                     opt => opt.UseValue(true))
                 .ForMember(dest => dest.Cat_Name,
                     opt => opt.MapFrom(src => src.Name));
-            Mapper.CreateMap<Category, CategoryView>()
+            Mapper.CreateMap<Category, CategoryViewVld>()
                 .ForMember(dest => dest.Level,
                     opt => opt.MapFrom(src => src.Cat_Level))
                 .ForMember(dest => dest.Name,
@@ -55,6 +56,13 @@ namespace OnlineShop.Mappers
                     opt => opt.MapFrom(src => src.Pr_Name))
                 .ForMember(dest => dest.IsAvailable,
                     opt => opt.MapFrom(src => src.Pr_IsAvailable));
+            Mapper.CreateMap<Category, CategoryViewSmpl>()
+                .ForMember(dest => dest.ParentName,
+                    opt => opt.MapFrom(src => src.Cat_Parent_Cat_Id))
+                .ForMember(dest => dest.Level,
+                    opt => opt.MapFrom(src => src.Cat_Level))
+                .ForMember(dest => dest.Name,
+                    opt => opt.MapFrom(src => src.Cat_Name));
         }
         public object Map(object source, Type sourceType, Type destinationType)
         {

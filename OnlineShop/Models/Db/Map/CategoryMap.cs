@@ -24,7 +24,7 @@ namespace OnlineShop.Models.Db.Map
             Property(c => c.Cat_Level)//category level can be from 1(top category) to 5(end subcategory)
                 .IsRequired();//is required
             Property(c => c.Cat_Parent_Cat_Id)//parent id if level not 1
-                .IsOptional();//can be null
+                .IsRequired();//is required
             Property(c => c.IsAvailable)//is available cat
                 .IsRequired();//is required
         }

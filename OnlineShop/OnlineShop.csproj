@@ -231,7 +231,8 @@
     <Compile Include="Models\Db\Map\CategoryMap.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageShopModels\Managers\CategoryManager.cs" />
-    <Compile Include="Models\ManageShopModels\Views\CategoryView.cs" />
+    <Compile Include="Models\ManageShopModels\Views\CategoryViewSmpl.cs" />
+    <Compile Include="Models\ManageShopModels\Views\CategoryViewVld.cs" />
     <Compile Include="Models\ManageShopModels\Views\ProductView.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Data\dbo.Categories.data.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -317,10 +319,11 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\ManageShop\EditCategories.cshtml" />
+    <Content Include="Views\ManageShop\EditProducts.cshtml" />
+    <Content Include="Views\ManageShop\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510261838282_IdontKnow.resx">
       <DependentUpon>201510261838282_IdontKnow.cs</DependentUpon>
@@ -344,7 +347,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60633</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -5,12 +5,12 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
-namespace OnlineShop.Models.ManageShopModels
+namespace OnlineShop.Models.ManageShopModels.Views
 {
     /// <summary>
-    /// View Model for Category DB Object
+    /// View Model for Category DB Object with Contract Validation
     /// </summary>
-    public class CategoryView
+    public class CategoryViewVld
     {
         public const byte MinLevel = 1;
         public const byte MaxLevel = 5;
@@ -21,10 +21,10 @@ namespace OnlineShop.Models.ManageShopModels
 
         private byte level = 0;
         private string name = string.Empty;
-        private long parent_id = -1;
+        private long? parent_id;
         private List<Product> products = new List<Product>();
 
-        public CategoryView()
+        public CategoryViewVld()
         {
             OutOfRange = "You can't set smaller that " + MinLevel 
                 + "or higher that " + MaxLevel;
@@ -53,6 +53,8 @@ namespace OnlineShop.Models.ManageShopModels
             }
             set
             {
+                //Contract.Requires<ArgumentException>(value.Length > 0,
+                //    string.Format(NameCantBeNull, value));
                 Contract.Requires<ArgumentOutOfRangeException>(
                     value.Length>MaxNameLength);
                 name = value;
@@ -70,13 +72,26 @@ namespace OnlineShop.Models.ManageShopModels
                     NameNotFound);
                 return name;
             }
+            set
+            {
+                if (value != null && value != string.Empty)
+                {
+                    var category = MvcApplication.ContextRepository
+                        .Select<Category>().FirstOrDefault(c => c.Cat_Name == value);
+                    Contract.Requires<ArgumentException>(category != null,
+                        string.Format(NameNotFound, value));
+                    parent_id = category.Cat_Id;
+                }
+                else
+                    parent_id = null;
+            }
         }
 
         public long ParentId
         {
             get
             {
-                return parent_id;
+                return parent_id ?? -1;
             }
             set
             {

@@ -5,6 +5,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using OnlineShop.Models.Db;
 using System.Web;
+using OnlineShop.Mappers;
 
 namespace OnlineShop
 {
@@ -12,6 +13,8 @@ namespace OnlineShop
     // visit http://go.microsoft.com/?LinkId=301868
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static CommonMapper mapper;
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -19,6 +22,16 @@ namespace OnlineShop
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 			Database.SetInitializer(new DbInitializer());
+        }
+
+        public static CommonMapper Mapper
+        {
+            get
+            {
+                if (mapper == null)
+                    mapper = new CommonMapper();
+                return mapper;
+            }
         }
 
         public static ContextRepository ContextRepository
