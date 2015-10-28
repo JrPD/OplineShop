@@ -212,12 +212,16 @@
       <DependentUpon>201510272029196_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Db\Map\ImageMap.cs" />
+    <Compile Include="Models\Db\Map\LinkMap.cs" />
+    <Compile Include="Models\Db\Tables\Link.cs" />
+    <Compile Include="Models\Db\Tables\Property.cs" />
     <Compile Include="Models\Email.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\Db\IRepository.cs" />
     <Compile Include="Models\Db\Map\DescriptionMap.cs" />
-    <Compile Include="Models\Db\Map\ImageMap.cs" />
+    <Compile Include="Models\Db\Map\PropertyMap.cs" />
     <Compile Include="Models\Db\Repository.cs" />
     <Compile Include="Models\Db\Tables\Image.cs" />
     <Compile Include="Models\Db\Tables\Description.cs" />

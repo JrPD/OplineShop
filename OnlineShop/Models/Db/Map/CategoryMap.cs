@@ -25,8 +25,11 @@ namespace OnlineShop.Models.Db.Map
                 .IsRequired();//is required
             Property(c => c.Cat_Parent_Cat_Id)//parent id if level not 1
                 .IsRequired();//is required
-            Property(c => c.IsAvailable)//is available cat
+            Property(c => c.Cat_HasChild)//is any child
                 .IsRequired();//is required
+            HasOptional<Image>(c => c.Image)//one-to-many relation
+               .WithMany(i => i.Categories)//from description to products
+               .HasForeignKey(i => i.Cat_Img_Id);//by this FK
         }
     }
 }

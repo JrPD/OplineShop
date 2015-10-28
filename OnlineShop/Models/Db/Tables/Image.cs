@@ -16,9 +16,12 @@ namespace OnlineShop.Models.Db.Tables
 
         public virtual ICollection<Product> Products { get; set; }
 
+        public virtual ICollection<Category> Categories { get; set; }
+
         public Image()
         {
             Products = new HashSet<Product>();
+            Categories = new HashSet<Category>();
         }
     }
 

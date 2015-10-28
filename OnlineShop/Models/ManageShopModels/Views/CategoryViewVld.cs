@@ -13,7 +13,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
     public class CategoryViewVld
     {
         public const byte MinLevel = 1;
-        public const byte MaxLevel = 5;
+        public const byte MaxLevel = 3;
         public const byte MaxNameLength= 200;
         public const string NameNotFound = "Parent category name was Not Found!!!";
         public const string IncorrectId = "Was sent an incorrect id => {0}";

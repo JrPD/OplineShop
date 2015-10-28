@@ -41,8 +41,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         public List<CategoryViewSmpl> GetAllCategories()
         {
             var resViewCat = new List<CategoryViewSmpl>();//collection witch will be return
-            var allCatForLevel = //MvcApplication.ContextRepository.Context.Categories.ToList();
-                MvcApplication.ContextRepository.Select<Category>();//all cateogires from DB
+            var allCatForLevel = MvcApplication.ContextRepository.Select<Category>();//all cateogires from DB
             foreach (var category in allCatForLevel)//mapping
             {
                 var viewCat = (CategoryViewSmpl)MvcApplication.Mapper.Map(category, 
@@ -50,8 +49,8 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                 try
                 {
                     viewCat.ParentName = MvcApplication.ContextRepository.
-                   Select<Category>().FirstOrDefault(c => c.Cat_Id ==
-                       Convert.ToInt64(viewCat.ParentName)).Cat_Name;
+                         Select<Category>().FirstOrDefault(c => c.Cat_Id ==
+                              Convert.ToInt64(viewCat.ParentName)).Cat_Name;
                 }
                 catch (Exception)
                 {

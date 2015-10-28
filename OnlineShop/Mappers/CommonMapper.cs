@@ -12,14 +12,12 @@ namespace OnlineShop.Mappers
     public class CommonMapper : IMapper
     {
         public CommonMapper()
-        {
+        {//todo check it
             Mapper.CreateMap<CategoryViewVld, Category>()
                 .ForMember(dest => dest.Cat_Level,
                     opt => opt.MapFrom(src => src.Level))
                 .ForMember(dest => dest.Cat_Parent_Cat_Id,
                     opt => opt.MapFrom(src => src.ParentId))
-                .ForMember(dest => dest.IsAvailable,
-                    opt => opt.UseValue(true))
                 .ForMember(dest => dest.Cat_Name,
                     opt => opt.MapFrom(src => src.Name));
             Mapper.CreateMap<Category, CategoryViewVld>()

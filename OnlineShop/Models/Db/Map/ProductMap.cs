@@ -61,6 +61,24 @@ namespace OnlineShop.Models.Db.Map
                    pc.MapRightKey("Cart_Id");//for cart
                    pc.ToTable("ProductsCarts");//in this new table for our relations
                });
+
+            HasMany<Link>(p => p.Links)//many-to-many
+                .WithMany(l => l.Products)//from Link to Products
+                .Map(pl =>
+                {
+                    pl.MapLeftKey("Pr_Id");//for product
+                    pl.MapRightKey("Link_Id");//for link
+                    pl.ToTable("ProductsLinks");//in this new table for our relations
+                });
+
+            HasMany<Property>(prod => prod.Properties)//many-to-many
+                .WithMany(prop => prop.Products)//from Property to Product
+                .Map(pp => 
+                {
+                    pp.MapLeftKey("Pr_Id");//for product
+                    pp.MapRightKey("Prop_Id");//for property
+                    pp.ToTable("ProductsProperties");//in this table for our relations
+                });
         }
     }
 }

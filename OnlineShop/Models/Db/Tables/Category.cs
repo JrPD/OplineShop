@@ -11,22 +11,26 @@ namespace OnlineShop.Models.Db.Tables
     {
         public long Cat_Id { get; set; }
 
-        //[Range(1, 5,  ErrorMessage = "Category level up to 5")]
         public byte Cat_Level { get; set; }
 
         public long Cat_Parent_Cat_Id { get; set; }
 
-        //[Required(ErrorMessage = "Enter a name for the category.")]
-        //[StringLength(200)]
         public string Cat_Name { get; set; }
 
-        public bool IsAvailable { get; set; }// todo ???
+        public bool Cat_HasChild { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }//one to many
+        public long Cat_Img_Id { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
+
+        public virtual ICollection<Link> Links { get; set; }
+
+        public virtual Image Image { get; set; }
 
         public Category()
         {
             Products = new HashSet<Product>();
+            Links = new HashSet<Link>();
         }
     }
 }

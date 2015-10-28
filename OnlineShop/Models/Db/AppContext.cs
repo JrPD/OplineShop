@@ -27,8 +27,10 @@ namespace OnlineShop.Models.Db
             modelBuilder.Configurations.Add(new ProductMap());
             modelBuilder.Configurations.Add(new CategoryMap());
             modelBuilder.Configurations.Add(new DescriptionMap());
-            modelBuilder.Configurations.Add(new ImageMap());
+            modelBuilder.Configurations.Add(new PropertyMap());
             modelBuilder.Configurations.Add(new CartMap());
+            modelBuilder.Configurations.Add(new ImageMap());
+            modelBuilder.Configurations.Add(new LinkMap());
         }
     }
 

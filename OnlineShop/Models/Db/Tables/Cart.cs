@@ -13,11 +13,11 @@ namespace OnlineShop.Models.Db.Tables
 
 		public DateTime Cart_DataCreation { get; set; }//todo ???
 
-		public virtual ICollection<Product> Products { get; set; }
-
 		public string User { get; set; } //todo ???
 
-		public Cart()
+        public virtual ICollection<Product> Products { get; set; }
+
+        public Cart()
 		{
 			Products = new HashSet<Product>();
 		}

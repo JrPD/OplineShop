@@ -24,11 +24,15 @@ namespace OnlineShop.Models.Db.Tables
 		
 		public bool Pr_IsAvailable { get; set; }
 
-        public  ICollection<Image> Images { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
 
-        public  ICollection<Cart> Carts { get; set; }
+        public virtual ICollection<Cart> Carts { get; set; }
 
 		public virtual Description Description { get; set; }
+
+        public virtual ICollection<Link> Links { get; set; }
+
+        public virtual ICollection<Property> Properties { get; set; }
 
         public int Pr_Count { get; set; }
 
@@ -38,6 +42,8 @@ namespace OnlineShop.Models.Db.Tables
 			Description = new Description();
             Category = new Category();
             Carts = new HashSet<Cart>();
+            Links = new HashSet<Link>();
+            Properties = new HashSet<Property>();
 		}
 	}
 
