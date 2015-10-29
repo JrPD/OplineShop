@@ -9,27 +9,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineShop.Models.Db.Map
 {
-    public class CategoryMap : EntityTypeConfiguration<Category>
+	public class CategoryMap : EntityTypeConfiguration<Category>
 
-    {
-        public CategoryMap()
-        {
-            HasKey(c => c.Cat_Id);//PK
-            Property(c => c.Cat_Name)//Name of category
-                .HasMaxLength(200)//max length
-                .IsRequired()//is required
-                .HasColumnAnnotation(//is unique field
-                    IndexAnnotation.AnnotationName, new IndexAnnotation(
-                        new IndexAttribute("Cat_Name_UN", 1) { IsUnique = true }));
-            Property(c => c.Cat_Level)//category level can be from 1(top category) to 5(end subcategory)
-                .IsRequired();//is required
-            Property(c => c.Cat_Parent_Cat_Id)//parent id if level not 1
-                .IsRequired();//is required
-            Property(c => c.Cat_HasChild)//is any child
-                .IsRequired();//is required
-            HasOptional<Image>(c => c.Image)//one-to-many relation
-               .WithMany(i => i.Categories)//from description to products
-               .HasForeignKey(i => i.Cat_Img_Id);//by this FK
-        }
-    }
+	{
+		public CategoryMap()
+		{
+			HasKey(c => c.Cat_Id);//PK
+			Property(c => c.Cat_Name)//Name of category
+				.HasMaxLength(200)//max length
+				.IsRequired()//is required
+				.HasColumnAnnotation(//is unique field
+					IndexAnnotation.AnnotationName, new IndexAnnotation(
+						new IndexAttribute("Cat_Name_UN", 1) { IsUnique = true }));
+			Property(c => c.Cat_Level)//category level can be from 1(top category) to 5(end subcategory)
+				.IsRequired();//is required
+			Property(c => c.Cat_Parent_Cat_Id)//parent id if level not 1
+				.IsRequired();//is required
+			Property(c => c.Cat_HasChild)//is any child
+				.IsRequired();//is required
+			//HasOptional<Image>(c => c.Image)//one-to-many relation
+			//   .WithMany(i => i.Categories)//from description to products
+			//   .HasForeignKey(i => i.Cat_Img_Id);//by this FK
+		}
+	}
 }

@@ -208,9 +208,13 @@
     </Compile>
     <Compile Include="Mappers\CommonMapper.cs" />
     <Compile Include="Mappers\IMapper.cs" />
-    <Compile Include="Migrations\201510291031088_new.cs" />
-    <Compile Include="Migrations\201510291031088_new.Designer.cs">
-      <DependentUpon>201510291031088_new.cs</DependentUpon>
+    <Compile Include="Migrations\201510291828031_bug.cs" />
+    <Compile Include="Migrations\201510291828031_bug.Designer.cs">
+      <DependentUpon>201510291828031_bug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510291832438_bug1.cs" />
+    <Compile Include="Migrations\201510291832438_bug1.Designer.cs">
+      <DependentUpon>201510291832438_bug1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Db\Map\ImageMap.cs" />
@@ -344,8 +348,11 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201510291031088_new.resx">
-      <DependentUpon>201510291031088_new.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510291828031_bug.resx">
+      <DependentUpon>201510291828031_bug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510291832438_bug1.resx">
+      <DependentUpon>201510291832438_bug1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Res.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

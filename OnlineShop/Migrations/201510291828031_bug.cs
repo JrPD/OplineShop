@@ -3,7 +3,7 @@ namespace OnlineShop.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class _new : DbMigration
+    public partial class bug : DbMigration
     {
         public override void Up()
         {
@@ -47,10 +47,13 @@ namespace OnlineShop.Migrations
                         Cat_Parent_Cat_Id = c.Long(nullable: false),
                         Cat_Name = c.String(nullable: false, maxLength: 200),
                         Cat_HasChild = c.Boolean(nullable: false),
-                        Cat_Img_Id = c.Long(nullable: false),
+                        Cat_Img_Id = c.Long(),
+                        Image_Img_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Cat_Id)
-                .Index(t => t.Cat_Name, unique: true, name: "Cat_Name_UN");
+                .ForeignKey("dbo.Images", t => t.Image_Img_Id)
+                .Index(t => t.Cat_Name, unique: true, name: "Cat_Name_UN")
+                .Index(t => t.Image_Img_Id);
             
             CreateTable(
                 "dbo.Images",
@@ -105,19 +108,6 @@ namespace OnlineShop.Migrations
                 .ForeignKey("dbo.Carts", t => t.Cart_Id, cascadeDelete: true)
                 .Index(t => t.Pr_Id)
                 .Index(t => t.Cart_Id);
-            
-            CreateTable(
-                "dbo.CategoriesImages",
-                c => new
-                    {
-                        Cat_Id = c.Long(nullable: false),
-                        Img_Id = c.Long(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.Cat_Id, t.Img_Id })
-                .ForeignKey("dbo.Categories", t => t.Cat_Id, cascadeDelete: true)
-                .ForeignKey("dbo.Images", t => t.Img_Id, cascadeDelete: true)
-                .Index(t => t.Cat_Id)
-                .Index(t => t.Img_Id);
             
             CreateTable(
                 "dbo.LinkCategories",
@@ -186,8 +176,7 @@ namespace OnlineShop.Migrations
             DropForeignKey("dbo.Properties", "Prop_Link_Id", "dbo.Links");
             DropForeignKey("dbo.LinkCategories", "Category_Cat_Id", "dbo.Categories");
             DropForeignKey("dbo.LinkCategories", "Link_Link_Id", "dbo.Links");
-            DropForeignKey("dbo.CategoriesImages", "Img_Id", "dbo.Images");
-            DropForeignKey("dbo.CategoriesImages", "Cat_Id", "dbo.Categories");
+            DropForeignKey("dbo.Categories", "Image_Img_Id", "dbo.Images");
             DropForeignKey("dbo.ProductsCarts", "Cart_Id", "dbo.Carts");
             DropForeignKey("dbo.ProductsCarts", "Pr_Id", "dbo.Products");
             DropIndex("dbo.ProductsProperties", new[] { "Prop_Id" });
@@ -198,13 +187,12 @@ namespace OnlineShop.Migrations
             DropIndex("dbo.ProductsImages", new[] { "Pr_Id" });
             DropIndex("dbo.LinkCategories", new[] { "Category_Cat_Id" });
             DropIndex("dbo.LinkCategories", new[] { "Link_Link_Id" });
-            DropIndex("dbo.CategoriesImages", new[] { "Img_Id" });
-            DropIndex("dbo.CategoriesImages", new[] { "Cat_Id" });
             DropIndex("dbo.ProductsCarts", new[] { "Cart_Id" });
             DropIndex("dbo.ProductsCarts", new[] { "Pr_Id" });
             DropIndex("dbo.Properties", new[] { "Prop_Link_Id" });
             DropIndex("dbo.Properties", "Prop_Name_UN");
             DropIndex("dbo.Links", "Link_Name_UN");
+            DropIndex("dbo.Categories", new[] { "Image_Img_Id" });
             DropIndex("dbo.Categories", "Cat_Name_UN");
             DropIndex("dbo.Products", "Pr_Name_UN");
             DropIndex("dbo.Products", new[] { "Pr_Descr_Id" });
@@ -213,7 +201,6 @@ namespace OnlineShop.Migrations
             DropTable("dbo.ProductsLinks");
             DropTable("dbo.ProductsImages");
             DropTable("dbo.LinkCategories");
-            DropTable("dbo.CategoriesImages");
             DropTable("dbo.ProductsCarts");
             DropTable("dbo.Descriptions");
             DropTable("dbo.Properties");

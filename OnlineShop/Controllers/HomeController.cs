@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using OnlineShop.Models.Db;
 using OnlineShop.Models.Db.Tables;
@@ -6,27 +7,28 @@ using OnlineShop.Models.Db.Tables;
 namespace OnlineShop.Controllers
 {
 
-    public class HomeController : Controller
-    {
-        public ActionResult Index()
-        {
-			var list = MvcApplication.ContextRepository.Context.Categories;
-            return View();
-        }
+	public class HomeController : Controller
+	{
+		public ActionResult Index()
+		{
+			var list = MvcApplication.ContextRepository.Select<Category>().ToList();
 
-        [Authorize]
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your app description page.";
+			return View();
+		}
 
-            return View();
-        }
+		[Authorize]
+		public ActionResult About()
+		{
+			ViewBag.Message = "Your app description page.";
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+			return View();
+		}
 
-            return View();
-        }
-    }
+		public ActionResult Contact()
+		{
+			ViewBag.Message = "Your contact page.";
+
+			return View();
+		}
+	}
 }
