@@ -10,7 +10,7 @@ namespace OnlineShop.Controllers
     {
         public ActionResult Index()
         {
-         //  MvcApplication.ContextRepository.Context.Products.Add(new Product());
+			var list = MvcApplication.ContextRepository.Context.Categories;
             return View();
         }
 

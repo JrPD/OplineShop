@@ -27,9 +27,18 @@ namespace OnlineShop.Models.Db.Map
                 .IsRequired();//is required
             Property(c => c.Cat_HasChild)//is any child
                 .IsRequired();//is required
-            HasOptional<Image>(c => c.Image)//one-to-many relation
-               .WithMany(i => i.Categories)//from description to products
-               .HasForeignKey(i => i.Cat_Img_Id);//by this FK
+			//HasOptional<Image>(c => c.Image)//one-to-many relation
+			//   .WithMany(i => i.Categories)//from description to products
+			//   .HasForeignKey(i => i.Cat_Img_Id);//by this FK
+
+			HasMany<Image>(p => p.Images)//many-to-many relation
+                .WithMany(p => p.Categories)//from images to products
+                .Map(pi =>
+            {
+                pi.MapLeftKey("Cat_Id");//for product
+                pi.MapRightKey("Img_Id");//for image
+				pi.ToTable("CategoriesImages");//in this new table for our relations
+            });
         }
     }
 }

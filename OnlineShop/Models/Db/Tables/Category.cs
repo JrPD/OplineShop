@@ -25,7 +25,7 @@ namespace OnlineShop.Models.Db.Tables
 
         public virtual ICollection<Link> Links { get; set; }
 
-        public virtual Image Image { get; set; }
+		public virtual ICollection<Image> Images { get; set; }
 
         public Category()
         {
