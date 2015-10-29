@@ -127,6 +127,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
@@ -207,10 +208,6 @@
     </Compile>
     <Compile Include="Mappers\CommonMapper.cs" />
     <Compile Include="Mappers\IMapper.cs" />
-    <Compile Include="Migrations\201510272029196_init.cs" />
-    <Compile Include="Migrations\201510272029196_init.Designer.cs">
-      <DependentUpon>201510272029196_init.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Db\Map\ImageMap.cs" />
     <Compile Include="Models\Db\Map\LinkMap.cs" />
@@ -251,7 +248,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Data\dbo.Carts.sql" />
     <Content Include="App_Data\dbo.Categories.data.sql" />
+    <Content Include="App_Data\dbo.Categories.sql" />
+    <Content Include="App_Data\dbo.Descriptions.sql" />
+    <Content Include="App_Data\dbo.Images.sql" />
+    <Content Include="App_Data\dbo.Links.sql" />
+    <Content Include="App_Data\dbo.Products.sql" />
+    <Content Include="App_Data\dbo.ProductsCarts.sql" />
+    <Content Include="App_Data\dbo.ProductsImages.sql" />
+    <Content Include="App_Data\dbo.ProductsLinks.sql" />
+    <Content Include="App_Data\dbo.ProductsProperties.sql" />
+    <Content Include="App_Data\dbo.Properties.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -327,11 +335,11 @@
     <Content Include="Views\ManageShop\EditProducts.cshtml" />
     <Content Include="Views\ManageShop\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201510272029196_init.resx">
-      <DependentUpon>201510272029196_init.cs</DependentUpon>
-    </EmbeddedResource>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Res.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Res.Designer.cs</LastGenOutput>
