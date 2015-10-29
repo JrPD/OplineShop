@@ -13,7 +13,6 @@ namespace OnlineShop.Models.ManageShopModels
     public class ProductView
     {
         public const byte MaxNameLength = 200;
-        public const string Incorrect = "Was sent an incorrect {0} => {1}";
 
         private Category category;
         private Description description;
@@ -34,7 +33,7 @@ namespace OnlineShop.Models.ManageShopModels
             set
             {
                 Contract.Requires<ArgumentException>(value >= 0,
-                    string.Format(Incorrect, "count", value));
+                    string.Format(Res.IncorrectInput, "count", value));
             }
         }
 
@@ -50,7 +49,7 @@ namespace OnlineShop.Models.ManageShopModels
             set
             {
                 Contract.Requires<ArgumentException>(value > 0.0,
-                    string.Format(Incorrect, "price", value));
+                    string.Format(Res.IncorrectInput, "price", value));
                 price = value;
             }
         }

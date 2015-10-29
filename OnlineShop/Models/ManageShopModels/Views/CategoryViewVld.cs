@@ -15,20 +15,33 @@ namespace OnlineShop.Models.ManageShopModels.Views
         public const byte MinLevel = 1;
         public const byte MaxLevel = 3;
         public const byte MaxNameLength= 200;
-        public const string NameNotFound = "Parent category name was Not Found!!!";
-        public const string IncorrectId = "Was sent an incorrect id => {0}";
         public readonly string OutOfRange;
 
         private byte level = 0;
         private string name = string.Empty;
         private long? parent_id;
         private List<Product> products = new List<Product>();
+        private string imagePath;
 
         public CategoryViewVld()
         {
             OutOfRange = "You can't set smaller that " + MinLevel 
                 + "or higher that " + MaxLevel;
         }
+
+        public string ImagePath
+        {
+            get
+            {
+                return imagePath ?? string.Empty;
+            }
+            set
+            {
+                Contract.Requires(value != null && value.Length != 0,
+                    );
+            }
+        }
+
 
         public byte Level
         {
@@ -69,7 +82,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
                     .Select<Category>().Where(c => c.Cat_Id == parent_id)
                     .Select(c => c.Cat_Name).First();
                 Contract.Requires<NullReferenceException>(!string.IsNullOrEmpty(name),
-                    NameNotFound);
+                    Res.CatView_NameNotFound);
                 return name;
             }
             set
@@ -79,7 +92,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
                     var category = MvcApplication.ContextRepository
                         .Select<Category>().FirstOrDefault(c => c.Cat_Name == value);
                     Contract.Requires<ArgumentException>(category != null,
-                        string.Format(NameNotFound, value));
+                        string.Format(Res.CatView_NameNotFound, value));
                     parent_id = category.Cat_Id;
                 }
                 else
@@ -96,10 +109,10 @@ namespace OnlineShop.Models.ManageShopModels.Views
             set
             {
                 Contract.Requires<ArgumentException>(value <= 0,
-                    string.Format(IncorrectId, value));
+                    string.Format(Res.IncorrectInput,"parent id", value));
                 Contract.Requires<ArgumentException>(!MvcApplication.ContextRepository
                     .Select<Category>().Any(c => c.Cat_Id == value),
-                    string.Format(IncorrectId, value));
+                    string.Format(Res.IncorrectInput,"parent id", value));
                 parent_id = value;
             }
         }
