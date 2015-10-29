@@ -33,6 +33,4 @@ namespace OnlineShop.Models.Db
             modelBuilder.Configurations.Add(new LinkMap());
         }
     }
-
-
 }
