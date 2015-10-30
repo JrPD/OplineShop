@@ -9,6 +9,11 @@ namespace OnlineShop.Controllers
 
 	public class HomeController : Controller
 	{
+        public ActionResult TestMenu()
+        {
+
+            return PartialView(MvcApplication.ContextRepository.Select<Category>().ToList());
+        }
 		public ActionResult Index()
 		{
 			List<Category> category = MvcApplication.ContextRepository.Select<Category>().Where(c => c.Cat_Level == 1).ToList();
