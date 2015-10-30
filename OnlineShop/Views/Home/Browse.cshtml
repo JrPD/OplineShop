@@ -1,0 +1,20 @@
+﻿
+@{
+}
+@*Browse categories*@
+@model IEnumerable<OnlineShop.Models.Db.Tables.Category>
+<div id="category-group">
+    @foreach (var category in Model)
+    {
+        <div class="item" style="float:left;margin-left:20px; width:100px; height:100px;">
+            <a href="@Url.Action("Browse", new { id = category.Cat_Id })">
+                <img class="img-thumbnail" width="150" height="200" alt="@category.Cat_Name"
+                     src="/Content/Images/@category.Image" />
+                <p class="title">@category.Cat_Name</p>
+            </a>
+            
+        </div>
+    }
+</div>
+
+

@@ -1,0 +1,17 @@
+﻿@{
+}
+@*Browse Products*@
+@model IEnumerable<OnlineShop.Models.Db.Tables.Product>
+<div id="category-group">
+    @foreach (var product in Model)
+    {
+        <div class="item" style="float:left;margin-left:20px; width:100px; height:100px">
+            <a href="@Url.Action("Details", new { })"> @*Call method details product*@
+                <img class="img-thumbnail" width="150" height="200" alt="@product.Pr_Name"
+                     src="/Content/Images/@product.Images" />
+                <p class="title">@product.Pr_Name</p>
+            </a>
+
+        </div>
+    }
+</div>
