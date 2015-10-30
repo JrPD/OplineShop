@@ -26,7 +26,7 @@ namespace OnlineShop.Models
 		//public DbSet<Product> Products { get; set; }
 
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DataBaseConnection", throwIfV1Schema: false)
         {
         }
 

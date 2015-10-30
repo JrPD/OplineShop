@@ -1,8 +1,63 @@
-﻿
+﻿@model IEnumerable<OnlineShop.Models.ManageShopModels.Views.CategoryViewSmpl>
+
 @{
     ViewBag.Title = "EditCategories";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>EditCategories</h2>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="http://www.nyctransitforums.com/forums/fcontent/default.png" alt="Category">
+                @*//todo тут повинен бути потім норм зображння*@ 
+                <div class="caption">
+                    <h3>@item.Name</h3>
+                    <p>@item.Level</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> 
+                    @Html.ActionLink("Edit", "EditSomeCategory", item.Name);
+                </div>
+            </div>
+        </div>
+    }
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="http://programme.uk.solarenergyevents.com/images/made/images/remote/http_uk.solarenergyevents.com/assets/images/energy-plus-icon_300_300.png" alt="Category">
+            @*//todo тут теж щось придумати*@
+        </div>
+    </div>
+</div>
+@*//todo потім ивдалити все що нижче*@
+<ul class="breadcrumb">
+    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li><a href="#">Library</a> <span class="divider">/</span></li>
+    <li class="active">Data</li>
+</ul>
+
+<ul class="pager">
+    <li class="previous">
+        <a href="#">&larr; Older</a>
+    </li>
+    <li class="next">
+        <a href="#">Newer &rarr;</a>
+    </li>
+</ul>
+<span class="badge">1</span>
+<div class="alert alert-block">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4>Warning!</h4>
+    Best check yo self, you're not...
+</div>
+<div class="alert alert-error">
+    ...
+</div>
+<div class="alert alert-success">
+    ...
+</div>
+<div class="progress progress-warning progress-striped">
+    <div class="bar" style="width: 60%"></div>
+</div>
 

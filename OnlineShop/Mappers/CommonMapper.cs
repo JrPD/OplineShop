@@ -19,7 +19,11 @@ namespace OnlineShop.Mappers
                 .ForMember(dest => dest.Cat_Parent_Cat_Id,
                     opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.Cat_Name,
-                    opt => opt.MapFrom(src => src.Name));
+                    opt => opt.MapFrom(src => src.Name))
+                //.ForMember(dest => dest.Image.Img_Path,
+                //    opt => opt.MapFrom(src => src.ImagePath))
+                .ForMember(dest => dest.Cat_HasChild,
+                    opt => opt.MapFrom(src => src.HasChild));
             Mapper.CreateMap<Category, CategoryViewVld>()
                 .ForMember(dest => dest.Level,
                     opt => opt.MapFrom(src => src.Cat_Level))
@@ -27,9 +31,24 @@ namespace OnlineShop.Mappers
                     opt => opt.MapFrom(src => src.Cat_Name))
                 .ForMember(dest => dest.ParentId,
                     opt => opt.MapFrom(src => src.Cat_Parent_Cat_Id))
+                //.ForMember(dest => dest.ImagePath,
+                //    opt => opt.MapFrom(src => src.Image.Img_Path))
+                .ForMember(dest => dest.HasChild,
+                    opt => opt.MapFrom(src => src.Cat_HasChild))
                 //todo ??? хз чи так піде треба стестувати
                 .ForMember(dest => dest.Products,
                     opt => opt.MapFrom(src => src.Products.ToList()));
+            Mapper.CreateMap<Category, CategoryViewSmpl>()
+                .ForMember(dest => dest.ParentName,
+                    opt => opt.MapFrom(src => src.Cat_Parent_Cat_Id))
+                .ForMember(dest => dest.Level,
+                    opt => opt.MapFrom(src => src.Cat_Level))
+                .ForMember(dest => dest.Name,
+                    opt => opt.MapFrom(src => src.Cat_Name))
+                //.ForMember(dest => dest.ImagePath,
+                //    opt => opt.MapFrom(src => src.Image.Img_Path))
+                .ForMember(dest => dest.HasSubCategories,
+                    opt => opt.MapFrom(src => src.Cat_HasChild));
             Mapper.CreateMap<ProductView, Product>()
                 .ForMember(dest => dest.Pr_Count,
                     opt => opt.MapFrom(src => src.Count))
@@ -45,7 +64,7 @@ namespace OnlineShop.Mappers
                     opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Pr_IsAvailable,
                     opt => opt.MapFrom(src => src.IsAvailable));
-            Mapper.CreateMap<Product,ProductView>()
+            Mapper.CreateMap<Product, ProductView>()
                 .ForMember(dest => dest.Count,
                     opt => opt.MapFrom(src => src.Pr_Count))
                 .ForMember(dest => dest.Price,
@@ -54,13 +73,6 @@ namespace OnlineShop.Mappers
                     opt => opt.MapFrom(src => src.Pr_Name))
                 .ForMember(dest => dest.IsAvailable,
                     opt => opt.MapFrom(src => src.Pr_IsAvailable));
-            Mapper.CreateMap<Category, CategoryViewSmpl>()
-                .ForMember(dest => dest.ParentName,
-                    opt => opt.MapFrom(src => src.Cat_Parent_Cat_Id))
-                .ForMember(dest => dest.Level,
-                    opt => opt.MapFrom(src => src.Cat_Level))
-                .ForMember(dest => dest.Name,
-                    opt => opt.MapFrom(src => src.Cat_Name));
         }
         public object Map(object source, Type sourceType, Type destinationType)
         {

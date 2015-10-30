@@ -16,5 +16,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
         public string ParentName { get; set; }
 
         public string ImagePath { get; set; }
+
+        public bool HasSubCategories { get; set;}
     }
 }

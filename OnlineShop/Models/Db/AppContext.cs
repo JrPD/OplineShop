@@ -18,7 +18,7 @@ namespace OnlineShop.Models.Db
 
 
         public AppContext()//our default context
-            : base("DefaultConnection")
+            : base("DataBaseConnection")
         {
         }
         protected override void OnModelCreating(DbModelBuilder

@@ -2,7 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.IO;
+using System.Text;
 using System.Linq;
+using System.Net;
 using System.Web;
 
 namespace OnlineShop.Models.ManageShopModels.Views
@@ -18,6 +21,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
         public readonly string OutOfRange;
 
         private byte level = 0;
+        private bool hasChild = false;
         private string name = string.Empty;
         private long? parent_id;
         private List<Product> products = new List<Product>();
@@ -29,6 +33,18 @@ namespace OnlineShop.Models.ManageShopModels.Views
                 + "or higher that " + MaxLevel;
         }
 
+        public bool HasChild
+        {
+            get
+            {
+                return hasChild;
+            }
+            set
+            {
+                hasChild = value;
+            }
+        }
+
         public string ImagePath
         {
             get
@@ -37,7 +53,12 @@ namespace OnlineShop.Models.ManageShopModels.Views
             }
             set
             {
-                Contract.Requires(value != null && value.Length != 0);
+                Contract.Requires<ArgumentNullException>(value != null 
+                    && value.Length != 0);
+                var file = new FileInfo(HttpContext.Current.Server.MapPath(value));
+                Contract.Requires<ArgumentException>(file.Exists,
+                    string.Format(Res.IncorrectInput, "Path to file", value));
+                imagePath = value;
             }
         }
 
@@ -65,8 +86,8 @@ namespace OnlineShop.Models.ManageShopModels.Views
             }
             set
             {
-                //Contract.Requires<ArgumentException>(value.Length > 0,
-                //    string.Format(NameCantBeNull, value));
+                Contract.Requires<ArgumentException>(value.Length > 0,
+                    Res.NameCantBeNull);
                 Contract.Requires<ArgumentOutOfRangeException>(
                     value.Length>MaxNameLength);
                 name = value;

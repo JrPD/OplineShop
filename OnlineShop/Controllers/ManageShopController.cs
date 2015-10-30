@@ -1,4 +1,6 @@
-﻿using OnlineShop.Models.ManageShopModels.Managers;
+﻿using OnlineShop.Models.Db.Tables;
+using OnlineShop.Models.ManageShopModels.Managers;
+using OnlineShop.Models.ManageShopModels.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,15 +27,21 @@ namespace OnlineShop.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditCategories()
+        public ActionResult EditCategories(string parentName)
         {
-            var list = catManager.GetAllCategories();
-            return View();
+            return View(catManager.GetAllCategories(
+                catManager.GetIdFromName(parentName)));
         }
 
         [HttpGet]
         public ActionResult EditProducts()
         {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult EditSomeCategory(string catName)
+        {//todo зробити
             return View();
         }
     }

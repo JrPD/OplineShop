@@ -123,6 +123,9 @@
   <data name="IncorrectInput" xml:space="preserve">
     <value>Was sent an incorrect {0} =&gt; {1}</value>
   </data>
+  <data name="NameCantBeNull" xml:space="preserve">
+    <value />
+  </data>
   <data name="Roles_Admin" xml:space="preserve">
     <value>Admin</value>
   </data>
