@@ -2,8 +2,20 @@
     ViewBag.Title = "Home Page";
 }
 
+@model IEnumerable<OnlineShop.Models.Db.Tables.Category>
+<div id="category-mmenu">
+    @foreach (var category in Model)
+    {
+        <div class="item" style="float:left;margin-left:20px">
+            @Html.ActionLink(category.Cat_Name,"Browse", new { id = category.Cat_Id })
+        </div>
+    }
+</div>
 
-<div class="row row-offcanvas row-offcanvas-right">
+
+
+
+@*<div class="row row-offcanvas row-offcanvas-right">
     <div class="col-xs-12 col-sm-9">
         <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
@@ -59,4 +71,4 @@
             <a href="#" class="list-group-item">Link</a>
         </div>
     </div>
-</div>
+</div>*@

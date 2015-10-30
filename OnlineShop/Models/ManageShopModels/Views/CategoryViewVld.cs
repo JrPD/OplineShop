@@ -37,8 +37,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
             }
             set
             {
-                Contract.Requires(value != null && value.Length != 0,
-                    );
+                Contract.Requires(value != null && value.Length != 0);
             }
         }
 
