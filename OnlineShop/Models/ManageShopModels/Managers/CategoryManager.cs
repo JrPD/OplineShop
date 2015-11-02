@@ -12,21 +12,12 @@ namespace OnlineShop.Models.ManageShopModels.Managers
     /// <summary>
     /// Manager for using with View, here we had connecting with CategoryView for set valid values
     /// </summary>
-    public class CategoryManager : IValidatableObject
+    public class CategoryManager 
     {
         /// <summary>
-        /// Validation Name string for validation message
+        /// Try to get Id Categroy from  his Name(frequency using for search parent category name)
         /// </summary>
-        public const string ValName = "Name";
-        /// <summary>
-        /// Validation Level string for validation message
-        /// </summary>
-        public const string ValLevel = "Level";
-
-        /// <summary>
-        /// Try to get Id Categroy from  his Name
-        /// </summary>
-        /// <param name="parentName"></param>
+        /// <param name="parentName">name of parent or current category</param>
         /// <returns></returns>
         public long GetIdFromName(string parentName)
         {
@@ -45,22 +36,77 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         }
 
         /// <summary>
-        /// Validation Parent Name string for validation message
+        /// Search name of parent Category
         /// </summary>
-        public const string ValParName = "ParName";
+        /// <param name="parentId">id of parent Category</param>
+        /// <returns>Name of parent Category</returns>
+        public string GetParentName(long parentId)
+        {
+            if(parentId == DefParentId)
+            {
+                return null;
+            }
+            else
+            {
+               var parCategory = MvcApplication.ContextRepository.Select<Category>()
+                    .FirstOrDefault(c => c.Cat_Id == parentId);
+                if (parCategory != null)
+                    return parCategory.Cat_Name;
+                else
+                    return null;
+            }
+        }
+
         /// <summary>
-        /// Valid Category model
+        /// Here we can get category for edit by his name
         /// </summary>
-        private CategoryViewVld categoryViewWithValidation;
+        /// <param name="catName">name of searched category</param>
+        /// <returns></returns>
+        public CategoryViewSmpl GetCategoryById(long catId)
+        {
+            var dbCategory = MvcApplication.ContextRepository.Select<Category>()
+                .FirstOrDefault(c => c.Cat_Id == catId);
+            if (dbCategory != null && dbCategory.Cat_Id > 0)
+            {
+                return (CategoryViewSmpl)MvcApplication.Mapper.Map(dbCategory,
+                        typeof(Category), typeof(CategoryViewSmpl));
+            }
+            else
+                throw new Exception(string.Format(Res.IncorrectInput, "Category Id", catId));
+        }
+
         /// <summary>
-        /// Simple Category model only for view
+        /// Return current level using for it parent Id
         /// </summary>
-        private CategoryViewSmpl simpleCategoryViews;
+        /// <param name="parentId">parent id for searching current level</param>
+        /// <returns>current level</returns>
+        public byte GetCurrentLevelFromParentId(long parentId)
+        {
+            if (parentId == DefParentId)
+                return 1;
+            var parCategory = MvcApplication.ContextRepository.Select<Category>().
+                FirstOrDefault(c => c.Cat_Id == parentId);
+            if (parCategory == null)
+                return 1;
+            else
+                return parCategory.Cat_Level++;
+        }
 
         /// <summary>
         /// This will use when we want to get all categories from Level 1
         /// </summary>
         public const int DefParentId = -1;
+
+        /// <summary>
+        /// Remove Category from DB searching this Category by his Id
+        /// </summary>
+        /// <param name="id">Id for Category with we want delete</param>
+        public void RemoveCategoryById(long id)
+        {
+            MvcApplication.ContextRepository.Delete<Category>(
+                MvcApplication.ContextRepository.Select<Category>().FirstOrDefault(
+                    c => c.Cat_Id == id), true);                                             
+        }
 
         /// <summary>
         /// Return all categories from DB
@@ -72,9 +118,9 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             {
                 var allCatForLevel = MvcApplication.ContextRepository.Select<Category>()
                     .Where(c=>c.Cat_Level==1);//all cateogires from DB for 1 level
-                foreach (var category in allCatForLevel)//mapping
+                foreach (var dbCategory in allCatForLevel)//mapping
                 {
-                    var viewCat = (CategoryViewSmpl)MvcApplication.Mapper.Map(category,
+                    var viewCat = (CategoryViewSmpl)MvcApplication.Mapper.Map(dbCategory,
                         typeof(Category), typeof(CategoryViewSmpl));
                     viewCat.ParentName = string.Empty;
                     resViewCat.Add(viewCat);
@@ -103,59 +149,6 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                 }
             }
             return resViewCat;
-        }
-        
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            var error = string.Empty;
-            List<object> errors = new List<object>();
-            try
-            {
-                try
-                {
-                    categoryViewWithValidation.Level = simpleCategoryViews.Level;
-                }
-                catch (ArgumentOutOfRangeException ex)
-                {
-                    errors.Add(new object[] { ex.Message, ValLevel });
-                }
-                try
-                {
-                    categoryViewWithValidation.Name = simpleCategoryViews.Name;
-                }
-                catch (ArgumentOutOfRangeException ex)
-                {
-                    errors.Add(new object[] { ex.Message, ValName });
-                }
-                catch(ArgumentException ex)
-                {
-                    errors.Add(new object[] { ex.Message, ValName });
-                }
-                try
-                {
-                    categoryViewWithValidation.ParentName =
-                        simpleCategoryViews.ParentName;
-                }
-                catch (ArgumentException ex)
-                {
-                    errors.Add(new object[] { ex.Message, ValParName });
-                }
-            }
-            catch (Exception ex)
-            {
-                error = ex.Message;
-            }
-            if (error.Length != 0)
-                yield return new ValidationResult(error);
-            else
-            {
-                foreach (object[] er in errors)
-                {
-                    yield return new ValidationResult(
-                        er[0].ToString(), new string[] { er[1].ToString() });
-                }
-            }
         }
     }
 }

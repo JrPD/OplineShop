@@ -118,13 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CatView_NameNotFound" xml:space="preserve">
-    <value>Parent category name was Not Found!!!</value>
+    <value>Батьківська категорія НЕ найдена!!!</value>
   </data>
   <data name="IncorrectInput" xml:space="preserve">
-    <value>Was sent an incorrect {0} =&gt; {1}</value>
+    <value>Не коректне значення для {0} =&gt; {1}</value>
+  </data>
+  <data name="IncorrectLength" xml:space="preserve">
+    <value>Довжина поля не може перевищувати {0} знаків, було вписано {1} знаки</value>
   </data>
   <data name="NameCantBeNull" xml:space="preserve">
-    <value />
+    <value>Поле імені не може бути пустим</value>
   </data>
   <data name="Roles_Admin" xml:space="preserve">
     <value>Admin</value>

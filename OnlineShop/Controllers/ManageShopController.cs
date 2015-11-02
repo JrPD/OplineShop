@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace OnlineShop.Controllers
 {
@@ -27,10 +28,10 @@ namespace OnlineShop.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditCategories(string parentName)
+        public ActionResult EditCategories(long parentId = CategoryManager.DefParentId)
         {
-            return View(catManager.GetAllCategories(
-                catManager.GetIdFromName(parentName)));
+            ViewBag.ParentName = catManager.GetParentName(parentId);
+            return View(catManager.GetAllCategories(parentId));
         }
 
         [HttpGet]
@@ -40,9 +41,75 @@ namespace OnlineShop.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditSomeCategory(string catName)
-        {//todo зробити
-            return View();
+        public ActionResult EditSomeCategory(long id = CategoryManager.DefParentId)
+        {
+            if (id == CategoryManager.DefParentId)
+                return AddNewCategory(ViewBag.ParentName);
+            try
+            {
+                return View(catManager.GetCategoryById(id));
+            }
+            catch(Exception)
+            {
+                return AddNewCategory(ViewBag.ParentName);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditSomeCategory(CategoryViewSmpl model)
+        {
+            if (ModelState.IsValid)
+            {
+                MvcApplication.ContextRepository.Update<Category>((Category)
+                    MvcApplication.Mapper.Map(model,
+                    typeof(CategoryViewSmpl),typeof(Category)), true);
+                return RedirectToAction("EditCategories", new RouteValueDictionary(
+                    new { parentId = model.ParentId }));
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult AddNewCategory(string parentName)
+        {
+            var parId = catManager.GetIdFromName(parentName);
+            var model = new CategoryViewSmpl()
+            {
+                ParentId = parId,
+                ParentName = parentName,
+                Level = catManager.GetCurrentLevelFromParentId(parId),
+                HasSubCategories = false
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddNewCategory(CategoryViewSmpl model)
+        {
+            if (ModelState.IsValid)
+            {
+                MvcApplication.ContextRepository.Insert<Category>((Category)
+                   MvcApplication.Mapper.Map(model,
+                   typeof(CategoryViewSmpl), typeof(Category)), true);
+                return RedirectToAction("EditCategories", new RouteValueDictionary(
+                    new { parentId = model.ParentId }));
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveSomeCategory(long id = CategoryManager.DefParentId)
+        {
+            var parId = catManager.GetIdFromName(ViewBag.ParentName);
+            if (id == CategoryManager.DefParentId)
+            {
+                //todo log it
+                return RedirectToAction("EditCategories", new RouteValueDictionary(
+                    new { parentId = parId }));
+            }
+            catManager.RemoveCategoryById(id);
+            return RedirectToAction("EditCategories", new RouteValueDictionary(
+                new { parentId = parId }));
         }
     }
 }

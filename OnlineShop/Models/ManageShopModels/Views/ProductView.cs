@@ -1,7 +1,6 @@
 ﻿using OnlineShop.Models.Db.Tables;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
@@ -32,8 +31,8 @@ namespace OnlineShop.Models.ManageShopModels
             }
             set
             {
-                Contract.Requires<ArgumentException>(value >= 0,
-                    string.Format(Res.IncorrectInput, "count", value));
+                //CustomContract.Requires<ArgumentException>(value >= 0,
+                //    string.Format(Res.IncorrectInput, "count", value));
             }
         }
 
@@ -48,8 +47,8 @@ namespace OnlineShop.Models.ManageShopModels
             }
             set
             {
-                Contract.Requires<ArgumentException>(value > 0.0,
-                    string.Format(Res.IncorrectInput, "price", value));
+                //CustomContract.Requires<ArgumentException>(value > 0.0,
+                //    string.Format(Res.IncorrectInput, "price", value));
                 price = value;
             }
         }
@@ -65,9 +64,9 @@ namespace OnlineShop.Models.ManageShopModels
             }
             set
             {
-                Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(value));
-                Contract.Requires<ArgumentOutOfRangeException>
-                    (value.Length <= 200);
+                //CustomContract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(value));
+                //CustomContract.Requires<ArgumentOutOfRangeException>
+                //    (value.Length <= 200);
                 name = value;
             }
         }
@@ -85,7 +84,7 @@ namespace OnlineShop.Models.ManageShopModels
             }
             set
             {
-                Contract.Requires<ArgumentNullException>(value != null);
+                //CustomContract.Requires<ArgumentNullException>(value != null);
                 category = value;
             }
         }
@@ -98,7 +97,7 @@ namespace OnlineShop.Models.ManageShopModels
             }
             set
             {
-                Contract.Requires<ArgumentNullException>(value != null);
+                //CustomContract.Requires<ArgumentNullException>(value != null);
                 description = value;
             }
         }
@@ -113,7 +112,7 @@ namespace OnlineShop.Models.ManageShopModels
 
         public bool AddImage(Image img, bool clearCollection = false)
         {
-            Contract.Requires<ArgumentNullException>(img != null);
+            //CustomContract.Requires<ArgumentNullException>(img != null);
             if (clearCollection)
                 images.Clear();
             images.Add(img);
@@ -122,8 +121,8 @@ namespace OnlineShop.Models.ManageShopModels
 
         public bool AddImages(List<Image> img, bool clearCollection = false)
         {
-            Contract.Requires<ArgumentNullException>(img != null);
-            Contract.Requires<ArgumentNullException>(img.Count != 0);
+            //CustomContract.Requires<ArgumentNullException>(img != null);
+            //CustomContract.Requires<ArgumentNullException>(img.Count != 0);
             if (clearCollection)
                 images.Clear();
             images.AddRange(img);

@@ -248,10 +248,10 @@
     <Compile Include="Models\Db\Map\ProductMap.cs" />
     <Compile Include="Models\Db\Map\CartMap.cs" />
     <Compile Include="Models\Db\Map\CategoryMap.cs" />
+    <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageShopModels\Managers\CategoryManager.cs" />
     <Compile Include="Models\ManageShopModels\Views\CategoryViewSmpl.cs" />
-    <Compile Include="Models\ManageShopModels\Views\CategoryViewVld.cs" />
     <Compile Include="Models\ManageShopModels\Views\ProductView.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -358,6 +358,8 @@
     <Content Include="Views\Home\Browse.cshtml" />
     <Content Include="Views\Home\BrowseProducts.cshtml" />
     <Content Include="Views\Home\TestMenu.cshtml" />
+    <Content Include="Views\ManageShop\EditSomeCategory.cshtml" />
+    <Content Include="Views\ManageShop\AddNewCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -375,6 +377,7 @@
       <LastGenOutput>Res.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

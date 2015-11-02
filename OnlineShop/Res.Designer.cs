@@ -61,7 +61,7 @@ namespace OnlineShop {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parent category name was Not Found!!!.
+        ///   Looks up a localized string similar to Батьківська категорія НЕ найдена!!!.
         /// </summary>
         public static string CatView_NameNotFound {
             get {
@@ -70,7 +70,7 @@ namespace OnlineShop {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Was sent an incorrect {0} =&gt; {1}.
+        ///   Looks up a localized string similar to Не коректне значення для {0} =&gt; {1}.
         /// </summary>
         public static string IncorrectInput {
             get {
@@ -79,7 +79,16 @@ namespace OnlineShop {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Довжина поля не може перевищувати {0} знаків, було вписано {1} знаки.
+        /// </summary>
+        public static string IncorrectLength {
+            get {
+                return ResourceManager.GetString("IncorrectLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Поле імені не може бути пустим.
         /// </summary>
         public static string NameCantBeNull {
             get {

@@ -29,7 +29,8 @@
                     @if (Request.IsAuthenticated && User.IsInRole("Admin")) {
                         <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
                         <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
-                        <li>@Html.ActionLink("Manage Shop", "Index", "ManageShop")</li>
+                        //todo Змінити на роль суб адміна або як її там ну кароч з 4 ролей до неї має мати доступ адмін і суб адмін і все
+                        <li>@Html.ActionLink("Менеджмент", "Index", "ManageShop")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
