@@ -14,7 +14,7 @@ namespace OnlineShop.Mappers
     {
         public CommonMapper()
         {//todo check it
-            Mapper.CreateMap<CategoryView, Category>()
+            Mapper.CreateMap<CategoryViewSmpl, Category>()
                 .ForMember(dest => dest.Cat_Level,
                     opt => opt.MapFrom(src => src.Level))
                 .ForMember(dest => dest.Cat_Parent_Cat_Id,
@@ -27,7 +27,7 @@ namespace OnlineShop.Mappers
                 //    opt => opt.MapFrom(src => src.ImagePath))
                 .ForMember(dest => dest.Cat_HasChild,
                     opt => opt.MapFrom(src => src.HasSubCategories));
-            Mapper.CreateMap<Category, CategoryView>()
+            Mapper.CreateMap<Category, CategoryViewSmpl>()
                 .ForMember(dest => dest.ParentId,
                     opt => opt.MapFrom(src => src.Cat_Parent_Cat_Id))
                 .ForMember(dest => dest.Level,
@@ -65,9 +65,10 @@ namespace OnlineShop.Mappers
                 .ForMember(dest => dest.IsAvailable,
                     opt => opt.MapFrom(src => src.Pr_IsAvailable));
         }
+
         public object Map(object source, Type sourceType, Type destinationType)
         {
             return Mapper.Map(source, sourceType, destinationType);
-        }
+        }      
     }
 }
