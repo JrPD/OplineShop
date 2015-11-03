@@ -62,14 +62,14 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// </summary>
         /// <param name="catName">name of searched category</param>
         /// <returns></returns>
-        public CategoryViewSmpl GetCategoryById(long catId)
+        public CategoryView GetCategoryById(long catId)
         {
             var dbCategory = MvcApplication.ContextRepository.Select<Category>()
                 .FirstOrDefault(c => c.Cat_Id == catId);
             if (dbCategory != null && dbCategory.Cat_Id > 0)
             {
-                return (CategoryViewSmpl)MvcApplication.Mapper.Map(dbCategory,
-                        typeof(Category), typeof(CategoryViewSmpl));
+                return (CategoryView)MvcApplication.Mapper.Map(dbCategory,
+                        typeof(Category), typeof(CategoryView));
             }
             else
                 throw new Exception(string.Format(Res.IncorrectInput, "Category Id", catId));
@@ -111,17 +111,17 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <summary>
         /// Return all categories from DB
         /// </summary>
-        public List<CategoryViewSmpl> GetAllCategories(long parentId)
+        public List<CategoryView> GetAllCategories(long parentId)
         {
-            var resViewCat = new List<CategoryViewSmpl>();//collection witch will be return
+            var resViewCat = new List<CategoryView>();//collection witch will be return
             if (parentId == DefParentId)
             {
                 var allCatForLevel = MvcApplication.ContextRepository.Select<Category>()
                     .Where(c=>c.Cat_Level==1);//all cateogires from DB for 1 level
                 foreach (var dbCategory in allCatForLevel)//mapping
                 {
-                    var viewCat = (CategoryViewSmpl)MvcApplication.Mapper.Map(dbCategory,
-                        typeof(Category), typeof(CategoryViewSmpl));
+                    var viewCat = (CategoryView)MvcApplication.Mapper.Map(dbCategory,
+                        typeof(Category), typeof(CategoryView));
                     viewCat.ParentName = string.Empty;
                     resViewCat.Add(viewCat);
                 }
@@ -132,8 +132,8 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                     .Where(c=>c.Cat_Parent_Cat_Id == parentId);//all child categories for parentId with was choose by use
                 foreach (var category in allCatForParentId)//mapping
                 {
-                    var viewCat = (CategoryViewSmpl)MvcApplication.Mapper.Map(category,
-                       typeof(Category), typeof(CategoryViewSmpl));
+                    var viewCat = (CategoryView)MvcApplication.Mapper.Map(category,
+                       typeof(Category), typeof(CategoryView));
                     try
                     {
                         viewCat.ParentName = MvcApplication.ContextRepository.

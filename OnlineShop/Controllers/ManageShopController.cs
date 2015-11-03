@@ -37,7 +37,7 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public ActionResult EditProducts()
         {
-            return View();
+            return RedirectToAction("Index", "Product");
         }
 
         [HttpGet]
@@ -56,13 +56,13 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditSomeCategory(CategoryViewSmpl model)
+        public ActionResult EditSomeCategory(CategoryView model)
         {
             if (ModelState.IsValid)
             {
                 MvcApplication.ContextRepository.Update<Category>((Category)
                     MvcApplication.Mapper.Map(model,
-                    typeof(CategoryViewSmpl),typeof(Category)), true);
+                    typeof(CategoryView),typeof(Category)), true);
                 return RedirectToAction("EditCategories", new RouteValueDictionary(
                     new { parentId = model.ParentId }));
             }
@@ -73,7 +73,7 @@ namespace OnlineShop.Controllers
         public ActionResult AddNewCategory(string parentName)
         {
             var parId = catManager.GetIdFromName(parentName);
-            var model = new CategoryViewSmpl()
+            var model = new CategoryView()
             {
                 ParentId = parId,
                 ParentName = parentName,
@@ -84,13 +84,13 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNewCategory(CategoryViewSmpl model)
+        public ActionResult AddNewCategory(CategoryView model)
         {
             if (ModelState.IsValid)
             {
                 MvcApplication.ContextRepository.Insert<Category>((Category)
                    MvcApplication.Mapper.Map(model,
-                   typeof(CategoryViewSmpl), typeof(Category)), true);
+                   typeof(CategoryView), typeof(Category)), true);
                 return RedirectToAction("EditCategories", new RouteValueDictionary(
                     new { parentId = model.ParentId }));
             }
