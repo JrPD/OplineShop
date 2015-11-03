@@ -57,6 +57,13 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             }
         }
 
+        public void UpdateCategory(CategoryViewSmpl model)
+        {
+            MvcApplication.ContextRepository.Update<Category>((Category)
+                    MvcApplication.Mapper.Map(model,
+                    typeof(CategoryViewSmpl), typeof(Category)), true);
+        }
+
         /// <summary>
         /// Here we can get category for edit by his name
         /// </summary>
@@ -73,6 +80,25 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             }
             else
                 throw new Exception(string.Format(Res.IncorrectInput, "Category Id", catId));
+        }
+
+        /// <summary>
+        /// This function save our new category into DB
+        /// </summary>
+        /// <param name="model">Category with will be saved</param>
+        public void SaveNewCategory(CategoryViewSmpl model)
+        {
+            var parCat = MvcApplication.ContextRepository.Select<Category>()
+                .FirstOrDefault(c => c.Cat_Id == model.ParentId);
+            if(parCat != null)
+            {
+                parCat.Cat_HasChild = true;
+                MvcApplication.ContextRepository.Update<Category>(parCat, false);
+
+            }
+            MvcApplication.ContextRepository.Insert<Category>((Category)
+                  MvcApplication.Mapper.Map(model,
+                  typeof(CategoryViewSmpl), typeof(Category)), true);
         }
 
         /// <summary>

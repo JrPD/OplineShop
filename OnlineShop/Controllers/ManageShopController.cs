@@ -60,9 +60,7 @@ namespace OnlineShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                MvcApplication.ContextRepository.Update<Category>((Category)
-                    MvcApplication.Mapper.Map(model,
-                    typeof(CategoryViewSmpl),typeof(Category)), true);
+                catManager.UpdateCategory(model);
                 return RedirectToAction("EditCategories", new RouteValueDictionary(
                     new { parentId = model.ParentId }));
             }
@@ -88,9 +86,7 @@ namespace OnlineShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                MvcApplication.ContextRepository.Insert<Category>((Category)
-                   MvcApplication.Mapper.Map(model,
-                   typeof(CategoryViewSmpl), typeof(Category)), true);
+                catManager.SaveNewCategory(model);                         
                 return RedirectToAction("EditCategories", new RouteValueDictionary(
                     new { parentId = model.ParentId }));
             }

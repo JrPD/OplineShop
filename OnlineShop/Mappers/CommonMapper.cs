@@ -65,9 +65,10 @@ namespace OnlineShop.Mappers
                 .ForMember(dest => dest.IsAvailable,
                     opt => opt.MapFrom(src => src.Pr_IsAvailable));
         }
+
         public object Map(object source, Type sourceType, Type destinationType)
         {
             return Mapper.Map(source, sourceType, destinationType);
-        }
+        }      
     }
 }
