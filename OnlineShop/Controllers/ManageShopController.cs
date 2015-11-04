@@ -30,7 +30,7 @@ namespace OnlineShop.Controllers
 		[HttpGet]
 		public ActionResult EditCategories(long parentId = CategoryManager.DefParentId)
 		{
-			ViewBag.ParentName = catManager.GetParentName(parentId);
+			ViewBag.ParentName = catManager.GetNameFromId(parentId);
 			return View(catManager.GetAllCategories(parentId));
 		}
 
@@ -43,7 +43,9 @@ namespace OnlineShop.Controllers
 		[HttpGet]
 		public ActionResult EditSomeCategory(long id = CategoryManager.DefParentId)
 		{
-			if (id == CategoryManager.DefParentId)
+            ViewBag.ParentName = catManager.GetParentName(id);
+
+            if (id == CategoryManager.DefParentId)
 				return AddNewCategory(ViewBag.ParentName);
 			try
 			{
@@ -57,8 +59,8 @@ namespace OnlineShop.Controllers
 
 		[HttpPost]
 		public ActionResult EditSomeCategory(CategoryView model)
-		{
-			if (ModelState.IsValid)
+		{  
+            if (ModelState.IsValid)
 			{
 				catManager.UpdateCategory(model);
 				return RedirectToAction("EditCategories", new RouteValueDictionary(
@@ -67,19 +69,12 @@ namespace OnlineShop.Controllers
 			return View(model);
 		}
 
-		[HttpGet]
-		public ActionResult AddNewCategory(string parentName)
-		{
-			var parId = catManager.GetIdFromName(parentName);
-			var model = new CategoryView()
-			{
-				ParentId = parId,
-				ParentName = parentName,
-				Level = catManager.GetCurrentLevelFromParentId(parId),
-				HasSubCategories = false
-			};
-			return View(model);
-		}
+        [HttpGet]
+        public ActionResult AddNewCategory(string parentName)
+        {
+            ViewBag.ParentName = parentName;
+            return View(catManager.CreateNewModel(parentName));
+        }
 
 		[HttpPost]
 		public ActionResult AddNewCategory(CategoryView model)
@@ -96,7 +91,7 @@ namespace OnlineShop.Controllers
 		[HttpGet]
 		public ActionResult RemoveSomeCategory(long id = CategoryManager.DefParentId)
 		{
-			var parId = catManager.GetIdFromName(ViewBag.ParentName);
+            var parId = catManager.GetParentId(id);
 			if (id == CategoryManager.DefParentId)
 			{
 				//todo log it
