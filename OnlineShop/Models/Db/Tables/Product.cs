@@ -14,7 +14,7 @@ namespace OnlineShop.Models.Db.Tables
 
 		public long Pr_Cat_Id { get; set; }
 
-        public long Pr_Descr_Id { get; set; }
+        public long? Pr_Descr_Id { get; set; }
 
         public string Pr_Name { get; set; }
 

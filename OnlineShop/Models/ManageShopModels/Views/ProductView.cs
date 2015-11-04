@@ -13,8 +13,7 @@ namespace OnlineShop.Models.ManageShopModels
 	{
 		public const byte MaxNameLength = 200;
 
-		public int PrCatId;
-		public int PrSubCatId;
+		public int PrCatId {get;set;}
 
 		private Category category;
 		private Description description;
@@ -90,10 +89,7 @@ namespace OnlineShop.Models.ManageShopModels
 		
 		public Description Description
 		{//todo ??? може йолки тут таки достати дескрипшон з нашого файла на диску?
-			get
-			{
-				return description ?? new Description();
-			}
+			get { return description ?? null; }
 			set
 			{
 				description = value;

@@ -1,7 +1,7 @@
 ﻿@model OnlineShop.Models.ManageShopModels.ProductView
 
 @{
-	ViewBag.Title = "View";
+	ViewBag.Title = "Продукт";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,7 +13,7 @@
 	@Html.AntiForgeryToken()
 	
 	<div class="form-horizontal">
-		<h4>ProductView</h4>
+		<h4>Додати новий продукт</h4>
 		<hr />
 		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 		<div class="form-group">
@@ -40,22 +40,18 @@
 			</div>
 		</div>
 		<div class="form-group">
-			@Html.LabelFor(model => model.PrCatId, htmlAttributes: new { @class = "control-label col-md-2" })
+			@Html.LabelFor(model => model.PrCatId, "Product category", htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				<div class="checkbox">
-					@Html.DropDownListFor(model => model.PrCatId, (SelectList)ViewBag.CategoriesId,  new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
-				</div>
-			</div>
-		</div>
+				<div class="checkbox" style="padding-left: 0px">
+					@Html.DropDownList("PrRootCatID", (SelectList)ViewBag.CategoriesId, "Select category", new { @onchange = "getSubCategories(this, PrSubCatID)", @onclick = "getSubCategories(this, PrSubCatID)", @class = "form-control" })
+					@*@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })*@
 
-		<div class="form-group">
-			@Html.LabelFor(model => model.PrSubCatId, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				<div class="checkbox">
-					@Html.DropDownListFor(model => model.PrSubCatId, Enumerable.Empty<SelectListItem>(), new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.PrSubCatId, "", new { @class = "text-danger" })
-				</div>
+					@Html.DropDownList("PrSubCatID", Enumerable.Empty<SelectListItem>(), "Select subcategory", new { @id = "PrSubCatID", @onclick = "getSubCategories(this, PrCatId)", @onchange = "getSubCategories(this, PrCatId)", @class = "form-control" })
+					@*@Html.ValidationMessageFor(model => model.PrSubCatId, "", new { @class = "text-danger" })*@
+					@Html.DropDownListFor(model => model.PrCatId, Enumerable.Empty<SelectListItem>(), "Select subcategory", new { @class = "form-control" })
+
+			
+					</div>
 			</div>
 		</div>
 		<div class="form-group">
@@ -79,31 +75,36 @@
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
 <script type="text/javascript">
-	$(function () {
-		$("#PrCatId").change(function () {
-				 var selectedItem = $(this).val();
-				 var ddlStates = $("#PrSubCatId");
-			  var statesProgress = $("#subcat-loading-progress");
-			 statesProgress.show();
-			 $.ajax({
-				 cache: false,
-				 type: "GET",
-				 url: "@(Url.RouteUrl("GetSubCatsId"))",
-			 	data: { "PrCatId": selectedItem },
-					success: function (data) {
-						ddlStates.html('');
-						$.each(data, function (id, option) {
-							ddlStates.append($('<option></option>').val(option.id).html(option.name));
-						});
-						statesProgress.hide();
-					},
-					error: function (xhr, ajaxOptions, thrownError) {
-						alert('Failed to retrieve states.');
-						statesProgress.hide();
-					}
-				});
-			});
+	// set default value to dropdown list
+	document.onreadystatechange=function(){
+		a = document.getElementById("PrRootCatID");
+		//a.selectedIndex = 2;
+		//getSubCategories(a, "PrSubCatID");
+	};
+	function getSubCategories(option, destination) {
+		var selectedItem = $(option).val();
+		var subCats = $(destination);
+			var statesProgress = $("#subcat-loading-progress");
+			statesProgress.show();
+			$.ajax({
+				cache: false,
+				type: "GET",
+				url: "@(Url.RouteUrl("GetSubCatsId"))",
+				data: { option: selectedItem },
+				success: function (data) {
+					subCats.html('');
+					$.each(data, function (id, option) {
+						subCats.append($('<option></option>').val(option.id).html(option.name));
+					});
+					//statesProgress.hide();
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert('Failed to retrieve sub categories.');
+					//statesProgress.hide();
+				}
 		});
+	};
+
 </script>
 
 <div>
