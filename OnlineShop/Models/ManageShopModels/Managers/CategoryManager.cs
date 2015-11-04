@@ -19,15 +19,15 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// </summary>
         /// <param name="parentName">name of parent or current category</param>
         /// <returns></returns>
-        public long GetIdFromName(string parentName)
+        public long GetIdFromName(string name)
         {
-            if (parentName == null ||
-                parentName.Length == 0)
+            if (name == null ||
+                name.Length == 0)
                 return DefParentId;
             try
             {
                 return MvcApplication.ContextRepository.Select<Category>()
-                    .FirstOrDefault(c => c.Cat_Name == parentName).Cat_Id;
+                    .FirstOrDefault(c => c.Cat_Name == name).Cat_Id;
             }
             catch(Exception)
             {
@@ -35,26 +35,64 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             }
         }
 
-        /// <summary>
-        /// Search name of parent Category
-        /// </summary>
-        /// <param name="parentId">id of parent Category</param>
-        /// <returns>Name of parent Category</returns>
-        public string GetParentName(long parentId)
+        public string GetParentName(long id)
         {
-            if(parentId == DefParentId)
+            var category = GetCategoryById(id);
+            if (category != null)
+            {
+                if (category.ParentName != null)
+                    return category.ParentName;
+                else if (category.ParentId != CategoryManager.DefParentId)
+                    return GetNameFromId(category.ParentId);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Search name of Category by his id
+        /// </summary>
+        /// <param name="id">id of parent Category</param>
+        /// <returns>Name of parent Category</returns>
+        public string GetNameFromId(long id)
+        {
+            if(id == DefParentId)
             {
                 return null;
             }
             else
             {
-               var parCategory = MvcApplication.ContextRepository.Select<Category>()
-                    .FirstOrDefault(c => c.Cat_Id == parentId);
-                if (parCategory != null)
-                    return parCategory.Cat_Name;
+               var category = MvcApplication.ContextRepository.Select<Category>()
+                    .FirstOrDefault(c => c.Cat_Id == id);
+                if (category != null)
+                    return category.Cat_Name;
                 else
                     return null;
             }
+        }
+
+        public long GetParentId(long id)
+        {
+            var category = GetCategoryById(id);
+            if (category != null)
+            {
+                if (category.ParentId != 0 ||
+                    category.ParentId != DefParentId)
+                    return category.ParentId;
+            }
+            return DefParentId;
+        }
+
+        public CategoryView CreateNewModel(string parentName)
+        {
+            var parId = GetIdFromName(parentName);
+            var model = new CategoryView()
+            {
+                ParentId = parId,
+                ParentName = parentName,
+                Level = GetCurrentLevelFromParentId(parId),
+                HasSubCategories = false
+            };
+            return model;
         }
 
         public void UpdateCategory(CategoryView model)
@@ -94,7 +132,8 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             {
                 parCat.Cat_HasChild = true;
                 MvcApplication.ContextRepository.Update<Category>(parCat, false);
-
+                model.Level = parCat.Cat_Level;
+                model.Level++;
             }
             MvcApplication.ContextRepository.Insert<Category>((Category)
                   MvcApplication.Mapper.Map(model,
