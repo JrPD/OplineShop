@@ -1,8 +1,8 @@
 ﻿@model OnlineShop.Models.ManageShopModels.ProductView
 
 @{
-    ViewBag.Title = "View";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "View";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>View</h2>
@@ -10,58 +10,106 @@
 
 @using (Html.BeginForm()) 
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>ProductView</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
-            </div>
-        </div>
+	@Html.AntiForgeryToken()
+	
+	<div class="form-horizontal">
+		<h4>ProductView</h4>
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		<div class="form-group">
+			@Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+			</div>
+		</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-            </div>
-        </div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+			</div>
+		</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.PrCatId, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				<div class="checkbox">
+					@Html.DropDownListFor(model => model.PrCatId, (SelectList)ViewBag.CategoriesId,  new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsAvailable)
-                    @Html.ValidationMessageFor(model => model.IsAvailable, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.PrSubCatId, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				<div class="checkbox">
+					@Html.DropDownListFor(model => model.PrSubCatId, Enumerable.Empty<SelectListItem>(), new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.PrSubCatId, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.IsAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				<div class="checkbox">
+					@Html.EditorFor(model => model.IsAvailable)
+					@Html.ValidationMessageFor(model => model.IsAvailable, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+		<div><label id="subcat-loading-progress"></label></div>
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Create" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
 }
 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function () {
+		$("#PrCatId").change(function () {
+				 var selectedItem = $(this).val();
+				 var ddlStates = $("#PrSubCatId");
+			  var statesProgress = $("#subcat-loading-progress");
+			 statesProgress.show();
+			 $.ajax({
+				 cache: false,
+				 type: "GET",
+				 url: "@(Url.RouteUrl("GetSubCatsId"))",
+			 	data: { "PrCatId": selectedItem },
+					success: function (data) {
+						ddlStates.html('');
+						$.each(data, function (id, option) {
+							ddlStates.append($('<option></option>').val(option.id).html(option.name));
+						});
+						statesProgress.hide();
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+						alert('Failed to retrieve states.');
+						statesProgress.hide();
+					}
+				});
+			});
+		});
+</script>
+
 <div>
-    @Html.ActionLink("Back to List", "Index")
+	@Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/bundles/jqueryval")
 }

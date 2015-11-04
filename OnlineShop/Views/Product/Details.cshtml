@@ -1,0 +1,75 @@
+﻿@model OnlineShop.Models.Db.Tables.Product
+
+@{
+	ViewBag.Title = "Details";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+	<h4>Product</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Pr_Id)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Pr_Id)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Pr_Cat_Id)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Pr_Cat_Id)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Pr_Descr_Id)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Pr_Descr_Id)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Pr_Name)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Pr_Name)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Pr_Price)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Pr_Price)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Pr_IsAvailable)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Pr_IsAvailable)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Pr_Count)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Pr_Count)
+		</dd>
+
+	</dl>
+</div>
+<p>
+	@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+	@Html.ActionLink("Back to List", "Index")
+</p>

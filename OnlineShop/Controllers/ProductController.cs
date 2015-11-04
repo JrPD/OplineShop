@@ -14,7 +14,7 @@ namespace OnlineShop.Controllers
 		public ActionResult Index()
 		{
 			var resProductView = new List<ProductView>();//collection 
-			var products = MvcApplication.ContextRepository.Select<Product>();
+			List<Product> products = MvcApplication.ContextRepository.Select<Product>().ToList();
 
 			foreach (var product in products)//mapping
 			{
@@ -28,22 +28,38 @@ namespace OnlineShop.Controllers
 		// GET: Product/Details/5
 		public ActionResult Details(int id)
 		{
+			var product = MvcApplication.ContextRepository.Select<Product>().
+				FirstOrDefault(p => p.Pr_Id == id);
 			return View();
 		}
 
 		// GET: Product/Create
+		[HttpGet]
 		public ActionResult Create()
 		{
+			ViewBag.CategoriesID = new SelectList(MvcApplication.ContextRepository.Select<Category>(), "Cat_id", "Cat_Name");
+
+				
+			ViewBag.SubCatID = ViewBag.CategoriesID;
+			
 			return View();
 		}
 
 		// POST: Product/Create
 		[HttpPost]
-		public ActionResult Create(FormCollection collection)
+		public ActionResult Create(ProductView product)
 		{
+			ViewBag.CategoriesID = new SelectList(MvcApplication.ContextRepository.Select<Category>(), "Cat_id", "Cat_Name");
+
 			try
 			{
-				// TODO: Add insert logic here
+				if (!ModelState.IsValid)
+				{
+					
+				}
+				//Product produc
+				var mapProduct = (Product) MvcApplication.Mapper.Map(product, typeof(ProductView), typeof(Product));
+				MvcApplication.ContextRepository.Insert<Product>(mapProduct, true);
 
 				return RedirectToAction("Index");
 			}
@@ -96,5 +112,22 @@ namespace OnlineShop.Controllers
 				return View();
 			}
 		}
+
+		public ActionResult GetSubCategories(int? PrCatId)
+		{
+			//if (String.IsNullOrEmpty(Cat_Id))
+			//{
+			//	throw new ArgumentNullException("countryId");
+			//}
+			int id = 0;
+			var subCats = MvcApplication.ContextRepository.Select<Category>().Where(c => c.Cat_Parent_Cat_Id == PrCatId);
+			var result = (from c in subCats
+						  select new
+						  {
+							  id = c.Cat_Id,
+							  name = c.Cat_Name
+						  }).ToList();
+			return Json(result, JsonRequestBehavior.AllowGet);
+		} 
 	}
 }
