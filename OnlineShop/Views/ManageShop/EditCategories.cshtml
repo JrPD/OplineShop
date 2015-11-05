@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<OnlineShop.Models.ManageShopModels.Views.CategoryView>
-
 @{
     ViewBag.Title = " Редагування категорій";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,94 +8,134 @@
     ViewBag.NewHeader = "для категорії " + ViewBag.ParentName;
 }
 <p>
-<h2>
-    Редагування категорій @ViewBag.NewHeader
-</h2>
- </p>
+    <h2>
+        Редагування категорій @ViewBag.NewHeader
+    </h2>
+</p>
 <div class="row">
-    @foreach (var item in Model)
+    @if (ViewBag.IsLastLevel != null && ViewBag.IsLastLevel == true)
     {
+        foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <button type="button">
+                        <img src="http://www.nyctransitforums.com/forums/fcontent/default.png" alt="Category">
+                    </button>
+                    @*//todo тут повинен бути потім норм зображння*@
+                    <div class="caption">
+                        <h2>@item.Name</h2>
+                        <p>
+                            <a href="@Url.Action(
+    "EditSomeCategory",
+    "ManageShop",
+    new RouteValueDictionary(
+        new
+        {
+            id = item.Id
+        }), "http")" class="btn btn-primary" role="button">
+                                Редагувати
+                            </a>
+                            <a href="@Url.Action(
+    "RemoveSomeCategory",
+    "ManageShop",
+    new RouteValueDictionary(
+        new
+        {
+            id = item.Id
+        }))" class="btn btn-default" role="button">Видалити</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+                }
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <button type="button" onclick="location.href='@Url.Action(
-                                                             "EditCategories",
-                                                             "ManageShop",
-                                                             new RouteValueDictionary(
-                                                                 new
-                                                                 {
-                                                                    parentId = item.Id
-                                                                 }))'">
-                    <img src="http://www.nyctransitforums.com/forums/fcontent/default.png" alt="Category">
+                <button type = "button" onclick="location.href='@Url.Action(
+                "EditCategories",
+                "ManageShop",
+                new RouteValueDictionary(
+                    new
+                    {
+                        parentId = item.Id
+    }))'">
+                    <img src = "http://www.nyctransitforums.com/forums/fcontent/default.png" alt="Category">
                 </button>
                 @*//todo тут повинен бути потім норм зображння*@
                 <div class="caption">
                     <h2>@item.Name</h2>
                     <p>
                         <a href="@Url.Action(
-                                "EditSomeCategory",
-                                "ManageShop",
-                                new RouteValueDictionary(
-                                    new {
-                                        id = item.Id
-                                    }), "http")" class="btn btn-primary" role="button">
-                            Редагувати</a>
+                "EditSomeCategory",
+                "ManageShop",
+                new RouteValueDictionary(
+                    new
+                    {
+                        id = item.Id
+                    }), "http")" class="btn btn-primary" role="button">
+                            Редагувати
+                        </a>
                         <a href="@Url.Action(
-                                "RemoveSomeCategory",
-                                "ManageShop",
-                                new RouteValueDictionary(
-                                    new
-                                    {
-                                        id = item.Id
-                                    }))" class="btn btn-default" role="button" >Видалити</a>
-                    </p >
-</div >
-            </div >
-        </div >
+                "RemoveSomeCategory",
+                "ManageShop",
+                new RouteValueDictionary(
+                    new
+                    {
+                        id = item.Id
+                    }))" class="btn btn-default" role="button">Видалити</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        }
     }
     <div class="col-sm-6 col-md-4">
         <div class="thumbnail">
-            <button type = "button" onclick="location.href='@Url.Action(
-                                                     "AddNewCategory",
-                                                     "ManageShop",
-                                                     new RouteValueDictionary(
-                                                         new
-                                                         {
-                                                             parentName = ViewBag.ParentName
-                        }))'">
-                <img alt = "New" title="New" src="http://programme.uk.solarenergyevents.com/images/made/images/remote/http_uk.solarenergyevents.com/assets/images/energy-plus-icon_300_300.png">
+            <button type="button" onclick="location.href='@Url.Action(
+        "AddNewCategory",
+        "ManageShop",
+        new RouteValueDictionary(
+            new
+            {
+                parentName = ViewBag.ParentName
+            }))'">
+                <img alt="New" title="New" src="http://programme.uk.solarenergyevents.com/images/made/images/remote/http_uk.solarenergyevents.com/assets/images/energy-plus-icon_300_300.png">
             </button>
         </div>
-</div>
     </div>
+</div>
+@*//todo потім ивдалити все що нижче*@
+@*<ul class="breadcrumb">
+        <li><a href="#">Home</a> <span class="divider">/</span></li>
+        <li><a href="#">Library</a> <span class="divider">/</span></li>
+        <li class="active">Data</li>
+    </ul>
 
-                            @*//todo потім ивдалити все що нижче*@
-                            @*<ul class="breadcrumb">
-                                    <li><a href="#">Home</a> <span class="divider">/</span></li>
-                                    <li><a href="#">Library</a> <span class="divider">/</span></li>
-                                    <li class="active">Data</li>
-                                </ul>
-
-                                <ul class="pager">
-                                    <li class="previous">
-                                        <a href="#">&larr; Older</a>
-                                    </li>
-                                    <li class="next">
-                                        <a href="#">Newer &rarr;</a>
-                                    </li>
-                                </ul>
-                                <span class="badge">1</span>
-                                <div class="alert alert-block">
-                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                    <h4>Warning!</h4>
-                                    Best check yo self, you're not...
-                                </div>
-                                <div class="alert alert-error">
-                                    ...
-                                </div>
-                                <div class="alert alert-success">
-                                    ...
-                                </div>
-                                <div class="progress progress-warning progress-striped">
-                                    <div class="bar" style="width: 60%"></div>
-                                </div>*@
-
+    <ul class="pager">
+        <li class="previous">
+            <a href="#">&larr; Older</a>
+        </li>
+        <li class="next">
+            <a href="#">Newer &rarr;</a>
+        </li>
+    </ul>
+    <span class="badge">1</span>
+    <div class="alert alert-block">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>Warning!</h4>
+        Best check yo self, you're not...
+    </div>
+    <div class="alert alert-error">
+        ...
+    </div>
+    <div class="alert alert-success">
+        ...
+    </div>
+    <div class="progress progress-warning progress-striped">
+        <div class="bar" style="width: 60%"></div>
+    </div>*@

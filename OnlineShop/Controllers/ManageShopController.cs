@@ -32,6 +32,7 @@ namespace OnlineShop.Controllers
 		{
 			ViewBag.ParentName = catManager.GetNameFromId(parentId);
             SetParentCookie(ViewBag.ParentName);
+            ViewBag.IsLastLevel = catManager.IsNextLastLevel(parentId);
             return View(catManager.GetAllCategories(parentId));
 		}
 

@@ -36,6 +36,18 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         }
 
         /// <summary>
+        /// Chekc if next level is last for possibility to add categories
+        /// </summary>
+        /// <param name="parentId">parent category Id</param>
+        /// <returns>Is next is level last</returns>
+        public bool IsNextLastLevel(long parentId)
+        {
+            var category = MvcApplication.ContextRepository.Select<Category>().FirstOrDefault(c => c.Cat_Id == parentId);
+            if (category != null && category.Cat_Level + 1 == CategoryView.MaxLevel)
+                return true;
+            return false;
+        }
+        /// <summary>
         /// Return parent name from current category
         /// </summary>
         /// <param name="id">Id from current category</param>
