@@ -12,22 +12,28 @@
     {
         <li class="current-menu-item">
             @Html.ActionLink(categoryL1.Cat_Name, "Browse", new { id = categoryL1.Cat_Id })
-            <ul>
-                @foreach (var categoryL2 in Model.Where(c => c.Cat_Parent_Cat_Id == categoryL1.Cat_Id))
-                {
-                    <li>
-                        @Html.ActionLink(categoryL2.Cat_Name, "Browse", new { id = categoryL2.Cat_Id })
-                        <ul>
-                            @foreach (var categoryL3 in Model.Where(c => c.Cat_Parent_Cat_Id == categoryL2.Cat_Id))
+            @if (categoryL1.Cat_HasChild)
+            {
+                <ul>
+                    @foreach (var categoryL2 in Model.Where(c => c.Cat_Parent_Cat_Id == categoryL1.Cat_Id))
+                    {
+                        <li>
+                            @Html.ActionLink(categoryL2.Cat_Name, "Browse", new { id = categoryL2.Cat_Id })
+                            @if (categoryL2.Cat_HasChild)
                             {
-                                <li>
-                                    @Html.ActionLink(categoryL3.Cat_Name, "Browse", new { id = categoryL3.Cat_Id })
-                                </li>
+                                <ul>
+                                    @foreach (var categoryL3 in Model.Where(c => c.Cat_Parent_Cat_Id == categoryL2.Cat_Id))
+                                    {
+                                        <li>
+                                            @Html.ActionLink(categoryL3.Cat_Name, "Browse", new { id = categoryL3.Cat_Id })
+                                        </li>
+                                    }
+                                </ul>
                             }
-                        </ul>
-                    </li>
-                }
-            </ul>
+                        </li>
+                    }
+                </ul>
+            }
         </li>
     }
 </ul>

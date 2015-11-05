@@ -3,6 +3,8 @@ using System.Linq;
 using System.Web.Mvc;
 using OnlineShop.Models.Db;
 using OnlineShop.Models.Db.Tables;
+using PagedList.Mvc;
+using PagedList;
 
 namespace OnlineShop.Controllers
 {
@@ -20,7 +22,7 @@ namespace OnlineShop.Controllers
 
 			return View(category);
 		}
-        public ActionResult Browse(long id) //Browse categories and products 
+        public ActionResult Browse(long id, int? page) //Browse categories and products 
         {
             Category category = MvcApplication.ContextRepository.Select<Category>().Single(c=>c.Cat_Id== id);
             if (category.Cat_HasChild)
@@ -31,9 +33,12 @@ namespace OnlineShop.Controllers
             }
             else
             {
+                //todo Винести в константу чи задавати PageSize динамічно??
+                int pageSize = 3;
+                int pageNumber = (page ?? 1);
                 List<Product> products = MvcApplication.ContextRepository.Select<Product>()
                     .Where(p => p.Pr_Cat_Id == id).ToList();
-                return View("BrowseProducts", products);
+                return View("BrowseProducts", products.ToPagedList(pageNumber, pageSize));
             }
         }
 

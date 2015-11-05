@@ -35,15 +35,17 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
+    <div class="content">
+        <div class="categories">
+            @{Html.RenderAction("TestMenu", "Home");}
         </div>
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        <div class="container body-content">
+            @RenderBody()
+        </div>
     </div>
-
-    
+    @*<hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>*@
 </body>
 </html>

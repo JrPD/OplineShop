@@ -40,3 +40,17 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+/*Our css*/
+.item{
+    position:relative;
+    overflow:hidden;
+    height: auto;
+    margin: 40px;
+    display:inline-block;
+    text-align:center;
+}
+.item li {
+    padding: 10px;
+    display:inline-block;
+}

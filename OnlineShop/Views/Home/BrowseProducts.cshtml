@@ -1,17 +1,21 @@
 ﻿@{
 }
 @*Browse Products*@
-@model IEnumerable<OnlineShop.Models.Db.Tables.Product>
-<div id="category-group">
+@model PagedList.IPagedList<OnlineShop.Models.Db.Tables.Product>
+@using PagedList.Mvc;
     @foreach (var product in Model)
     {
-        <div class="item" style="float:left;margin-left:20px; width:100px; height:100px">
-            <a href="@Url.Action("Details", new { })"> @*Call method details product*@
+        <div class="item">
+            <a href="@Url.Action("Details", new { })"> @*todo Call method details product*@
                 <img class="img-thumbnail" width="150" height="200" alt="@product.Pr_Name"
-                     src="/Content/Images/@product.Images" />
+                     src="~/Content/Images/Product.png" /> @*todo Add product img*@
                 <p class="title">@product.Pr_Name</p>
+                <p>@product.Pr_Price</p>
             </a>
 
         </div>
     }
-</div>
+<span class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("Browse",
+                        new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+</span>
