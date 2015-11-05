@@ -31,10 +31,25 @@ namespace OnlineShop.Controllers
 		public ActionResult EditCategories(long parentId = CategoryManager.DefParentId)
 		{
 			ViewBag.ParentName = catManager.GetNameFromId(parentId);
-			return View(catManager.GetAllCategories(parentId));
+            SetParentCookie(ViewBag.ParentName);
+            return View(catManager.GetAllCategories(parentId));
 		}
 
-		[HttpGet]
+        public void SetParentCookie(string parentName)
+        {
+            if (this.ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("ParentName"))
+            {
+                this.ControllerContext.HttpContext.Request.Cookies["ParentName"].Value = parentName;
+            }
+            else
+            {
+                HttpCookie cookie = new HttpCookie("ParentName");
+                cookie.Value = parentName;
+                this.ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+            }
+        }
+
+        [HttpGet]
 		public ActionResult EditProducts()
 		{
 			return RedirectToAction("Index","Product");
@@ -44,7 +59,7 @@ namespace OnlineShop.Controllers
 		public ActionResult EditSomeCategory(long id = CategoryManager.DefParentId)
 		{
             ViewBag.ParentName = catManager.GetParentName(id);
-
+            SetParentCookie(ViewBag.ParentName);
             if (id == CategoryManager.DefParentId)
 				return AddNewCategory(ViewBag.ParentName);
 			try
@@ -73,6 +88,7 @@ namespace OnlineShop.Controllers
         public ActionResult AddNewCategory(string parentName)
         {
             ViewBag.ParentName = parentName;
+            SetParentCookie(ViewBag.ParentName);
             return View(catManager.CreateNewModel(parentName));
         }
 
@@ -102,5 +118,15 @@ namespace OnlineShop.Controllers
 			return RedirectToAction("EditCategories", new RouteValueDictionary(
 				new { parentId = parId }));
 		}
+
+        [HttpGet]
+        public ActionResult GetPath()
+        {
+            if (this.ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("ParentName"))
+                return PartialView(catManager.GetAllParentCategories(
+                    this.ControllerContext.HttpContext.Request.Cookies["ParentName"].Value));
+            else
+                return null;
+        }
 	}
 }

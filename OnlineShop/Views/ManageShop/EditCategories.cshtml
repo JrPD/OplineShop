@@ -8,10 +8,11 @@
 {
     ViewBag.NewHeader = "для категорії " + ViewBag.ParentName;
 }
+<p>
 <h2>
     Редагування категорій @ViewBag.NewHeader
 </h2>
-
+ </p>
 <div class="row">
     @foreach (var item in Model)
     {

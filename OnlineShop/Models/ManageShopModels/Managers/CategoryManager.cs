@@ -35,6 +35,11 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             }
         }
 
+        /// <summary>
+        /// Return parent name from current category
+        /// </summary>
+        /// <param name="id">Id from current category</param>
+        /// <returns>Parent Name or NULL if there no parent category</returns>
         public string GetParentName(long id)
         {
             var category = GetCategoryById(id);
@@ -70,6 +75,38 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             }
         }
 
+        /// <summary>
+        /// Using for get all parents from our positions in categories
+        /// </summary>
+        /// <param name="parentName">parent Name of out positions</param>
+        /// <returns></returns>
+        public Dictionary<string,long> GetAllParentCategories(string parentName)
+        {
+            var res = new Dictionary<string, long>();
+            var category = MvcApplication.ContextRepository.Select<Category>().FirstOrDefault(c => c.Cat_Name == parentName);
+            if(category != null)
+            {
+                res.Add(category.Cat_Name, category.Cat_Id);
+                if (category.Cat_Parent_Cat_Id != DefParentId)
+                {
+                    var parCategory = MvcApplication.ContextRepository.Select<Category>().FirstOrDefault(c => c.Cat_Id == category.Cat_Parent_Cat_Id);
+                    if (parCategory != null)
+                    {
+                        var tmpRes = GetAllParentCategories(parCategory.Cat_Name);
+                        foreach (var item in tmpRes)
+                            res.Add(item.Key, item.Value);
+                    }
+                }
+                return res;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Return Id of parent category from current
+        /// </summary>
+        /// <param name="id">Id of current Category</param>
+        /// <returns>Default Parent Id if parent was not found or his Id</returns>
         public long GetParentId(long id)
         {
             var category = GetCategoryById(id);
@@ -82,6 +119,11 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             return DefParentId;
         }
 
+        /// <summary>
+        /// Prepare new model for creating category view
+        /// </summary>
+        /// <param name="parentName">Parent Name of Category in what we want to create new</param>
+        /// <returns>CategoryView model prepared for enter all needed data</returns>
         public CategoryView CreateNewModel(string parentName)
         {
             var parId = GetIdFromName(parentName);
@@ -95,6 +137,10 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             return model;
         }
 
+        /// <summary>
+        /// Update category in DB with your changed model from View
+        /// </summary>
+        /// <param name="model">CategoryView model with was changed by user</param>
         public void UpdateCategory(CategoryView model)
         {
             MvcApplication.ContextRepository.Update<Category>((Category)
@@ -167,10 +213,21 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// </summary>
         /// <param name="id">Id for Category with we want delete</param>
         public void RemoveCategoryById(long id)
-        {
-            MvcApplication.ContextRepository.Delete<Category>(
-                MvcApplication.ContextRepository.Select<Category>().FirstOrDefault(
-                    c => c.Cat_Id == id), true);                                             
+        {                                       
+            var category = MvcApplication.ContextRepository.Select<Category>()
+               .FirstOrDefault(c => c.Cat_Id == id);
+            if (category != null)
+            {
+                var parCat = MvcApplication.ContextRepository.Select<Category>()
+                    .FirstOrDefault(c => c.Cat_Id == category.Cat_Parent_Cat_Id);
+                if (parCat != null)
+                {
+                    parCat.Cat_HasChild = false;
+                    MvcApplication.ContextRepository.Update<Category>(parCat, false);
+                }
+                MvcApplication.ContextRepository.Delete<Category>(category,true);
+            }
+                                               
         }
 
         /// <summary>

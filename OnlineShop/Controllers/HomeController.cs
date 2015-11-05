@@ -13,7 +13,6 @@ namespace OnlineShop.Controllers
 	{
         public ActionResult TestMenu()
         {
-
             return PartialView(MvcApplication.ContextRepository.Select<Category>().ToList());
         }
 		public ActionResult Index()

@@ -58,6 +58,5 @@ namespace OnlineShop
 			if (entityContext != null)
 				entityContext.Dispose();
 		}
-
 	}
 }

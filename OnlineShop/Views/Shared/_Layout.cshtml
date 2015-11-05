@@ -24,7 +24,8 @@
             <div class="navbar-collapse collapse nav-menu">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin")) {
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
                         <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
                         <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
                         //todo Змінити на роль суб адміна або як її там ну кароч з 4 ролей до неї має мати доступ адмін і суб адмін і все
@@ -35,17 +36,15 @@
             </div>
         </div>
     </div>
-    <div class="content">
-        <div class="categories">
-            @{Html.RenderAction("TestMenu", "Home");}
-        </div>
-        <div class="container body-content">
+            @{Html.RenderAction("TestMenu", "Home");}        </div>
+		<div class="container body-content">
+            <p style="text-align: center">
+                @{ Html.RenderAction("GetPath", "ManageShop"); }
+            </p>
             @RenderBody()
-        </div>
-    </div>
-    @*<hr />
-    <footer>
-        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-    </footer>*@
-</body>
+        </div>        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div></body>
 </html>
