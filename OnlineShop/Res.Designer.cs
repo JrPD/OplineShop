@@ -61,6 +61,15 @@ namespace OnlineShop {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineShop.
+        /// </summary>
+        public static string ApplicationName {
+            get {
+                return ResourceManager.GetString("ApplicationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Батьківська категорія НЕ найдена!!!.
         /// </summary>
         public static string CatView_NameNotFound {
