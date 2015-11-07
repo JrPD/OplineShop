@@ -25,6 +25,7 @@ namespace OnlineShop.Models.ManageShopModels
 		/// <summary>
 		/// Count of some Product
 		/// </summary>
+		
 		public int Count
 		{
 			get

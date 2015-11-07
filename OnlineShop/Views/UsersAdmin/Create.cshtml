@@ -1,6 +1,6 @@
 ﻿@model OnlineShop.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Створити";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -8,7 +8,7 @@
 @using (Html.BeginForm("Create", "UsersAdmin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
+    <h4>Створити новий аккаунт</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-error" })
     <div class="form-group">
@@ -43,7 +43,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Create" />
+            <input type="submit" class="btn btn-default" value="Створити" />
         </div>
     </div>
 }

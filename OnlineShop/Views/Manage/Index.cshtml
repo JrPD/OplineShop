@@ -1,6 +1,6 @@
 ﻿@model OnlineShop.Models.IndexViewModel
 @{
-    ViewBag.Title = "Manage your account";
+    ViewBag.Title = "Керування аккаунтом";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -10,36 +10,36 @@
         <p>
             @if (Model.HasPassword)
             {
-                @Html.ActionLink("Change your password", "ChangePassword")
+                @Html.ActionLink("Змінити пароль", "ChangePassword")
             }
             else
             {
-                @Html.ActionLink("Pick a password", "SetPassword")
+                @Html.ActionLink("Встановити пароль", "SetPassword")
             }
         </p>
         <p>
             Phone Number: @(Model.PhoneNumber ?? "None") [
             @if (Model.PhoneNumber != null)
             {
-                @Html.ActionLink("Change", "AddPhoneNumber")
+                @Html.ActionLink("Змінити", "AddPhoneNumber")
                 @: &nbsp;|&nbsp;
-                @Html.ActionLink("Remove", "RemovePhoneNumber")
+                @Html.ActionLink("Видалити", "RemovePhoneNumber")
             }
             else
             {
-                @Html.ActionLink("Add", "AddPhoneNumber")
+                @Html.ActionLink("Додати", "AddPhoneNumber")
             }
             ]
         </p>
         <p>
             External Logins: @Model.Logins.Count
-            @Html.ActionLink("[Manage]", "ManageLogins")
+            @Html.ActionLink("[Керувати]", "ManageLogins")
         </p>
         @if (Model.TwoFactor)
         {
             <form method="post" action="/Manage/DisableTFA">
                 <p>
-                    Two factor is currently enabled:
+                   2-х факторна авторизація активована:
                     <input type="submit" value="Disable" class="btn btn-default"/>
                 </p>
             </form>
@@ -48,7 +48,7 @@
         {
             <form method="post" action="/Manage/EnableTFA">
                 <p>
-                    Two factor is currently disabled:
+					2-х факторна авторизація неактивна:
                     <input type="submit" value="Enable" class="btn btn-default"/>
                 </p>
             </form>
@@ -56,17 +56,18 @@
         @if (Model.BrowserRemembered)
         {
             <form method="post" action="/Manage/ForgetBrowser">
-                <p>
-                    Browser is curently remembered for two factor:
-                    <input type="submit" value="Forget Browser" class="btn btn-default" />
-                </p>
+	            <p>
+		            Браузер запам'ятовує 2-х факторну авторизацію
+		            <input type="submit" value="Forget Browser" class="btn btn-default"/>
+	            </p>
             </form>
         }
         else
         {
             <form method="post" action="/Manage/RememberBrowser">
                 <p>
-                    Browser is curently not remembered for two factor:
+					Браузер не запам'ятовує 2-х факторну авторизацію:
+
                     <input type="submit" value="Remember Browser" class="btn btn-default"/>
                 </p>
             </form>

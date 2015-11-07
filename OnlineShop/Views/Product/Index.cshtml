@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<OnlineShop.Models.ManageShopModels.ProductView>
 
 @{
-	ViewBag.Title = "Index";
+	ViewBag.Title = "Список продуктів";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-	@Html.ActionLink("Create New", "Create")
+	@Html.ActionLink("Створити новий", "Create")
 </p>
 <table class="table">
 	<tr>
@@ -42,9 +42,9 @@
 			@Html.DisplayFor(modelItem => item.IsAvailable)
 		</td>
 		<td>
-			@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-			@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-			@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+			@Html.ActionLink("Редагувати", "Edit", new { /* id=item.PrimaryKey */ }) |
+			@Html.ActionLink("Деталі", "Details", new { /* id=item.PrimaryKey */ }) |
+			@Html.ActionLink("Видалити", "Delete", new { /* id=item.PrimaryKey */ })
 		</td>
 	</tr>
 }
