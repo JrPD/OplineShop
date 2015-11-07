@@ -120,8 +120,7 @@ namespace OnlineShop.Controllers
 				new { parentId = parId }));
 		}
 
-        [AllowAnonymous]
-        [HttpGet]
+        [AllowAnonymous]       
         public ActionResult GetPath()
         {
             if (this.ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("ParentName"))
