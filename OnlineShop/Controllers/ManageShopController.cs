@@ -120,6 +120,7 @@ namespace OnlineShop.Controllers
 				new { parentId = parId }));
 		}
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult GetPath()
         {
