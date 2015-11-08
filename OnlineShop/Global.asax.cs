@@ -5,6 +5,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using OnlineShop.Models.Db;
 using System.Web;
+using OnlineShop.App_Start;
 using OnlineShop.Mappers;
 
 namespace OnlineShop
@@ -22,6 +23,7 @@ namespace OnlineShop
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 			Database.SetInitializer(new DbInitializer());
+			JobScheduler.Start();
 		}
 
 		public static CommonMapper Mapper

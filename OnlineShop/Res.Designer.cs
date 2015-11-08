@@ -70,6 +70,15 @@ namespace OnlineShop {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Downloads.
+        /// </summary>
+        public static string BackUpPath {
+            get {
+                return ResourceManager.GetString("BackUpPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Батьківська категорія НЕ найдена!!!.
         /// </summary>
         public static string CatView_NameNotFound {

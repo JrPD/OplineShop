@@ -120,6 +120,9 @@
   <data name="ApplicationName" xml:space="preserve">
     <value>OnlineShop</value>
   </data>
+  <data name="BackUpPath" xml:space="preserve">
+    <value>Downloads</value>
+  </data>
   <data name="CatView_NameNotFound" xml:space="preserve">
     <value>Батьківська категорія НЕ найдена!!!</value>
   </data>
