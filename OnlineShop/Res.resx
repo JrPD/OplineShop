@@ -126,6 +126,12 @@
   <data name="CatView_NameNotFound" xml:space="preserve">
     <value>Батьківська категорія НЕ найдена!!!</value>
   </data>
+  <data name="Exception_OptionMustBeProvided" xml:space="preserve">
+    <value>The '{0}' option must be provided.</value>
+  </data>
+  <data name="Exception_ValidatorHandlerMismatch" xml:space="preserve">
+    <value>An ICertificateValidator cannot be specified at the same time as an HttpMessageHandler unless it is a WebRequestHandler.</value>
+  </data>
   <data name="IncorrectInput" xml:space="preserve">
     <value>Не коректне значення для {0} =&gt; {1}</value>
   </data>

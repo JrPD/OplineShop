@@ -6,8 +6,10 @@ using OnlineShop.Models;
 using Owin;
 using System;
 using System.Web;
-using Microsoft.Owin.Host.SystemWeb;
+using DotNetOpenAuth.AspNet;
+using Duke.Owin.VkontakteMiddleware;
 using Microsoft.Owin.Security.Google;
+using AuthenticationResult = Microsoft.Owin.Host.SystemWeb.AuthenticationResult;
 
 namespace OnlineShop
 {
@@ -58,41 +60,27 @@ namespace OnlineShop
 			//   consumerSecret: "");
 
 			app.UseFacebookAuthentication(
-			   appId: "192210411114861",
-			   appSecret: "7689503cb06dbe070034155f670b239b");
+				appId: "192210411114861",
+				appSecret: "7689503cb06dbe070034155f670b239b");
 
 			app.UseGoogleAuthentication(
 				clientId: "574750221498-79vev75cvaph2g3pquj2q67kmi5gh3q9.apps.googleusercontent.com",
 				clientSecret: "Z-o7Z_BowZsv2B5GaEK7thW3");
+
+
+			//{
+			//	appId:"5139849",
+			//	appSecret:"UmrnIJ8U60ooEYPBfBzN",
+			//	scope:"sss"
+			//}
+			var vkauthOption = new VkAuthenticationOptions()
+			{
+				AppId = "5139849",
+				AppSecret = "UmrnIJ8U60ooEYPBfBzN",
+				Scope = "offline,friends"
+			};
+
+			app.UseVkontakteAuthentication(vkauthOption);
 		}
-
-		//public class VKontakteAuthenticationClient : IAuthenticationClient
-		//{
-		//	public string appId;
-		//	public string appSecret;
-
-		//	public VKontakteAuthenticationClient(string appId, string appSecret)
-		//	{
-		//		this.appId = appId;
-		//		this.appSecret = appSecret;
-		//	}
-
-		//	string IAuthenticationClient.ProviderName
-		//	{
-		//		get { return "vkontakte"; }
-		//	}
-
-		//	void IAuthenticationClient.RequestAuthentication(
-		//							HttpContextBase context, Uri returnUrl)
-		//	{
-		//		throw new NotImplementedException();
-		//	}
-
-		//	AuthenticationResult IAuthenticationClient.VerifyAuthentication(
-		//						   HttpContextBase context)
-		//	{
-		//		throw new NotImplementedException();
-		//	}
-		//}
 	}
 }

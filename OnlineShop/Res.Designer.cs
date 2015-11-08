@@ -88,6 +88,24 @@ namespace OnlineShop {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The &apos;{0}&apos; option must be provided..
+        /// </summary>
+        public static string Exception_OptionMustBeProvided {
+            get {
+                return ResourceManager.GetString("Exception_OptionMustBeProvided", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An ICertificateValidator cannot be specified at the same time as an HttpMessageHandler unless it is a WebRequestHandler..
+        /// </summary>
+        public static string Exception_ValidatorHandlerMismatch {
+            get {
+                return ResourceManager.GetString("Exception_ValidatorHandlerMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Не коректне значення для {0} =&gt; {1}.
         /// </summary>
         public static string IncorrectInput {
