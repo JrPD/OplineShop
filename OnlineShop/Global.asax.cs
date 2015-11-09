@@ -22,7 +22,7 @@ namespace OnlineShop
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
-			Database.SetInitializer(new DbInitializer());
+            Database.SetInitializer<AppContext>(null);//new DbInitializer());     //do no use it now with "real" remote DB
 			JobScheduler.Start();
 		}
 

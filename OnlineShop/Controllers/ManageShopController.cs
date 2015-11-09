@@ -78,7 +78,15 @@ namespace OnlineShop.Controllers
 		{  
 			if (ModelState.IsValid)
 			{
-				catManager.UpdateCategory(model);
+                if (model.ImgFile != null && model.ImgFile.ContentLength > 0)
+                {
+                    model.ImagePath = Res.ImagesDirectory
+                         + Res.CategoryImagesDirectory
+                         + Guid.NewGuid().ToString()
+                         + model.ImgFile.FileName;
+                    model.ImgFile.SaveAs(Server.MapPath(model.ImagePath));
+                }
+                catManager.UpdateCategory(model);
 				return RedirectToAction("EditCategories", new RouteValueDictionary(
 					new { parentId = model.ParentId }));
 			}
@@ -95,10 +103,19 @@ namespace OnlineShop.Controllers
 
 		[HttpPost]
 		public ActionResult AddNewCategory(CategoryView model)
-		{
-			if (ModelState.IsValid)
+        {
+            if (ModelState.IsValid)
 			{
-				catManager.SaveNewCategory(model);                         
+                if (model.ImgFile != null && model.ImgFile.ContentLength > 0)
+                {
+                    model.ImagePath = Res.ImagesDirectory
+                        + Res.CategoryImagesDirectory
+                        + Guid.NewGuid().ToString()
+                        + model.ImgFile.FileName;
+                    model.ImgFile.SaveAs(Server.MapPath(model.ImagePath));
+                    catManager.SaveNewImage(model);
+                }
+                catManager.SaveNewCategory(model);                         
 				return RedirectToAction("EditCategories", new RouteValueDictionary(
 					new { parentId = model.ParentId }));
 			}

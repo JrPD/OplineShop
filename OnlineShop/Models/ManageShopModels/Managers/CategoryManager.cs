@@ -115,6 +115,20 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         }
 
         /// <summary>
+        /// Save Selected Image
+        /// </summary>
+        /// <param name="model">Our model from View</param>
+        public void SaveNewImage(CategoryView model)
+        {
+            if (model.ImgFile != null && model.ImgFile.ContentLength > 0)
+            {
+                MvcApplication.ContextRepository.Insert<Image>
+                    ((Image)MvcApplication.Mapper.Map(model, 
+                        typeof(CategoryView), typeof(Image)),true);
+            }
+        }
+
+        /// <summary>
         /// Return Id of parent category from current
         /// </summary>
         /// <param name="id">Id of current Category</param>
@@ -155,6 +169,12 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <param name="model">CategoryView model with was changed by user</param>
         public void UpdateCategory(CategoryView model)
         {
+            //todo save links
+            if (model.ImagePath != null && model.ImagePath.Length != 0 && model.ImageId == null)
+            {//TODO need to fix replacing of picture
+                model.ImageId = MvcApplication.ContextRepository.Select<Image>()
+                    .FirstOrDefault(i => i.Img_Path == model.ImagePath).Img_Id;
+            }
             MvcApplication.ContextRepository.Update<Category>((Category)
                     MvcApplication.Mapper.Map(model,
                     typeof(CategoryView), typeof(Category)), true);
@@ -171,11 +191,33 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                 .FirstOrDefault(c => c.Cat_Id == catId);
             if (dbCategory != null && dbCategory.Cat_Id > 0)
             {
-                return (CategoryView)MvcApplication.Mapper.Map(dbCategory,
+                var catLinks = MvcApplication.ContextRepository.Select<LinkCategories>()
+                    .Where(cl => cl.Category_Cat_Id == dbCategory.Cat_Id);
+                var catView = (CategoryView)MvcApplication.Mapper.Map(dbCategory,
                         typeof(Category), typeof(CategoryView));
+                foreach (var catLink in catLinks)
+                {
+                    var link = MvcApplication.ContextRepository.Select<Link>()
+                               .FirstOrDefault(l => l.Link_Id == catLink.Link_Link_Id);
+                    if (link != null)
+                    {
+                        var properties = MvcApplication.ContextRepository.Select<Property>()
+                            .Where(p=>p.Prop_Link_Id == link.Link_Id);
+                        var propView = new List<PropertyView>();
+                        foreach (var prop in properties)
+                        {
+                            propView.Add((PropertyView)MvcApplication
+                                .Mapper.Map(prop,typeof(Property),typeof(PropertyView)));
+                        }
+                        catView.Properties.Add((LinkView)MvcApplication
+                                .Mapper.Map(link, typeof(Link), typeof(LinkView)), propView);
+                    }
+                }
+                return catView;
             }
             else
-                throw new Exception(string.Format(Res.IncorrectInput, "Category Id", catId));
+                return null;
+                //throw new Exception(string.Format(Res.IncorrectInput, "Category Id", catId));
         }
 
         /// <summary>
@@ -192,6 +234,27 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                 MvcApplication.ContextRepository.Update<Category>(parCat, false);
                 model.Level = parCat.Cat_Level;
                 model.Level++;
+            }
+            if(model.ImagePath != null && model.ImagePath.Length != 0 && model.ImageId == null)
+            {
+                model.ImageId = MvcApplication.ContextRepository.Select<Image>()
+                    .FirstOrDefault(i => i.Img_Path == model.ImagePath).Img_Id;
+            }
+            if (model.Properties != null && model.Properties.Count > 0)
+            {//todo check if we not use some of old links
+                foreach (var item in model.Properties)
+                {
+                    //todo check saving for boolean state
+                    //MvcApplication.ContextRepository.Insert<Link>((Link)MvcApplication
+                    //            .Mapper.Map(item.Key, typeof(LinkView), typeof(Link)), true);
+                    foreach (var property in item.Value)
+                    {
+                        property.Link_Id = item.Key.Id;
+                        //todo check saving for boolean state
+                        //MvcApplication.ContextRepository
+                        //    .Insert<Property>(property, true);
+                    }
+                }
             }
             MvcApplication.ContextRepository.Insert<Category>((Category)
                   MvcApplication.Mapper.Map(model,
