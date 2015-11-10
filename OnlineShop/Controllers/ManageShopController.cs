@@ -56,7 +56,14 @@ namespace OnlineShop.Controllers
 			return RedirectToAction("Index","Product");
 		}
 
-		[HttpGet]
+        [HttpGet]
+        public ActionResult EditProperties()
+        {
+            return RedirectToAction("Index", "Property");
+        }
+
+
+        [HttpGet]
 		public ActionResult EditSomeCategory(long id = CategoryManager.DefParentId)
 		{
 			ViewBag.ParentName = catManager.GetParentName(id);

@@ -265,6 +265,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageShopController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -308,6 +309,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageShopModels\Managers\CategoryManager.cs" />
     <Compile Include="Models\ManageShopModels\Managers\ProductManager.cs" />
+    <Compile Include="Models\ManageShopModels\Managers\PropertyManager.cs" />
     <Compile Include="Models\ManageShopModels\Views\CategoryView.cs" />
     <Compile Include="Models\ManageShopModels\Views\LinkView.cs" />
     <Compile Include="Models\ManageShopModels\Views\ProductView.cs" />
@@ -437,6 +439,9 @@
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\RolesAdmin\Delete.cshtml" />
     <Content Include="Views\RolesAdmin\Details.cshtml" />
+    <Content Include="Views\Property\Index.cshtml" />
+    <Content Include="Views\Property\Properties.cshtml" />
+    <Content Include="Views\Property\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
