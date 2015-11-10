@@ -23,7 +23,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
         public long? ImageId { get; set; }
         public bool HasSubCategories { get; set; }
         public long Id { get; set; }
-        public Dictionary<LinkView, List<PropertyView>> Properties { get; set; }
+        public List<LinkView> Properties { get; set; }
 
 
         public const byte MinLevel = 1;
@@ -33,7 +33,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
 
         public CategoryView()
         {
-            Properties = new Dictionary<LinkView, List<PropertyView>>();
+            Properties = new List<LinkView>();
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

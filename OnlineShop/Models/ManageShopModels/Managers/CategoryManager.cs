@@ -176,8 +176,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                     .FirstOrDefault(i => i.Img_Path == model.ImagePath).Img_Id;
             }
             MvcApplication.ContextRepository.Update<Category>((Category)
-                    MvcApplication.Mapper.Map(model,
-                    typeof(CategoryView), typeof(Category)), true);
+                    MvcApplication.Mapper.Map(model, typeof(CategoryView), typeof(Category)), true);
         }
 
         /// <summary>
@@ -197,21 +196,22 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                         typeof(Category), typeof(CategoryView));
                 foreach (var catLink in catLinks)
                 {
-                    var link = MvcApplication.ContextRepository.Select<Link>()
-                               .FirstOrDefault(l => l.Link_Id == catLink.Link_Link_Id);
-                    if (link != null)
-                    {
-                        var properties = MvcApplication.ContextRepository.Select<Property>()
-                            .Where(p=>p.Prop_Link_Id == link.Link_Id);
-                        var propView = new List<PropertyView>();
-                        foreach (var prop in properties)
-                        {
-                            propView.Add((PropertyView)MvcApplication
-                                .Mapper.Map(prop,typeof(Property),typeof(PropertyView)));
-                        }
-                        catView.Properties.Add((LinkView)MvcApplication
-                                .Mapper.Map(link, typeof(Link), typeof(LinkView)), propView);
-                    }
+                    //todo it
+                    //var link = MvcApplication.ContextRepository.Select<Link>()
+                    //           .FirstOrDefault(l => l.Link_Id == catLink.Link_Link_Id);
+                    //if (link != null)
+                    //{
+                    //    var properties = MvcApplication.ContextRepository.Select<Property>()
+                    //        .Where(p=>p.Prop_Link_Id == link.Link_Id);
+                    //    var propView = new List<PropertyView>();
+                    //    foreach (var prop in properties)
+                    //    {
+                    //        propView.Add((PropertyView)MvcApplication
+                    //            .Mapper.Map(prop,typeof(Property),typeof(PropertyView)));
+                    //    }
+                    //    catView.Properties.Add((LinkView)MvcApplication
+                    //            .Mapper.Map(link, typeof(Link), typeof(LinkView)), propView);
+                    //}
                 }
                 return catView;
             }
@@ -244,16 +244,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             {//todo check if we not use some of old links
                 foreach (var item in model.Properties)
                 {
-                    //todo check saving for boolean state
-                    //MvcApplication.ContextRepository.Insert<Link>((Link)MvcApplication
-                    //            .Mapper.Map(item.Key, typeof(LinkView), typeof(Link)), true);
-                    foreach (var property in item.Value)
-                    {
-                        property.Link_Id = item.Key.Id;
-                        //todo check saving for boolean state
-                        //MvcApplication.ContextRepository
-                        //    .Insert<Property>(property, true);
-                    }
+                    //todo check saving for boolean state       
                 }
             }
             MvcApplication.ContextRepository.Insert<Category>((Category)
@@ -293,6 +284,8 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                .FirstOrDefault(c => c.Cat_Id == id);
             if (category != null)
             {
+                RemoveChildCategory(category);
+
                 var parCat = MvcApplication.ContextRepository.Select<Category>()
                     .FirstOrDefault(c => c.Cat_Id == category.Cat_Parent_Cat_Id);
                 if (parCat != null)
@@ -303,6 +296,37 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                 MvcApplication.ContextRepository.Delete<Category>(category,true);
             }
                                                
+        }
+
+        /// <summary>
+        /// Remove child Categories for current Category, using before remove this Category
+        /// </summary>
+        /// <param name="category">Current category with need to clear all child's</param>
+        private void RemoveChildCategory(Category category)
+        {
+            if(category.Cat_HasChild)
+            {
+                var childCat = MvcApplication.ContextRepository.Select<Category>()
+                    .Where(c => c.Cat_Parent_Cat_Id == category.Cat_Id);
+                foreach (var child in childCat)
+                {
+                    RemoveChildCategory(child);
+                }
+            }
+            else
+            {
+                RemoveAllProducts(category.Cat_Id);
+            }
+            MvcApplication.ContextRepository.Delete<Category>(category, true);
+        }
+
+        /// <summary>
+        /// Move all Products from current Category into Default with Id -1
+        /// </summary>
+        /// <param name="cat_Id">Id of current category</param>
+        private void RemoveAllProducts(long cat_Id)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
