@@ -23,7 +23,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         {
             if (name == null ||
                 name.Length == 0)
-                return DefParentId;
+                return Convert.ToInt64(Res.DefaultParentCategoryId);
             try
             {
                 return MvcApplication.ContextRepository.Select<Category>()
@@ -31,7 +31,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             }
             catch(Exception)
             {
-                return DefParentId;
+                return Convert.ToInt64(Res.DefaultParentCategoryId);
             }
         }
 
@@ -59,7 +59,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             {
                 if (category.ParentName != null)
                     return category.ParentName;
-                else if (category.ParentId != CategoryManager.DefParentId)
+                else if (category.ParentId != Convert.ToInt64(Res.DefaultParentCategoryId))
                     return GetNameFromId(category.ParentId);
             }
             return null;
@@ -72,7 +72,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <returns>Name of parent Category</returns>
         public string GetNameFromId(long id)
         {
-            if(id == DefParentId)
+            if(id == Convert.ToInt64(Res.DefaultParentCategoryId))
             {
                 return null;
             }
@@ -99,7 +99,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             if(category != null)
             {
                 res.Add(category.Cat_Name, category.Cat_Id);
-                if (category.Cat_Parent_Cat_Id != DefParentId)
+                if (category.Cat_Parent_Cat_Id != Convert.ToInt64(Res.DefaultParentCategoryId))
                 {
                     var parCategory = MvcApplication.ContextRepository.Select<Category>().FirstOrDefault(c => c.Cat_Id == category.Cat_Parent_Cat_Id);
                     if (parCategory != null)
@@ -139,10 +139,10 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             if (category != null)
             {
                 if (category.ParentId != 0 ||
-                    category.ParentId != DefParentId)
+                    category.ParentId != Convert.ToInt64(Res.DefaultParentCategoryId))
                     return category.ParentId;
             }
-            return DefParentId;
+            return Convert.ToInt64(Res.DefaultParentCategoryId);
         }
 
         /// <summary>
@@ -194,8 +194,8 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                     .Where(cl => cl.Category_Cat_Id == dbCategory.Cat_Id);
                 var catView = (CategoryView)MvcApplication.Mapper.Map(dbCategory,
                         typeof(Category), typeof(CategoryView));
-                foreach (var catLink in catLinks)
-                {
+                //foreach (var catLink in catLinks)
+                //{
                     //todo it
                     //var link = MvcApplication.ContextRepository.Select<Link>()
                     //           .FirstOrDefault(l => l.Link_Id == catLink.Link_Link_Id);
@@ -212,7 +212,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                     //    catView.Properties.Add((LinkView)MvcApplication
                     //            .Mapper.Map(link, typeof(Link), typeof(LinkView)), propView);
                     //}
-                }
+                //}
                 return catView;
             }
             else
@@ -253,13 +253,18 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         }
 
         /// <summary>
+        /// Same value as Res.DefaultParentCategoryId need to be used in Controller as argument
+        /// </summary>
+        public const long DefaultParentCategoryId = -1;
+
+        /// <summary>
         /// Return current level using for it parent Id
         /// </summary>
         /// <param name="parentId">parent id for searching current level</param>
         /// <returns>current level</returns>
         public byte GetCurrentLevelFromParentId(long parentId)
         {
-            if (parentId == DefParentId)
+            if (parentId == Convert.ToInt64(Res.DefaultParentCategoryId))
                 return 1;
             var parCategory = MvcApplication.ContextRepository.Select<Category>().
                 FirstOrDefault(c => c.Cat_Id == parentId);
@@ -267,19 +272,14 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                 return 1;
             else
                 return parCategory.Cat_Level++;
-        }
-
-        /// <summary>
-        /// This will use when we want to get all categories from Level 1
-        /// </summary>
-        public const int DefParentId = -1;
+        }                                   
 
         /// <summary>
         /// Remove Category from DB searching this Category by his Id
         /// </summary>
         /// <param name="id">Id for Category with we want delete</param>
         public void RemoveCategoryById(long id)
-        {                                       
+        {
             var category = MvcApplication.ContextRepository.Select<Category>()
                .FirstOrDefault(c => c.Cat_Id == id);
             if (category != null)
@@ -292,10 +292,8 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                 {
                     parCat.Cat_HasChild = false;
                     MvcApplication.ContextRepository.Update<Category>(parCat, false);
-                }
-                MvcApplication.ContextRepository.Delete<Category>(category,true);
+                }                                                                     
             }
-                                               
         }
 
         /// <summary>
@@ -308,7 +306,8 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             {
                 var childCat = MvcApplication.ContextRepository.Select<Category>()
                     .Where(c => c.Cat_Parent_Cat_Id == category.Cat_Id);
-                foreach (var child in childCat)
+                if(childCat != null)
+                foreach (var child in childCat.ToList())
                 {
                     RemoveChildCategory(child);
                 }
@@ -321,21 +320,32 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         }
 
         /// <summary>
-        /// Move all Products from current Category into Default with Id -1
+        /// Move all Products from current Category into Default with Id -2
         /// </summary>
         /// <param name="cat_Id">Id of current category</param>
         private void RemoveAllProducts(long cat_Id)
         {
-            throw new NotImplementedException();
+            var products = MvcApplication.ContextRepository.Select<Product>()
+                .Where(p => p.Pr_Cat_Id == cat_Id).ToList();
+            if (products.Count != 0)
+            {
+                foreach (var product in products)
+                {
+                    product.Pr_Cat_Id = Convert.ToInt64(Res.DefaultCategoryForProductsId);
+                    product.Category = MvcApplication.ContextRepository.Select<Category>()
+                        .FirstOrDefault(c => c.Cat_Id == Convert.ToInt64(Res.DefaultCategoryForProductsId));
+                    MvcApplication.ContextRepository.Update<Product>(product, false);
+                }
+                MvcApplication.ContextRepository.Save();
+            }
         }
-
         /// <summary>
         /// Return all categories from DB
         /// </summary>
         public List<CategoryView> GetAllCategories(long parentId)
         {
             var resViewCat = new List<CategoryView>();//collection witch will be return
-            if (parentId == DefParentId)
+            if (parentId == Convert.ToInt64(Res.DefaultParentCategoryId))
             {
                 var allCatForLevel = MvcApplication.ContextRepository.Select<Category>()
                     .Where(c=>c.Cat_Level==1);//all cateogires from DB for 1 level

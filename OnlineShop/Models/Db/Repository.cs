@@ -25,8 +25,7 @@ namespace OnlineShop.Models.Db
         {
             Context.Entry(item).State = System.Data.Entity.EntityState.Deleted;
             if (saveNow)
-                Context.SaveChanges();
-
+                Save();
             return item;
         }
 
@@ -46,10 +45,10 @@ namespace OnlineShop.Models.Db
         {
             Context.Entry(item).State = System.Data.Entity.EntityState.Added;
             if (saveNow)
-                Context.SaveChanges();
+                Save();
 
             return item;
-        }
+        }                           
 
         /// <summary>
         /// Save changes immediately
@@ -57,7 +56,15 @@ namespace OnlineShop.Models.Db
         /// <returns></returns>
         public int Save()
         {
-            return Context.SaveChanges();
+            try
+            {
+
+                return Context.SaveChanges();
+            }
+            catch (Exception ex)
+            {                                 
+                    throw;   
+            }
         }
 
         /// <summary>
@@ -81,7 +88,7 @@ namespace OnlineShop.Models.Db
         {
             Context.Entry(item).State = System.Data.Entity.EntityState.Modified;
             if (saveNow)
-                Context.SaveChanges();
+                Save();
 
             return item;
         }

@@ -38,9 +38,7 @@ namespace OnlineShop.Models.Db.Tables
 
         public Product()
 		{
-			Images = new HashSet<Image>();
-			Description = new Description();
-            Category = new Category();
+			Images = new HashSet<Image>();    
             Carts = new HashSet<Cart>();
             Links = new HashSet<Link>();
             Properties = new HashSet<Property>();

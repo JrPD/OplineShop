@@ -31,7 +31,6 @@ namespace OnlineShop.Models.Db.Tables
 		{
 			Products = new HashSet<Product>();
 			Links = new HashSet<Link>();
-            Image = new Image();
 		}
 	}
 }

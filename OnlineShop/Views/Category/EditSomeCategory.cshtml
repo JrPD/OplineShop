@@ -1,18 +1,18 @@
 ﻿@model OnlineShop.Models.ManageShopModels.Views.CategoryView
 
 @{
-    ViewBag.Title = "Додати нову категорію";
+    ViewBag.Title = "Редагування категорії";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>AddNewCategory</h2>
+<p><h2>Редагувати категорію</h2></p>
 
-@using (Html.BeginForm("AddNewCategory","ManageShop",FormMethod.Post, new { enctype = "multipart/form-data", @data_ajax = "false" }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Створення категорії</h4>
+        <h4>Редагування</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.HasSubCategories)
@@ -20,7 +20,7 @@
         @Html.HiddenFor(model => model.ImagePath)
         @Html.HiddenFor(model => model.ParentName)
         @Html.HiddenFor(model => model.ParentId)
-      
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -29,22 +29,33 @@
             </div>
         </div>
 
-     
         <div class="form-group">
-            @Html.LabelFor(model => model.ImgFile, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" id="ImgFile" name="ImgFile" />
+                <input type="file" id="ImgFile" name="ImgFile"  />
             </div>
         </div>
-       
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Створити" class="btn btn-default" />
+                <input type="submit" value="Оновити" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action(
+                                "RemoveSomeCategory",
+                                "Category",
+                                new RouteValueDictionary(
+                                    new {
+                                        id = Model.Id
+                                    }), "http")" class="btn btn-primary" role="button">
+                    Видалити
+                </a>
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Назад до списку", "Index")
+    @Html.ActionLink("Назад до списку", "Index","ManageShop")
 </div>
