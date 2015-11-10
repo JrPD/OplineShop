@@ -11,7 +11,9 @@ namespace OnlineShop.Models.Db.Tables
 	{
 		public long Cat_Id { get; set; }
 
-		public byte Cat_Level { get; set; }
+		public long? Cat_Img_Id { get; set; }
+
+        public byte Cat_Level { get; set; }
 
 		public long Cat_Parent_Cat_Id { get; set; }
 
@@ -29,6 +31,7 @@ namespace OnlineShop.Models.Db.Tables
 		{
 			Products = new HashSet<Product>();
 			Links = new HashSet<Link>();
+            Image = new Image();
 		}
 	}
 }

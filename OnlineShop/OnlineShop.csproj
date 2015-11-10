@@ -145,9 +145,6 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\packages\NLog.4.2.0\lib\net45\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
@@ -268,6 +265,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageShopController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -287,6 +285,7 @@
     <Compile Include="Models\DataBaseDTO.cs" />
     <Compile Include="Models\Db\Map\ImageMap.cs" />
     <Compile Include="Models\Db\Map\LinkMap.cs" />
+    <Compile Include="Models\Db\Tables\LinkCategories.cs" />
     <Compile Include="Models\Db\Tables\Link.cs" />
     <Compile Include="Models\Db\Tables\Property.cs" />
     <Compile Include="Models\Email.cs" />
@@ -310,8 +309,11 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageShopModels\Managers\CategoryManager.cs" />
     <Compile Include="Models\ManageShopModels\Managers\ProductManager.cs" />
+    <Compile Include="Models\ManageShopModels\Managers\PropertyManager.cs" />
     <Compile Include="Models\ManageShopModels\Views\CategoryView.cs" />
+    <Compile Include="Models\ManageShopModels\Views\LinkView.cs" />
     <Compile Include="Models\ManageShopModels\Views\ProductView.cs" />
+    <Compile Include="Models\ManageShopModels\Views\PropertyView.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Res.Designer.cs">
@@ -353,7 +355,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="ClassDiagram1.cd" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -438,6 +439,9 @@
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\RolesAdmin\Delete.cshtml" />
     <Content Include="Views\RolesAdmin\Details.cshtml" />
+    <Content Include="Views\Property\Index.cshtml" />
+    <Content Include="Views\Property\Properties.cshtml" />
+    <Content Include="Views\Property\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

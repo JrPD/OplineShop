@@ -79,6 +79,15 @@ namespace OnlineShop {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categories/.
+        /// </summary>
+        public static string CategoryImagesDirectory {
+            get {
+                return ResourceManager.GetString("CategoryImagesDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Батьківська категорія НЕ найдена!!!.
         /// </summary>
         public static string CatView_NameNotFound {
@@ -106,7 +115,15 @@ namespace OnlineShop {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не коректне значення для {0} =&gt; {1}.
+        ///   Looks up a localized string similar to ~/Images/.
+        /// </summary>
+        public static string ImagesDirectory {
+            get {
+                return ResourceManager.GetString("ImagesDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>        ///   Looks up a localized string similar to Не коректне значення для {0} =&gt; {1}.
         /// </summary>
         public static string IncorrectInput {
             get {
@@ -129,6 +146,15 @@ namespace OnlineShop {
         public static string NameCantBeNull {
             get {
                 return ResourceManager.GetString("NameCantBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Products/.
+        /// </summary>
+        public static string ProductImagesDirectory {
+            get {
+                return ResourceManager.GetString("ProductImagesDirectory", resourceCulture);
             }
         }
         

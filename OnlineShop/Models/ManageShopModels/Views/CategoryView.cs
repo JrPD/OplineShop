@@ -18,21 +18,23 @@ namespace OnlineShop.Models.ManageShopModels.Views
         public string ParentName { get; set; }
         public long ParentId { get; set; }
         [Display(Name = "Зображення категорії")]
+        public HttpPostedFileBase ImgFile { get; set; }
         public string ImagePath { get; set; }
+        public long? ImageId { get; set; }
         public bool HasSubCategories { get; set; }
         public long Id { get; set; }
+        public List<LinkView> Properties { get; set; }
 
 
         public const byte MinLevel = 1;
         public const byte MaxLevel = 3;
-        public const byte MaxNameLength = 200;      
+        public const byte MaxNameLength = 200;
 
-        //CustomContract.Requires(value != null && value.Length != 0,
-        //            string.Format(Res.IncorrectInput, "ImagePath", value));
-        //        var file = new FileInfo(HttpContext.Current.Server.MapPath(value));
-        //CustomContract.Requires(file.Exists,
-        //            string.Format(Res.IncorrectInput, "Path to file", value));
-        //        imagePath = value;
+
+        public CategoryView()
+        {
+            Properties = new List<LinkView>();
+        }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
