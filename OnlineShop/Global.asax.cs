@@ -5,7 +5,6 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using OnlineShop.Models.Db;
 using System.Web;
-using OnlineShop.App_Start;
 using OnlineShop.Mappers;
 
 namespace OnlineShop
@@ -15,9 +14,11 @@ namespace OnlineShop
 	public class MvcApplication : System.Web.HttpApplication
 	{
 		private static CommonMapper mapper;
+		private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
 		protected void Application_Start()
 		{
+			logger.Info("Application Start");
 			AreaRegistration.RegisterAllAreas();
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);

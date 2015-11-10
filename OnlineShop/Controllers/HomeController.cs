@@ -17,9 +17,9 @@ namespace OnlineShop.Controllers
         }
 		public ActionResult Index()
 		{
-			List<Category> category = MvcApplication.ContextRepository.Select<Category>().Where(c => c.Cat_Level == 1).ToList();
+			//List<Category> category = MvcApplication.ContextRepository.Select<Category>().Where(c => c.Cat_Level == 1).ToList();
 
-			return View(category);
+			return View();
 		}
         public ActionResult Browse(long id, int? page) //Browse categories and products 
         {

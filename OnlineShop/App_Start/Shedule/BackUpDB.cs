@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Linq;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Script.Serialization;
-using System.Web.UI.WebControls;
 using NDesk.Options;
 using OnlineShop.Models;
-namespace OnlineShop.App_Start
+
+namespace OnlineShop.Shedule
 {
 	public static class BackUpDb
 	{
@@ -29,13 +22,16 @@ namespace OnlineShop.App_Start
 		{
 			DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
 			TimeSpan diff = date - origin;
-			return (long)Math.Floor(diff.TotalSeconds);
+			return (long) Math.Floor(diff.TotalSeconds);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		private static void Init()
 		{
-			_defaultDownloadsPath = "C:\\Users\\John\\BackUp";
-			//_defaultDownloadsPath =  Directory.GetCurrentDirectory()+"\\"+ Res.BackUpPath;
+			//_defaultDownloadsPath = "C:\\Users\\John\\BackUp";
+			_defaultDownloadsPath = Directory.GetCurrentDirectory() + "\\" + Res.BackUpPath;
 			if (!Directory.Exists(_defaultDownloadsPath))
 				Directory.CreateDirectory(_defaultDownloadsPath);
 			_downloadsPath = _defaultDownloadsPath;
@@ -45,16 +41,16 @@ namespace OnlineShop.App_Start
 		{
 			var p = new OptionSet()
 			{
-				
+
 			};
 			p.Add("apiKey", _apiKey, v => _apiKey = v);
 			p.Add("db=", _dbName, v => _dbName = v);
 			p.Add("path=", _downloadsPath, v => _downloadsPath = v);
 			p.Add("help", _showHelp.ToString(), v => _showHelp = v != null);
-				//{"apiKey=", v => _apiKey},
-				//{"db=",  v => _dbName = v},
-				//{"path=",  v => _downloadsPath = v},
-				//{"help", v => _showHelp = v != null},
+			//{"apiKey=", v => _apiKey},
+			//{"db=",  v => _dbName = v},
+			//{"path=",  v => _downloadsPath = v},
+			//{"help", v => _showHelp = v != null},
 			try
 			{
 				//p.Parse();
@@ -120,17 +116,31 @@ namespace OnlineShop.App_Start
 			if (!ParseInput())
 				return;
 
-			//if (showHelp)
-			//{
-			//	ShowHelp();
-			//	return;
-			//}
-
 			if (!ExecBackup())
 			{
 				Console.WriteLine("Aborting...");
+				return;
 			}
-			//else
+			DeleteOldBackUps();
+		}
+
+		private static void DeleteOldBackUps()
+		{
+			var today = DateTime.Today.Date;
+			var last = today.AddDays(-30);
+
+			var oldFiles = Directory.GetFiles(_downloadsPath)
+				.Where(x => new FileInfo(x).CreationTime.Date < last);
+
+			foreach (string file in oldFiles)
+			{
+				File.Delete(file);
+			}
+		}
+	}
+}
+
+//else
 			//{
 			//	Console.WriteLine("Backup successfully downloaded.");
 			//	Task delData = DeleteDb();
@@ -138,8 +148,6 @@ namespace OnlineShop.App_Start
 
 			//	Task createData = CreateDb();
 			//	Task.WaitAll(createData);
-			//}
-		}
 
 		//private static void ShowHelp()
 		//{
@@ -190,5 +198,3 @@ namespace OnlineShop.App_Start
 		//		}
 		//	}
 		//}
-	}
-}

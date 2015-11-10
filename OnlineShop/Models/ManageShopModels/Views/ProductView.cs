@@ -20,23 +20,12 @@ namespace OnlineShop.Models.ManageShopModels
 		private List<Image> images;
 		private string name;
 		private double price;
-		private int count;
 		
 		/// <summary>
 		/// Count of some Product
 		/// </summary>
 		
-		public int Count
-		{
-			get
-			{
-				return count;
-			}
-			set
-			{
-				count = value;
-			}
-		}
+		public int Count { get; set; }
 
 		/// <summary>
 		/// Price of our Product

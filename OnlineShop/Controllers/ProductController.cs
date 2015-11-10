@@ -37,7 +37,8 @@ namespace OnlineShop.Controllers
 		[HttpGet]
 		public ActionResult Create()
 		{
-			ViewBag.CategoriesID = new SelectList(MvcApplication.ContextRepository.Select<Category>().Where(c=>c.Cat_Level==1), "Cat_id", "Cat_Name");
+			ViewBag.CategoriesID = new SelectList(MvcApplication.ContextRepository.Select<Category>()
+				.Where(c=>c.Cat_Level==1), "Cat_id", "Cat_Name");
 
 				
 			ViewBag.SubCatID = ViewBag.CategoriesID;
@@ -49,13 +50,20 @@ namespace OnlineShop.Controllers
 		[HttpPost]
 		public ActionResult Create(ProductView product)
 		{
-			//ViewBag.CategoriesID = new SelectList(MvcApplication.ContextRepository.Select<Category>().Where(c=>c.Cat_Level==1), "Cat_id", "Cat_Name");
+			//ViewBag.CategoriesID = new SelectList(MvcApplication.ContextRepository.Select<Category>()
+			//.Where(c=>c.Cat_Level==1), "Cat_id", "Cat_Name");
 
+
+			// todo перевірка на нулл
+			// todo винести операції в менеджер
 			try
 			{
-				Category cat = MvcApplication.ContextRepository.Select<Category>().FirstOrDefault(c => c.Cat_Id == product.PrCatId);
+				Category cat = MvcApplication.ContextRepository.Select<Category>()
+					.FirstOrDefault(c => c.Cat_Id == product.PrCatId);
 				product.Category = cat;
-				var mapProduct = (Product) MvcApplication.Mapper.Map(product, typeof(ProductView), typeof(Product));
+
+				var mapProduct = (Product) MvcApplication.Mapper
+					.Map(product, typeof(ProductView), typeof(Product));
 				MvcApplication.ContextRepository.Insert<Product>(mapProduct, true);
 
 				return RedirectToAction("Index");
@@ -110,14 +118,17 @@ namespace OnlineShop.Controllers
 			}
 		}
 
-		public ActionResult GetSubCategories(int? option)
+		public ActionResult GetSubCategories(long? option)
 		{
 			//if (String.IsNullOrEmpty(Cat_Id))
 			//{
 			//	throw new ArgumentNullException("countryId");
 			//}
-			int id = 0;
-			var subCats = MvcApplication.ContextRepository.Select<Category>().Where(c => c.Cat_Parent_Cat_Id == option);
+
+			var subCats = MvcApplication.ContextRepository.Select<Category>()
+				.Where(c => c.Cat_Parent_Cat_Id == option);
+
+			// todo WFT???
 			var result = (from c in subCats
 						  select new
 						  {
