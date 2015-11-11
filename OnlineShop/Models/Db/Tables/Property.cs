@@ -17,7 +17,6 @@ namespace OnlineShop.Models.Db.Tables
         public Property()
         {
             Products = new HashSet<Product>();
-            Link = new Link();
         }
     }
 }

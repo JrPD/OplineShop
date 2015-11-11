@@ -108,14 +108,18 @@ namespace OnlineShop.Mappers
         /// <param name="model">category with needed to get image details</param>
         public void MapImageForCategory(ref CategoryView model)
         {
-            if (model.ImageId != CategoryManager.DefParentId)
+            if (model.ImageId != null && model.ImageId.Value != 0)
             {
-                var imgId = model.ImageId;
+                var imgId = model.ImageId.Value;
                 var img = MvcApplication.ContextRepository.Select<Image>()
                     .FirstOrDefault(i => i.Img_Id == imgId);
                 if (img != null)
                 {
                     model.ImagePath = img.Img_Path;
+                }
+                else
+                {
+                    model.ImageId = null;
                 }
             }
         }

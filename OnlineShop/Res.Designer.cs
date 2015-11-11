@@ -97,6 +97,24 @@ namespace OnlineShop {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -2.
+        /// </summary>
+        public static string DefaultCategoryForProductsId {
+            get {
+                return ResourceManager.GetString("DefaultCategoryForProductsId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -1.
+        /// </summary>
+        public static string DefaultParentCategoryId {
+            get {
+                return ResourceManager.GetString("DefaultParentCategoryId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The &apos;{0}&apos; option must be provided..
         /// </summary>
         public static string Exception_OptionMustBeProvided {
@@ -115,7 +133,7 @@ namespace OnlineShop {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ~/Images/.
+        ///   Looks up a localized string similar to Images/.
         /// </summary>
         public static string ImagesDirectory {
             get {
@@ -123,7 +141,8 @@ namespace OnlineShop {
             }
         }
         
-        /// <summary>        ///   Looks up a localized string similar to Не коректне значення для {0} =&gt; {1}.
+        /// <summary>
+        ///   Looks up a localized string similar to Не коректне значення для {0} =&gt; {1}.
         /// </summary>
         public static string IncorrectInput {
             get {
@@ -191,6 +210,15 @@ namespace OnlineShop {
         public static string Roles_User {
             get {
                 return ResourceManager.GetString("Roles_User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ~/.
+        /// </summary>
+        public static string RootPath {
+            get {
+                return ResourceManager.GetString("RootPath", resourceCulture);
             }
         }
     }

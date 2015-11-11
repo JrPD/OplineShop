@@ -261,6 +261,7 @@
     <Compile Include="App_Start\VkLogin\VkAuthenticationMiddleware.cs" />
     <Compile Include="App_Start\VkLogin\VkAuthenticationOptions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageShopController.cs" />
@@ -315,7 +316,6 @@
     <Compile Include="Models\ManageShopModels\Views\ProductView.cs" />
     <Compile Include="Models\ManageShopModels\Views\PropertyView.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="NLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Res.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -356,6 +356,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\onlineshop - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\onlineshop - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -423,23 +426,23 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\ManageShop\EditCategories.cshtml" />
-    <Content Include="Views\ManageShop\EditProducts.cshtml" />
+    <Content Include="Views\Category\EditCategories.cshtml" />
     <Content Include="Views\ManageShop\Index.cshtml" />
     <Content Include="Views\Home\Browse.cshtml" />
     <Content Include="Views\Home\BrowseProducts.cshtml" />
     <Content Include="Views\Home\TestMenu.cshtml" />
-    <Content Include="Views\ManageShop\EditSomeCategory.cshtml" />
-    <Content Include="Views\ManageShop\AddNewCategory.cshtml" />
+    <Content Include="Views\Category\EditSomeCategory.cshtml" />
+    <Content Include="Views\Category\AddNewCategory.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
-    <Content Include="Views\ManageShop\GetPath.cshtml" />
+    <Content Include="Views\Category\GetPath.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\RolesAdmin\Delete.cshtml" />
     <Content Include="Views\RolesAdmin\Details.cshtml" />
     <Content Include="Views\Property\Index.cshtml" />
     <Content Include="Views\Property\Properties.cshtml" />
-    <Content Include="Views\Property\Create.cshtml" />
+    <Content Include="Views\Property\CreateLink.cshtml" />
+    <Content Include="Views\Property\CreateProperty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

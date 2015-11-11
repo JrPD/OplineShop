@@ -4,7 +4,7 @@
 }
 <h2>Список властивостей з групи @ViewBag.LinkName</h2>
 <p>
-    @Html.ActionLink("Створити нову властивість", "Create")
+    @Html.ActionLink("Створити нову властивість", "CreateProperty",new { linkName = ViewBag.LinkName })
 </p>
 <table class="table">
     <tr>
@@ -21,8 +21,11 @@
             </td>
             <td>
                 @Html.ActionLink("Редагувати", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Видалити", "Delete", new { /* id=item.PrimaryKey */ }) 
+                @Html.ActionLink("Видалити", "DeleteProperty", new { prop_id = item.Id }) 
             </td>
         </tr>
     }
 </table>
+<div>
+    @Html.ActionLink("Назад до списку", "Index")
+</div>

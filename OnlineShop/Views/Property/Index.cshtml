@@ -5,7 +5,7 @@
 }
 <h2>@ViewBag.Title</h2>
 <p>
-    @Html.ActionLink("Створити нову групу властивостей", "Create")
+    @Html.ActionLink("Створити нову групу властивостей", "CreateLink")
 </p>
 <table class="table">
     <tr>
@@ -22,7 +22,7 @@
             </td>
             <td>
                 @Html.ActionLink("Редагувати", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Видалити", "Delete", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Видалити", "DeleteLink", new { link_id = item.Id }) |
                 @Html.ActionLink("Властивості", "Properties", new { link_id = item.Id})
             </td>
         </tr>
