@@ -48,7 +48,8 @@ namespace OnlineShop.Controllers
                          + Res.CategoryImagesDirectory
                          + Guid.NewGuid().ToString()
                          + model.ImgFile.FileName;
-                    model.ImgFile.SaveAs(Server.MapPath(model.ImagePath));
+                    model.ImgFile.SaveAs(Server.MapPath(Res.RootPath + model.ImagePath));
+                    catManager.SaveNewImage(model);
                 }
                 catManager.UpdateCategory(model);
                 return RedirectToAction("EditCategories", new RouteValueDictionary(
@@ -76,7 +77,7 @@ namespace OnlineShop.Controllers
                         + Res.CategoryImagesDirectory
                         + Guid.NewGuid().ToString()
                         + model.ImgFile.FileName;
-                    model.ImgFile.SaveAs(Server.MapPath(model.ImagePath));
+                    model.ImgFile.SaveAs(Server.MapPath(Res.RootPath + model.ImagePath));
                     catManager.SaveNewImage(model);
                 }
                 catManager.SaveNewCategory(model);
@@ -111,7 +112,6 @@ namespace OnlineShop.Controllers
                 return null;
         }
 
-        [HttpGet]
         public ActionResult EditCategories(long parentId = CategoryManager.DefaultParentCategoryId)
         {
             ViewBag.ParentName = catManager.GetNameFromId(parentId);

@@ -133,7 +133,7 @@ namespace OnlineShop {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ~/Images/.
+        ///   Looks up a localized string similar to Images/.
         /// </summary>
         public static string ImagesDirectory {
             get {
@@ -210,6 +210,15 @@ namespace OnlineShop {
         public static string Roles_User {
             get {
                 return ResourceManager.GetString("Roles_User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ~/.
+        /// </summary>
+        public static string RootPath {
+            get {
+                return ResourceManager.GetString("RootPath", resourceCulture);
             }
         }
     }

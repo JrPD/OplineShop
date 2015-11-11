@@ -172,8 +172,16 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             //todo save links
             if (model.ImagePath != null && model.ImagePath.Length != 0 && model.ImageId == null)
             {//TODO need to fix replacing of picture
-                model.ImageId = MvcApplication.ContextRepository.Select<Image>()
-                    .FirstOrDefault(i => i.Img_Path == model.ImagePath).Img_Id;
+                var img =  MvcApplication.ContextRepository.Select<Image>()
+                    .FirstOrDefault(i => i.Img_Path == model.ImagePath);
+                if (img != null)
+                {
+                    model.ImageId = img.Img_Id;
+                }
+                else
+                {
+                    model.ImageId = null;
+                }
             }
             MvcApplication.ContextRepository.Update<Category>((Category)
                     MvcApplication.Mapper.Map(model, typeof(CategoryView), typeof(Category)), true);
@@ -354,6 +362,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                     var viewCat = (CategoryView)MvcApplication.Mapper.Map(dbCategory,
                         typeof(Category), typeof(CategoryView));
                     viewCat.ParentName = string.Empty;
+                    MvcApplication.Mapper.MapImageForCategory(ref viewCat);
                     resViewCat.Add(viewCat);
                 }
             }
@@ -376,10 +385,11 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                         //todo тут повинен бути якийсь логер або ще щось щоб потім знати про такий баг бо при норм даних сюди не попаде, по ідеї
                         viewCat.ParentName = string.Empty;
                     }
+                    MvcApplication.Mapper.MapImageForCategory(ref viewCat);
                     resViewCat.Add(viewCat);
                 }
             }
             return resViewCat;
-        }
+        }        
     }
 }

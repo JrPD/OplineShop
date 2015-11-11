@@ -136,7 +136,7 @@
     <value>An ICertificateValidator cannot be specified at the same time as an HttpMessageHandler unless it is a WebRequestHandler.</value>
   </data>
   <data name="ImagesDirectory" xml:space="preserve">
-    <value>~/Images/</value>
+    <value>Images/</value>
   </data>
   <data name="IncorrectInput" xml:space="preserve">
     <value>Не коректне значення для {0} =&gt; {1}</value>
@@ -167,5 +167,8 @@
   </data>
   <data name="DefaultParentCategoryId" xml:space="preserve">
     <value>-1</value>
+  </data>
+  <data name="RootPath" xml:space="preserve">
+    <value>~/</value>
   </data>
 </root>
