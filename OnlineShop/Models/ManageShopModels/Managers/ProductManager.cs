@@ -15,16 +15,16 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 		/// <param name="product"></param>
 		public static void SaveNewProduct(Product product)
 		{
-			MvcApplication.ContextRepository.Insert<Product>(product, true);
+			App.Rep.Insert<Product>(product, true);
 		}
 
 		public static ProductView GetProductById(int id)
 		{
-			var dbProduct = MvcApplication.ContextRepository.Select<Product>()
+			var dbProduct = App.Rep.Select<Product>()
 			  .FirstOrDefault(p => p.Pr_Id == id);
 			if (dbProduct != null)
 			{
-				var catView = (ProductView) MvcApplication.Mapper.Map(dbProduct,
+				var catView = (ProductView) App.Mapper.Map(dbProduct,
 					typeof (Product), typeof (ProductView));
 
 				return catView;
@@ -37,13 +37,13 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 
 		public static ProductView MapToProductView(Product product)
 		{
-			return (ProductView)MvcApplication.Mapper.Map(product,
+			return (ProductView)App.Mapper.Map(product,
 				   typeof(Product), typeof(ProductView));
 		}
 
 		public static Product MapToProduct(ProductView product)
 		{
-			return (Product)MvcApplication.Mapper.Map(product,
+			return (Product)App.Mapper.Map(product,
 				   typeof(ProductView), typeof(Product));
 		}
 
@@ -51,7 +51,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 		{
 			try
 			{
-				MvcApplication.ContextRepository.Update<Product>(product, true);
+				App.Rep.Update<Product>(product, true);
 				return true;
 			}
 			catch (Exception)
@@ -62,31 +62,31 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 
 		public  static Category GetParentCategory(Category current)
 		{
-			return MvcApplication.ContextRepository.Select<Category>()
+			return App.Rep.Select<Category>()
 				.FirstOrDefault(c => current != null && c.Cat_Id == current.Cat_Parent_Cat_Id);
 		}
 
 		public static IEnumerable<Category> GetListOfCategotiesWithSameRootAsParent(Category current)
 		{
-			return MvcApplication.ContextRepository.Select<Category>()
+			return App.Rep.Select<Category>()
 				.Where(c => current != null && c.Cat_Parent_Cat_Id == current.Cat_Parent_Cat_Id);
 		}
 
 		public static IEnumerable<Category> GetRootCategories()
 		{
-			return MvcApplication.ContextRepository
+			return App.Rep
 				.Select<Category>().Where(c => c.Cat_Level == 1);
 		}
 
 		public static Category GetCategoryByProductId(long id)
 		{
-			return MvcApplication.ContextRepository
+			return App.Rep
 				.Select<Category>().FirstOrDefault(c => c.Cat_Id == id);
 		}
 
 		public static IEnumerable<Category> GetCategoriesByLevel(Category parent)
 		{
-			return MvcApplication.ContextRepository.Select<Category>()
+			return App.Rep.Select<Category>()
 				.Where(c => parent != null && c.Cat_Level == parent.Cat_Level);
 		}
 	}

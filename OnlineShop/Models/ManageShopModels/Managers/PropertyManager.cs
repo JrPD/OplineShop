@@ -18,11 +18,11 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         public List<LinkView> GetAllLinksProperties()
         {
             List<LinkView> resListLinkView = new List<LinkView>();//collection 
-            List<Link> linksProperties = MvcApplication.ContextRepository.Select<Link>().ToList();
+            List<Link> linksProperties = App.Rep.Select<Link>().ToList();
 
             foreach (var linkProperties in linksProperties)//mapping
             {
-                var viewLink = (LinkView)MvcApplication.Mapper.Map(linkProperties,
+                var viewLink = (LinkView)App.Mapper.Map(linkProperties,
                    typeof(Link), typeof(LinkView));
                 resListLinkView.Add(viewLink);
             }
@@ -34,8 +34,8 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <param name="link">link which will be added</param>
         public void AddNewLink(LinkView link)
         {
-             var mapLink = (Link)MvcApplication.Mapper.Map(link, typeof(LinkView), typeof(Link));
-             MvcApplication.ContextRepository.Insert<Link>(mapLink, true);
+             var mapLink = (Link)App.Mapper.Map(link, typeof(LinkView), typeof(Link));
+             App.Rep.Insert<Link>(mapLink, true);
         }
 
         /// <summary>
@@ -45,11 +45,11 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         public List<PropertyView> GetProperties(long link_Id)
         {
             List<PropertyView> resListPropertiesView = new List<PropertyView>();
-            List<Property> properties = MvcApplication.ContextRepository.Select<Property>()
+            List<Property> properties = App.Rep.Select<Property>()
                 .Where(p => p.Prop_Link_Id == link_Id).ToList();
             foreach (var property in properties)//mapping
             {
-                var viewProperty = (PropertyView)MvcApplication.Mapper.Map(property,
+                var viewProperty = (PropertyView)App.Mapper.Map(property,
                    typeof(Property), typeof(PropertyView));
                 resListPropertiesView.Add(viewProperty);
             }
@@ -61,7 +61,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <param name="link_Id">Id of current link</param>
         public string GetLinkName(long link_Id)
         {
-            string linkName = MvcApplication.ContextRepository.Select<Link>()
+            string linkName = App.Rep.Select<Link>()
                 .FirstOrDefault(l => l.Link_Id == link_Id).Link_Name;
             return linkName;
         }
@@ -71,7 +71,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <param name="link_Id">Name of current link</param>
         public long GetLinkId(string linkName)
         {
-            long link_id = MvcApplication.ContextRepository
+            long link_id = App.Rep
                 .Select<Link>().FirstOrDefault(l => l.Link_Name == linkName).Link_Id;
             return link_id;
         }
@@ -81,7 +81,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <param name="link_Id">Id of property which contained in this link</param>
         public long GetLinkId(long prop_id)
         {
-            long link_id = MvcApplication.ContextRepository.Select<Property>().FirstOrDefault(p => p.Prop_Id == prop_id).Prop_Link_Id;
+            long link_id = App.Rep.Select<Property>().FirstOrDefault(p => p.Prop_Id == prop_id).Prop_Link_Id;
             return link_id;
         }
         /// <summary>
@@ -103,11 +103,11 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <param name="link_Id">Id of current link</param>
         public void RemoveLink (long link_Id)
         {
-            Link link = MvcApplication.ContextRepository.Select<Link>()
+            Link link = App.Rep.Select<Link>()
                .FirstOrDefault(l => l.Link_Id == link_Id);
             if(link != null)
             {
-                MvcApplication.ContextRepository.Delete<Link>(link, true);
+                App.Rep.Delete<Link>(link, true);
             }
         }
 
@@ -118,8 +118,8 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <param name="property">Property which will be added</param>
         public void AddNewProperty(PropertyView property)
         {
-            var mapProperty = (Property)MvcApplication.Mapper.Map(property, typeof(PropertyView), typeof(Property));
-            MvcApplication.ContextRepository.Insert<Property>(mapProperty, true);
+            var mapProperty = (Property)App.Mapper.Map(property, typeof(PropertyView), typeof(Property));
+            App.Rep.Insert<Property>(mapProperty, true);
         }
         /// <summary>
         /// Remove current Property
@@ -127,11 +127,11 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <param name="prop_id">Id of current link</param>
         public void RemoveProperty(long prop_id)
         {
-            Property property = MvcApplication.ContextRepository.Select<Property>()
+            Property property = App.Rep.Select<Property>()
                .FirstOrDefault(p => p.Prop_Id == prop_id);
             if (property != null)
             {
-                MvcApplication.ContextRepository.Delete<Property>(property, true);
+                App.Rep.Delete<Property>(property, true);
             }
         }
     }

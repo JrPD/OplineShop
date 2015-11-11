@@ -26,7 +26,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                 return Convert.ToInt64(Res.DefaultParentCategoryId);
             try
             {
-                return MvcApplication.ContextRepository.Select<Category>()
+                return App.Rep.Select<Category>()
                     .FirstOrDefault(c => c.Cat_Name == name).Cat_Id;
             }
             catch(Exception)
@@ -42,7 +42,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <returns>Is next is level last</returns>
         public bool IsNextLastLevel(long parentId)
         {
-            var category = MvcApplication.ContextRepository.Select<Category>().FirstOrDefault(c => c.Cat_Id == parentId);
+            var category = App.Rep.Select<Category>().FirstOrDefault(c => c.Cat_Id == parentId);
             if (category != null && category.Cat_Level + 1 == CategoryView.MaxLevel)
                 return true;
             return false;
@@ -78,7 +78,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             }
             else
             {
-               var category = MvcApplication.ContextRepository.Select<Category>()
+               var category = App.Rep.Select<Category>()
                     .FirstOrDefault(c => c.Cat_Id == id);
                 if (category != null)
                     return category.Cat_Name;
@@ -95,13 +95,13 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         public Dictionary<string,long> GetAllParentCategories(string parentName)
         {
             var res = new Dictionary<string, long>();
-            var category = MvcApplication.ContextRepository.Select<Category>().FirstOrDefault(c => c.Cat_Name == parentName);
+            var category = App.Rep.Select<Category>().FirstOrDefault(c => c.Cat_Name == parentName);
             if(category != null)
             {
                 res.Add(category.Cat_Name, category.Cat_Id);
                 if (category.Cat_Parent_Cat_Id != Convert.ToInt64(Res.DefaultParentCategoryId))
                 {
-                    var parCategory = MvcApplication.ContextRepository.Select<Category>().FirstOrDefault(c => c.Cat_Id == category.Cat_Parent_Cat_Id);
+                    var parCategory = App.Rep.Select<Category>().FirstOrDefault(c => c.Cat_Id == category.Cat_Parent_Cat_Id);
                     if (parCategory != null)
                     {
                         var tmpRes = GetAllParentCategories(parCategory.Cat_Name);
@@ -122,8 +122,8 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         {
             if (model.ImgFile != null && model.ImgFile.ContentLength > 0)
             {
-                MvcApplication.ContextRepository.Insert<Image>
-                    ((Image)MvcApplication.Mapper.Map(model, 
+                App.Rep.Insert<Image>
+                    ((Image)App.Mapper.Map(model, 
                         typeof(CategoryView), typeof(Image)),true);
             }
         }
@@ -172,7 +172,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             //todo save links
             if (model.ImagePath != null && model.ImagePath.Length != 0 && model.ImageId == null)
             {//TODO need to fix replacing of picture
-                var img =  MvcApplication.ContextRepository.Select<Image>()
+                var img =  App.Rep.Select<Image>()
                     .FirstOrDefault(i => i.Img_Path == model.ImagePath);
                 if (img != null)
                 {
@@ -183,8 +183,8 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                     model.ImageId = null;
                 }
             }
-            MvcApplication.ContextRepository.Update<Category>((Category)
-                    MvcApplication.Mapper.Map(model, typeof(CategoryView), typeof(Category)), true);
+            App.Rep.Update<Category>((Category)
+                    App.Mapper.Map(model, typeof(CategoryView), typeof(Category)), true);
         }
 
         /// <summary>
@@ -194,13 +194,13 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <returns></returns>
         public CategoryView GetCategoryById(long catId)
         {
-            var dbCategory = MvcApplication.ContextRepository.Select<Category>()
+            var dbCategory = App.Rep.Select<Category>()
                 .FirstOrDefault(c => c.Cat_Id == catId);
             if (dbCategory != null && dbCategory.Cat_Id > 0)
             {
-                var catLinks = MvcApplication.ContextRepository.Select<LinkCategories>()
+                var catLinks = App.Rep.Select<LinkCategories>()
                     .Where(cl => cl.Category_Cat_Id == dbCategory.Cat_Id);
-                var catView = (CategoryView)MvcApplication.Mapper.Map(dbCategory,
+                var catView = (CategoryView)App.Mapper.Map(dbCategory,
                         typeof(Category), typeof(CategoryView));
                 //foreach (var catLink in catLinks)
                 //{
@@ -234,18 +234,18 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <param name="model">Category with will be saved</param>
         public void SaveNewCategory(CategoryView model)
         {
-            var parCat = MvcApplication.ContextRepository.Select<Category>()
+            var parCat = App.Rep.Select<Category>()
                 .FirstOrDefault(c => c.Cat_Id == model.ParentId);
             if(parCat != null)
             {
                 parCat.Cat_HasChild = true;
-                MvcApplication.ContextRepository.Update<Category>(parCat, false);
+                App.Rep.Update<Category>(parCat, false);
                 model.Level = parCat.Cat_Level;
                 model.Level++;
             }
             if(model.ImagePath != null && model.ImagePath.Length != 0 && model.ImageId == null)
             {
-                model.ImageId = MvcApplication.ContextRepository.Select<Image>()
+                model.ImageId = App.Rep.Select<Image>()
                     .FirstOrDefault(i => i.Img_Path == model.ImagePath).Img_Id;
             }
             if (model.Properties != null && model.Properties.Count > 0)
@@ -255,8 +255,8 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                     //todo check saving for boolean state       
                 }
             }
-            MvcApplication.ContextRepository.Insert<Category>((Category)
-                  MvcApplication.Mapper.Map(model,
+            App.Rep.Insert<Category>((Category)
+                  App.Mapper.Map(model,
                   typeof(CategoryView), typeof(Category)), true);
         }
 
@@ -274,7 +274,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         {
             if (parentId == Convert.ToInt64(Res.DefaultParentCategoryId))
                 return 1;
-            var parCategory = MvcApplication.ContextRepository.Select<Category>().
+            var parCategory = App.Rep.Select<Category>().
                 FirstOrDefault(c => c.Cat_Id == parentId);
             if (parCategory == null)
                 return 1;
@@ -288,18 +288,18 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <param name="id">Id for Category with we want delete</param>
         public void RemoveCategoryById(long id)
         {
-            var category = MvcApplication.ContextRepository.Select<Category>()
+            var category = App.Rep.Select<Category>()
                .FirstOrDefault(c => c.Cat_Id == id);
             if (category != null)
             {
                 RemoveChildCategory(category);
 
-                var parCat = MvcApplication.ContextRepository.Select<Category>()
+                var parCat = App.Rep.Select<Category>()
                     .FirstOrDefault(c => c.Cat_Id == category.Cat_Parent_Cat_Id);
                 if (parCat != null)
                 {
                     parCat.Cat_HasChild = false;
-                    MvcApplication.ContextRepository.Update<Category>(parCat, false);
+                    App.Rep.Update<Category>(parCat, false);
                 }                                                                     
             }
         }
@@ -312,7 +312,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         {
             if(category.Cat_HasChild)
             {
-                var childCat = MvcApplication.ContextRepository.Select<Category>()
+                var childCat = App.Rep.Select<Category>()
                     .Where(c => c.Cat_Parent_Cat_Id == category.Cat_Id);
                 if(childCat != null)
                 foreach (var child in childCat.ToList())
@@ -324,7 +324,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             {
                 RemoveAllProducts(category.Cat_Id);
             }
-            MvcApplication.ContextRepository.Delete<Category>(category, true);
+            App.Rep.Delete<Category>(category, true);
         }
 
         /// <summary>
@@ -333,18 +333,18 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <param name="cat_Id">Id of current category</param>
         private void RemoveAllProducts(long cat_Id)
         {
-            var products = MvcApplication.ContextRepository.Select<Product>()
+            var products = App.Rep.Select<Product>()
                 .Where(p => p.Pr_Cat_Id == cat_Id).ToList();
             if (products.Count != 0)
             {
                 foreach (var product in products)
                 {
                     product.Pr_Cat_Id = Convert.ToInt64(Res.DefaultCategoryForProductsId);
-                    product.Category = MvcApplication.ContextRepository.Select<Category>()
+                    product.Category = App.Rep.Select<Category>()
                         .FirstOrDefault(c => c.Cat_Id == Convert.ToInt64(Res.DefaultCategoryForProductsId));
-                    MvcApplication.ContextRepository.Update<Product>(product, false);
+                    App.Rep.Update<Product>(product, false);
                 }
-                MvcApplication.ContextRepository.Save();
+                App.Rep.Save();
             }
         }
         /// <summary>
@@ -355,28 +355,28 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             var resViewCat = new List<CategoryView>();//collection witch will be return
             if (parentId == Convert.ToInt64(Res.DefaultParentCategoryId))
             {
-                var allCatForLevel = MvcApplication.ContextRepository.Select<Category>()
+                var allCatForLevel = App.Rep.Select<Category>()
                     .Where(c=>c.Cat_Level==1);//all cateogires from DB for 1 level
                 foreach (var dbCategory in allCatForLevel)//mapping
                 {
-                    var viewCat = (CategoryView)MvcApplication.Mapper.Map(dbCategory,
+                    var viewCat = (CategoryView)App.Mapper.Map(dbCategory,
                         typeof(Category), typeof(CategoryView));
                     viewCat.ParentName = string.Empty;
-                    MvcApplication.Mapper.MapImageForCategory(ref viewCat);
+                    App.Mapper.MapImageForCategory(ref viewCat);
                     resViewCat.Add(viewCat);
                 }
             }
             else
             {
-                var allCatForParentId = MvcApplication.ContextRepository.Select<Category>()
+                var allCatForParentId = App.Rep.Select<Category>()
                     .Where(c=>c.Cat_Parent_Cat_Id == parentId);//all child categories for parentId with was choose by use
                 foreach (var category in allCatForParentId)//mapping
                 {
-                    var viewCat = (CategoryView)MvcApplication.Mapper.Map(category,
+                    var viewCat = (CategoryView)App.Mapper.Map(category,
                        typeof(Category), typeof(CategoryView));
                     try
                     {
-                        viewCat.ParentName = MvcApplication.ContextRepository.
+                        viewCat.ParentName = App.Rep.
                              Select<Category>().FirstOrDefault(c => c.Cat_Id ==
                                   Convert.ToInt64(viewCat.ParentName)).Cat_Name;
                     }
@@ -385,7 +385,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                         //todo тут повинен бути якийсь логер або ще щось щоб потім знати про такий баг бо при норм даних сюди не попаде, по ідеї
                         viewCat.ParentName = string.Empty;
                     }
-                    MvcApplication.Mapper.MapImageForCategory(ref viewCat);
+                    App.Mapper.MapImageForCategory(ref viewCat);
                     resViewCat.Add(viewCat);
                 }
             }

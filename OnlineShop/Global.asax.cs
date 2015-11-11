@@ -10,7 +10,7 @@ namespace OnlineShop
 {
 	// Note: For instructions on enabling IIS7 classic mode, 
 	// visit http://go.microsoft.com/?LinkId=301868
-	public class MvcApplication : System.Web.HttpApplication
+	public class App : System.Web.HttpApplication
 	{
 		private static CommonMapper _mapper;
 		//private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
@@ -35,7 +35,7 @@ namespace OnlineShop
 			}
 		}
 
-		public static ContextRepository ContextRepository
+		public static ContextRepository Rep
 		{
 			get
 			{

@@ -53,7 +53,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
                     yield return new ValidationResult(
                         string.Format(Res.IncorrectInput, "parent id", ParentId));
                 }
-                else if (!MvcApplication.ContextRepository.Select<Category>()
+				else if (!App.Rep.Select<Category>()
                         .Any(c => c.Cat_Id == ParentId))
                 {
                     yield return new ValidationResult(
@@ -62,7 +62,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
             }
             else if (ParentName != null && ParentName.Length != 0)
             {
-                var category = MvcApplication.ContextRepository.Select<Category>()
+				var category = App.Rep.Select<Category>()
                     .FirstOrDefault(c => c.Cat_Name == ParentName);
                 if (category == null)
                 {

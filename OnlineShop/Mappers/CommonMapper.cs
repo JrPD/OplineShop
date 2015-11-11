@@ -123,7 +123,7 @@ namespace OnlineShop.Mappers
 			if (model.ImageId != null && model.ImageId.Value != 0)
 			{
 				var imgId = model.ImageId.Value;
-				var img = MvcApplication.ContextRepository.Select<Image>()
+				var img = App.Rep.Select<Image>()
 					.FirstOrDefault(i => i.Img_Id == imgId);
 				if (img != null)
 				{

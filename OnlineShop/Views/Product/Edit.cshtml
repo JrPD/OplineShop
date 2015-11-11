@@ -1,0 +1,123 @@
+﻿@model OnlineShop.Models.ManageShopModels.Views.ProductView
+
+@{
+	ViewBag.Title = "Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+	
+	<div class="form-horizontal">
+		<h4>ProductView</h4>
+		<hr />
+		@Html.ValidationSummary(false, "", new { @class = "text-danger " })
+	   
+
+		@Html.HiddenFor(model => model.Id)
+
+
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
+				@Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.IsAvailable, htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				<div class="checkbox">
+					@Html.EditorFor(model => model.IsAvailable, new { htmlAttributes = new { @style = "margin-left: 0px;" } })
+					@Html.ValidationMessageFor(model => model.IsAvailable, "", new {@class = "text-danger"})
+				</div>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.CatId,  htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				<div class="checkbox" style="padding-left: 0px">
+					@Html.DropDownList("PrRootCatID", (SelectList)ViewBag.CategoriesL1, "Виберіть кореневу категорію", new { @onchange = "getSubCategories(this, PrSubCatID)", @class = "form-control" })
+					@*@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })*@
+
+					@Html.DropDownList("PrSubCatID", (SelectList)ViewBag.CategoriesL2, "Виберіть підкатегорію", new { @id = "PrSubCatID",  @onchange = "getSubCategories(this, CatId)", @class = "form-control" })
+					@Html.DropDownListFor(model => model.CatId, (SelectList)ViewBag.CategoriesL3, "Поточна категорія", new { @class = "form-control" })
+					@Html.ValidationMessageFor(model => model.CatId, "Поле категорія є обов'яковим", new { @class = "text-danger" })
+
+				
+				</div>
+			</div>
+		</div>
+		
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Save" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+}
+
+<div>
+	@Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+<script type="text/javascript">
+	// set default value to dropdown list
+	document.onreadystatechange=function(){
+		a = document.getElementById("PrRootCatID");
+		//a.selectedIndex = 2;
+		//getSubCategories(a, "PrSubCatID");
+	};
+	function getSubCategories(option, destination) {
+		var selectedItem = $(option).val();
+		var subCats = $(destination);
+			var statesProgress = $("#subcat-loading-progress");
+			statesProgress.show();
+			$.ajax({
+				cache: false,
+				type: "GET",
+				url: "@(Url.RouteUrl("GetSubCatsId"))",
+				data: { option: selectedItem },
+				success: function (data) {
+					subCats.html('');
+					$.each(data, function (id, option) {
+						subCats.append($('<option></option>').val(option.id).html(option.name));
+					});
+					//statesProgress.hide();
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert('Failed to retrieve sub categories.');
+					//statesProgress.hide();
+				}
+		});
+	};
+
+</script>

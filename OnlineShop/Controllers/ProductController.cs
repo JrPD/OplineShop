@@ -16,7 +16,7 @@ namespace OnlineShop.Controllers
 		public ActionResult Index()
 		{
 			var resProductView = new List<ProductView>();//collection 
-			List<Product> products = MvcApplication.ContextRepository.Select<Product>().ToList();
+			List<Product> products = App.Rep.Select<Product>().ToList();
 
 			// no need to convert to linq expression to simgle debug
 			foreach (var product in products)//mapping
@@ -36,7 +36,7 @@ namespace OnlineShop.Controllers
 		[HttpGet]
 		public ActionResult Create()
 		{
-			ViewBag.CategoriesID = new SelectList(MvcApplication.ContextRepository.Select<Category>()
+			ViewBag.CategoriesID = new SelectList(App.Rep.Select<Category>()
 				.Where(c=>c.Cat_Level==1), "Cat_id", "Cat_Name");
 
 			ViewBag.SubCatID = ViewBag.CategoriesID;
@@ -54,7 +54,7 @@ namespace OnlineShop.Controllers
 
 			try
 			{
-				Category cat = MvcApplication.ContextRepository.Select<Category>()
+				Category cat = App.Rep.Select<Category>()
 					.FirstOrDefault(c => c.Cat_Id == product.CatId);
 				product.Category = cat;
 				
@@ -72,7 +72,7 @@ namespace OnlineShop.Controllers
 		[HttpGet]
 		public ActionResult Edit(int id)
 		{
-			Product product = MvcApplication.ContextRepository.
+			Product product = App.Rep.
 				Select<Product>().FirstOrDefault(p => p.Pr_Id==id);
 
 			SetSelectedValues(product);
@@ -152,7 +152,7 @@ namespace OnlineShop.Controllers
 
 			try
 			{
-				Category cat = MvcApplication.ContextRepository.Select<Category>()
+				Category cat = App.Rep.Select<Category>()
 					.FirstOrDefault(c => c.Cat_Id == product.CatId);
 				product.Category = cat;
 
@@ -195,7 +195,7 @@ namespace OnlineShop.Controllers
 		// get child categories by category id
 		public ActionResult GetSubCategories(long? option)
 		{
-			var subCats = MvcApplication.ContextRepository.Select<Category>()
+			var subCats = App.Rep.Select<Category>()
 				.Where(c => c.Cat_Parent_Cat_Id == option);
 
 			// todo WFT???
