@@ -28,7 +28,10 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             }
             return resListLinkView;
         }
-
+        /// <summary>
+        /// Add new link to DB
+        /// </summary>
+        /// <param name="link">link which will be added</param>
         public void AddNewLink(LinkView link)
         {
              var mapLink = (Link)MvcApplication.Mapper.Map(link, typeof(LinkView), typeof(Link));
@@ -61,6 +64,75 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             string linkName = MvcApplication.ContextRepository.Select<Link>()
                 .FirstOrDefault(l => l.Link_Id == link_Id).Link_Name;
             return linkName;
+        }
+        /// <summary>
+        /// Retur id of current Link
+        /// </summary>
+        /// <param name="link_Id">Name of current link</param>
+        public long GetLinkId(string linkName)
+        {
+            long link_id = MvcApplication.ContextRepository
+                .Select<Link>().FirstOrDefault(l => l.Link_Name == linkName).Link_Id;
+            return link_id;
+        }
+        /// <summary>
+        /// Retur id of current Link
+        /// </summary>
+        /// <param name="link_Id">Id of property which contained in this link</param>
+        public long GetLinkId(long prop_id)
+        {
+            long link_id = MvcApplication.ContextRepository.Select<Property>().FirstOrDefault(p => p.Prop_Id == prop_id).Prop_Link_Id;
+            return link_id;
+        }
+        /// <summary>
+        /// Prepare new model for creating category view
+        /// </summary>
+        /// <param name="parentName">Parent Name of Category in what we want to create new</param>
+        /// <returns>CategoryView model prepared for enter all needed data</returns>
+        public PropertyView CreateNewPropertyModel(long link_id)
+        {
+            var model = new PropertyView()
+            {
+                Link_Id = link_id
+            };
+            return model;
+        }
+        /// <summary>
+        /// Remove current link
+        /// </summary>
+        /// <param name="link_Id">Id of current link</param>
+        public void RemoveLink (long link_Id)
+        {
+            Link link = MvcApplication.ContextRepository.Select<Link>()
+               .FirstOrDefault(l => l.Link_Id == link_Id);
+            if(link != null)
+            {
+                MvcApplication.ContextRepository.Delete<Link>(link, true);
+            }
+        }
+
+
+        /// <summary>
+        /// Add new property to DB
+        /// </summary>
+        /// <param name="property">Property which will be added</param>
+        public void AddNewProperty(PropertyView property)
+        {
+            var mapProperty = (Property)MvcApplication.Mapper.Map(property, typeof(PropertyView), typeof(Property));
+            MvcApplication.ContextRepository.Insert<Property>(mapProperty, true);
+        }
+        /// <summary>
+        /// Remove current Property
+        /// </summary>
+        /// <param name="prop_id">Id of current link</param>
+        public void RemoveProperty(long prop_id)
+        {
+            Property property = MvcApplication.ContextRepository.Select<Property>()
+               .FirstOrDefault(p => p.Prop_Id == prop_id);
+            if (property != null)
+            {
+                MvcApplication.ContextRepository.Delete<Property>(property, true);
+            }
         }
     }
 }

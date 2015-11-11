@@ -441,7 +441,8 @@
     <Content Include="Views\RolesAdmin\Details.cshtml" />
     <Content Include="Views\Property\Index.cshtml" />
     <Content Include="Views\Property\Properties.cshtml" />
-    <Content Include="Views\Property\Create.cshtml" />
+    <Content Include="Views\Property\CreateLink.cshtml" />
+    <Content Include="Views\Property\CreateProperty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
