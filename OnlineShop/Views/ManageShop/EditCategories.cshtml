@@ -27,23 +27,23 @@
 						<h2>@item.Name</h2>
 						<p>
 							<a href="@Url.Action(
-    "EditSomeCategory",
-    "ManageShop",
-    new RouteValueDictionary(
-        new
-        {
-			id = item.Id
-        }), "http")"  class="btn btn-primary" role="button">
+								              "EditSomeCategory",
+								              "ManageShop",
+								              new RouteValueDictionary(
+									              new
+									              {
+										              id = item.Id
+									              }), "http")" class="btn btn-primary" role="button">
 								Редагувати
 							</a>
 							<a href="@Url.Action(
-    "RemoveSomeCategory",
-    "ManageShop",
-    new RouteValueDictionary(
-        new
-        {
-            id = item.Id
-        }))" class="btn btn-default" role="button">Видалити</a>
+								         "RemoveSomeCategory",
+								         "ManageShop",
+								         new RouteValueDictionary(
+									         new
+									         {
+										         id = item.Id
+									         }))" class="btn btn-default" role="button">Видалити</a>
 						</p>
 					</div>
 				</div>
@@ -54,16 +54,18 @@
 	{
 		foreach (var item in Model)
 		{
+
 			<div class="col-sm-6 col-md-4">
+				
 				<div class="thumbnail">
-					<button type="button" onclick="location.href='@Url.Action(
-                "EditCategories",
-                "ManageShop",
-                new RouteValueDictionary(
-                    new
-                    {
-                        parentId = item.Id
-    }))'">
+					<button type="button" onclick="location.href = '@Url.Action(
+						                                                "EditCategories",
+						                                                "ManageShop",
+						                                                new RouteValueDictionary(
+							                                                new
+							                                                {
+								                                                parentId = item.Id
+							                                                }))'">
 						<img src="http://www.nyctransitforums.com/forums/fcontent/default.png" alt="Category">
 					</button>
 					@*//todo тут повинен бути потім норм зображння*@
@@ -71,23 +73,23 @@
 						<h2>@item.Name</h2>
 						<p>
 							<a href="@Url.Action(
-                "EditSomeCategory",
-                "ManageShop",
-                new RouteValueDictionary(
-                    new
-                    {
-                        id = item.Id
-                    }), "http")" class="btn btn-primary" role="button">
+								              "EditSomeCategory",
+								              "ManageShop",
+								              new RouteValueDictionary(
+									              new
+									              {
+										              id = item.Id
+									              }), "http")" class="btn btn-primary" role="button">
 								Редагувати
 							</a>
 							<a href="@Url.Action(
-                "RemoveSomeCategory",
-                "ManageShop",
-                new RouteValueDictionary(
-                    new
-                    {
-                        id = item.Id
-                    }))" class="btn btn-default" role="button">Видалити</a>
+								         "RemoveSomeCategory",
+								         "ManageShop",
+								         new RouteValueDictionary(
+									         new
+									         {
+										         id = item.Id
+									         }))" class="btn btn-default" role="button">Видалити</a>
 						</p>
 					</div>
 				</div>
@@ -97,13 +99,13 @@
 	<div class="col-sm-6 col-md-4">
 		<div class="thumbnail">
 			<button type="button" onclick="location.href='@Url.Action(
-        "AddNewCategory",
-        "ManageShop",
-        new RouteValueDictionary(
-            new
-            {
-                parentName = ViewBag.ParentName
-            }))'">
+		"AddNewCategory",
+		"ManageShop",
+		new RouteValueDictionary(
+			new
+			{
+				parentName = ViewBag.ParentName
+			}))'">
 				<img alt="New" title="New" src="http://programme.uk.solarenergyevents.com/images/made/images/remote/http_uk.solarenergyevents.com/assets/images/energy-plus-icon_300_300.png">
 			</button>
 		</div>

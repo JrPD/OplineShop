@@ -1,5 +1,4 @@
-﻿using OnlineShop.Models;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -13,17 +12,15 @@ namespace OnlineShop
 	// visit http://go.microsoft.com/?LinkId=301868
 	public class MvcApplication : System.Web.HttpApplication
 	{
-		private static CommonMapper mapper;
-		private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+		private static CommonMapper _mapper;
 
 		protected void Application_Start()
 		{
-			logger.Info("Application Start");
 			AreaRegistration.RegisterAllAreas();
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Database.SetInitializer<AppContext>(null);//new DbInitializer());     //do no use it now with "real" remote DB
+			Database.SetInitializer<AppContext>(null);//new DbInitializer());     //do no use it now with "real" remote DB
 			JobScheduler.Start();
 		}
 
@@ -31,9 +28,9 @@ namespace OnlineShop
 		{
 			get
 			{
-				if (mapper == null)
-					mapper = new CommonMapper();
-				return mapper;
+				if (_mapper == null)
+					_mapper = new CommonMapper();
+				return _mapper;
 			}
 		}
 

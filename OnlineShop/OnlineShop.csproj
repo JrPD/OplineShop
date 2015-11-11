@@ -315,6 +315,7 @@
     <Compile Include="Models\ManageShopModels\Views\ProductView.cs" />
     <Compile Include="Models\ManageShopModels\Views\PropertyView.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="NLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Res.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -355,9 +356,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <None Include="job_scheduling_data_2_0.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Properties\PublishProfiles\onlineshop - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\onlineshop - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
