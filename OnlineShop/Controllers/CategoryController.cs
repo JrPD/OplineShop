@@ -12,24 +12,16 @@ namespace OnlineShop.Controllers
     public class CategoryController : Controller
     {
 
-        private CategoryManager catManager;
-
-        public CategoryController()
-        {
-            catManager = new CategoryManager();
-        }
-
-
         [HttpGet]
         public ActionResult EditSomeCategory(long id = CategoryManager.DefaultParentCategoryId)
         {
-            ViewBag.ParentName = catManager.GetParentName(id);
+            ViewBag.ParentName = CategoryManager.GetParentName(id);
             SetParentCookie(ViewBag.ParentName);
             if (id == Convert.ToInt64(Res.DefaultParentCategoryId))
                 return AddNewCategory(ViewBag.ParentName);
             try
             {
-                return View(catManager.GetCategoryById(id));
+                return View(CategoryManager.GetCategoryById(id));
             }
             catch (Exception)
             {
@@ -49,9 +41,9 @@ namespace OnlineShop.Controllers
                          + Guid.NewGuid().ToString()
                          + model.ImgFile.FileName;
                     model.ImgFile.SaveAs(Server.MapPath(Res.RootPath + model.ImagePath));
-                    catManager.SaveNewImage(model);
+                    CategoryManager.SaveNewImage(model);
                 }
-                catManager.UpdateCategory(model);
+                CategoryManager.UpdateCategory(model);
                 return RedirectToAction("EditCategories", new RouteValueDictionary(
                     new { parentId = model.ParentId }));
             }
@@ -63,7 +55,7 @@ namespace OnlineShop.Controllers
         {
             ViewBag.ParentName = parentName;
             SetParentCookie(ViewBag.ParentName);
-            return View(catManager.CreateNewModel(parentName));
+            return View(CategoryManager.CreateNewModel(parentName));
         }
 
         [HttpPost]
@@ -78,9 +70,9 @@ namespace OnlineShop.Controllers
                         + Guid.NewGuid().ToString()
                         + model.ImgFile.FileName;
                     model.ImgFile.SaveAs(Server.MapPath(Res.RootPath + model.ImagePath));
-                    catManager.SaveNewImage(model);
+                    CategoryManager.SaveNewImage(model);
                 }
-                catManager.SaveNewCategory(model);
+                CategoryManager.SaveNewCategory(model);
                 return RedirectToAction("EditCategories", new RouteValueDictionary(
                     new { parentId = model.ParentId }));
             }
@@ -90,14 +82,14 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public ActionResult RemoveSomeCategory(long id = CategoryManager.DefaultParentCategoryId)
         {
-            var parId = catManager.GetParentId(id);
+            var parId = CategoryManager.GetParentId(id);
             if (id == Convert.ToInt64(Res.DefaultParentCategoryId))
             {
                 //todo log it
                 return RedirectToAction("EditCategories", new RouteValueDictionary(
                     new { parentId = parId }));
             }
-            catManager.RemoveCategoryById(id);
+            CategoryManager.RemoveCategoryById(id);
             return RedirectToAction("EditCategories", new RouteValueDictionary(
                 new { parentId = parId }));
         }
@@ -106,7 +98,7 @@ namespace OnlineShop.Controllers
         public ActionResult GetPath()
         {
             if (this.ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("ParentName"))
-                return PartialView(catManager.GetAllParentCategories(
+                return PartialView(CategoryManager.GetAllParentCategories(
                     this.ControllerContext.HttpContext.Request.Cookies["ParentName"].Value));
             else
                 return null;
@@ -114,10 +106,10 @@ namespace OnlineShop.Controllers
 
         public ActionResult EditCategories(long parentId = CategoryManager.DefaultParentCategoryId)
         {
-            ViewBag.ParentName = catManager.GetNameFromId(parentId);
+            ViewBag.ParentName = CategoryManager.GetNameFromId(parentId);
             SetParentCookie(ViewBag.ParentName);
-            ViewBag.IsLastLevel = catManager.IsNextLastLevel(parentId);
-            return View(catManager.GetAllCategories(parentId));
+            ViewBag.IsLastLevel = CategoryManager.IsNextLastLevel(parentId);
+            return View(CategoryManager.GetAllCategories(parentId));
         }
 
         public void SetParentCookie(string parentName)
