@@ -1,11 +1,11 @@
-﻿@model OnlineShop.Models.ManageShopModels.ProductView
+﻿@model OnlineShop.Models.ManageShopModels.Views.ProductView
 
 @{
 	ViewBag.Title = "Продукт";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>View</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm()) 
@@ -16,6 +16,15 @@
 		<h4>Додати новий продукт</h4>
 		<hr />
 		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
+				@Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+			</div>
+		</div>
+
 		<div class="form-group">
 			@Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
@@ -31,38 +40,33 @@
 				@Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
 			</div>
 		</div>
-
 		<div class="form-group">
-			@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			@Html.LabelFor(model => model.PrCatId, "Product category", htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				<div class="checkbox" style="padding-left: 0px">
-					@Html.DropDownList("PrRootCatID", (SelectList)ViewBag.CategoriesId, "Select category", new { @onchange = "getSubCategories(this, PrSubCatID)", @onclick = "getSubCategories(this, PrSubCatID)", @class = "form-control" })
-					@*@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })*@
-
-					@Html.DropDownList("PrSubCatID", Enumerable.Empty<SelectListItem>(), "Select subcategory", new { @id = "PrSubCatID", @onclick = "getSubCategories(this, PrCatId)", @onchange = "getSubCategories(this, PrCatId)", @class = "form-control" })
-					@*@Html.ValidationMessageFor(model => model.PrSubCatId, "", new { @class = "text-danger" })*@
-					@Html.DropDownListFor(model => model.PrCatId, Enumerable.Empty<SelectListItem>(), "Select subcategory", new { @class = "form-control" })
-
-			
-					</div>
-			</div>
-		</div>
-		<div class="form-group">
-			@Html.LabelFor(model => model.IsAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+			@Html.LabelFor(model => model.IsAvailable, htmlAttributes: new {@class = "control-label col-md-2"})
 			<div class="col-md-10">
 				<div class="checkbox">
-					@Html.EditorFor(model => model.IsAvailable)
-					@Html.ValidationMessageFor(model => model.IsAvailable, "", new { @class = "text-danger" })
+					@Html.EditorFor(model => model.IsAvailable, new {htmlAttributes = new {@style = "margin-left: 0px;"}})
+					@Html.ValidationMessageFor(model => model.IsAvailable, "", new {@class = "text-danger"})
 				</div>
 			</div>
 		</div>
+
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.CatId, "Product category", htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				<div class="checkbox" style="padding-left: 0px">
+					@Html.DropDownList("PrRootCatID", (SelectList) ViewBag.CategoriesId, "Select category", new {@onchange = "getSubCategories(this, PrSubCatID)", @onclick = "getSubCategories(this, PrSubCatID)", @class = "form-control"})
+					@*@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })*@
+
+					@Html.DropDownList("PrSubCatID", Enumerable.Empty<SelectListItem>(), "Select subcategory", new {@id = "PrSubCatID", @onclick = "getSubCategories(this, CatId)", @onchange = "getSubCategories(this, PrCatId)", @class = "form-control"})
+					@*@Html.ValidationMessageFor(model => model.PrSubCatId, "", new { @class = "text-danger" })*@
+					@Html.DropDownListFor(model => model.CatId, Enumerable.Empty<SelectListItem>(), "Select subcategory", new { @class = "form-control" })
+				</div>
+			</div>
+		</div>
+
+
+		
 
 		<div><label id="subcat-loading-progress"></label></div>
 		<div class="form-group">
@@ -74,38 +78,7 @@
 }
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
-<script type="text/javascript">
-	// set default value to dropdown list
-	document.onreadystatechange=function(){
-		a = document.getElementById("PrRootCatID");
-		//a.selectedIndex = 2;
-		//getSubCategories(a, "PrSubCatID");
-	};
-	function getSubCategories(option, destination) {
-		var selectedItem = $(option).val();
-		var subCats = $(destination);
-			var statesProgress = $("#subcat-loading-progress");
-			statesProgress.show();
-			$.ajax({
-				cache: false,
-				type: "GET",
-				url: "@(Url.RouteUrl("GetSubCatsId"))",
-				data: { option: selectedItem },
-				success: function (data) {
-					subCats.html('');
-					$.each(data, function (id, option) {
-						subCats.append($('<option></option>').val(option.id).html(option.name));
-					});
-					//statesProgress.hide();
-				},
-				error: function (xhr, ajaxOptions, thrownError) {
-					alert('Failed to retrieve sub categories.');
-					//statesProgress.hide();
-				}
-		});
-	};
 
-</script>
 
 <div>
 	@Html.ActionLink("Назад до списку", "Index")
@@ -114,3 +87,35 @@
 @section Scripts {
 	@Scripts.Render("~/bundles/jqueryval")
 }
+<script type="text/javascript">
+	// set default value to dropdown list
+	document.onreadystatechange = function () {
+		a = document.getElementById("PrRootCatID");
+		//a.selectedIndex = 2;
+		//getSubCategories(a, "PrSubCatID");
+	};
+	function getSubCategories(option, destination) {
+		var selectedItem = $(option).val();
+		var subCats = $(destination);
+		var statesProgress = $("#subcat-loading-progress");
+		statesProgress.show();
+		$.ajax({
+			cache: false,
+			type: "GET",
+			url: "@(Url.RouteUrl("GetSubCatsId"))",
+			data: { option: selectedItem },
+			success: function (data) {
+				subCats.html('');
+				$.each(data, function (id, option) {
+					subCats.append($('<option></option>').val(option.id).html(option.name));
+				});
+				//statesProgress.hide();
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert('Failed to retrieve sub categories.');
+				//statesProgress.hide();
+			}
+		});
+	};
+
+</script>

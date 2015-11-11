@@ -171,4 +171,7 @@
   <data name="RootPath" xml:space="preserve">
     <value>~/</value>
   </data>
+	<data name="ProductView_Name_of_product" xml:space="preserve">
+    <value>Назва продукту</value>
+  </data>
 </root>

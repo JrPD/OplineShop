@@ -1,10 +1,8 @@
-﻿using OnlineShop.Models.Db.Tables;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web;
+using OnlineShop.Models.Db.Tables;
 
-namespace OnlineShop.Models.ManageShopModels
+namespace OnlineShop.Models.ManageShopModels.Views
 {
 	/// <summary>
 	/// View Model for Product DB Object
@@ -13,102 +11,49 @@ namespace OnlineShop.Models.ManageShopModels
 	{
 		public const byte MaxNameLength = 200;
 
-		public int PrCatId {get;set;}
+		[Display(Name = "Категорія")]
+		public long CatId { get; set; }
 
-		private Category category;
-		private Description description;
-		private List<Image> images;
-		private string name;
-		private double price;
-		
-		/// <summary>
-		/// Count of some Product
-		/// </summary>
-		
+		public long Id { get; set; }
+
+		[Display(Name = "Кількість")]
 		public int Count { get; set; }
 
-		/// <summary>
-		/// Price of our Product
-		/// </summary>
-		public double Price
-		{
-			get
-			{
-				return price;
-			}
-			set
-			{
-				price = value;
-			}
-		}
+		[Required(ErrorMessageResourceType = typeof(Res),
+			ErrorMessageResourceName = "NameCantBeNull")]
+		[Display(Name = "Назва продукту")]
+		public string Name { get; set; }
 
-		/// <summary>
-		/// Product Name
-		/// </summary>
-		public string Name
-		{
-			get
-			{
-				return name;
-			}
-			set
-			{
-				//CustomContract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(value));
-				//CustomContract.Requires<ArgumentOutOfRangeException>
-				//    (value.Length <= 200);
-				name = value;
-			}
-		}
+		[Display(Name = "Ціна")]
+		public double Price { get; set; }
 
-		/// <summary>
-		/// Is this Product available now
-		/// </summary>
+		[Display(Name = "Доступність")]
 		public bool IsAvailable { get; set; }
-		//todo ??? чот мені здаєтся тут повинно бути CategoryView, чи не так йопта?
-		public Category Category
-		{
-			get
-			{
-				return category ?? new Category();
-			}
-			set
-			{
-				category = value;
-			}
-		}
-		
-		public Description Description
-		{//todo ??? може йолки тут таки достати дескрипшон з нашого файла на диску?
-			get { return description ?? null; }
-			set
-			{
-				description = value;
-			}
-		}
 
-		public List<Image> Images
-		{//todo ??? і тут тоже вже фотки а не клас?
-			get
-			{
-				return images ?? new List<Image>();
-			}
-		}
+		[Display(Name = "Категорія")]
+		public Category Category { get; set; }
 
-		public bool AddImage(Image img, bool clearCollection = false)
-		{
-			if (clearCollection)
-				images.Clear();
-			images.Add(img);
-			return true;
-		}
+		[Display(Name = "Зображення категорії")]
+		public HttpPostedFileBase[] ImgFiles { get; set; }
 
-		public bool AddImages(List<Image> img, bool clearCollection = false)
-		{
-			if (clearCollection)
-				images.Clear();
-			images.AddRange(img);
-			return true;
-		}
+		[Display(Name = "Опис продукту")]
+		public Description Description { get; set; }
 
+		//private List<Image> images;
+		//public bool AddImage(Image img, bool clearCollection = false)
+		//{
+		//	if (clearCollection)
+		//		images.Clear();
+		//	images.Add(img);
+		//	return true;
+		//}
+
+		//public bool AddImages(List<Image> img, bool clearCollection = false)
+		//{
+		//	if (clearCollection)
+		//		images.Clear();
+		//	images.AddRange(img);
+		//	return true;
+		//}
 	}
 }

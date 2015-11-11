@@ -178,6 +178,15 @@ namespace OnlineShop {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Назва продукту.
+        /// </summary>
+        public static string ProductView_Name_of_product {
+            get {
+                return ResourceManager.GetString("ProductView_Name_of_product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string Roles_Admin {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OnlineShop.Models.ManageShopModels.ProductView>
+﻿@model IEnumerable<OnlineShop.Models.ManageShopModels.Views.ProductView>
 
 @{
 	ViewBag.Title = "Список продуктів";
@@ -42,9 +42,9 @@
 			@Html.DisplayFor(modelItem => item.IsAvailable)
 		</td>
 		<td>
-			@Html.ActionLink("Редагувати", "Edit", new { /* id=item.PrimaryKey */ }) |
-			@Html.ActionLink("Деталі", "Details", new { /* id=item.PrimaryKey */ }) |
-			@Html.ActionLink("Видалити", "Delete", new { /* id=item.PrimaryKey */ })
+			@Html.ActionLink("Редагувати", "Edit", new {  id=item.Id }) |
+			@Html.ActionLink("Деталі", "Details", new { id = item.Id }) |
+			@Html.ActionLink("Видалити", "Delete", new { id = item.Id })
 		</td>
 	</tr>
 }

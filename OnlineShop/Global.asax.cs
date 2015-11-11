@@ -12,7 +12,7 @@ namespace OnlineShop
 	// visit http://go.microsoft.com/?LinkId=301868
 	public class MvcApplication : System.Web.HttpApplication
 	{
-		private static CommonMapper mapper;
+		private static CommonMapper _mapper;
 		//private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
 		protected void Application_Start()
@@ -21,7 +21,7 @@ namespace OnlineShop
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Database.SetInitializer<AppContext>(null);//new DbInitializer());     //do no use it now with "real" remote DB
+			Database.SetInitializer<AppContext>(null);//new DbInitializer());     //do no use it now with "real" remote DB
 			JobScheduler.Start();
 		}
 

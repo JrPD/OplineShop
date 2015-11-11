@@ -10,13 +10,13 @@ using System.Web.Mvc;
 namespace OnlineShop.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageAccountController : Controller
     {
-        public ManageController()
+        public ManageAccountController()
         {
         }
 
-        public ManageController(ApplicationUserManager userManager)
+        public ManageAccountController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
         }
