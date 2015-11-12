@@ -21,7 +21,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.ActionLink("Редагувати", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Редагувати", "EditLink", new { link_id = item.Id }) |
                 @Html.ActionLink("Видалити", "DeleteLink", new { link_id = item.Id }) |
                 @Html.ActionLink("Властивості", "Properties", new { link_id = item.Id})
             </td>

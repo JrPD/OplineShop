@@ -98,6 +98,18 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             return model;
         }
         /// <summary>
+        /// Get LinkView from current link
+        /// </summary>
+        /// <param name="link_Id">Id of current link</param>
+        public LinkView GetLinkView(long link_Id)
+        {
+            //todo Що робити якщо link null?
+            Link link = App.Rep.Select<Link>().FirstOrDefault(l => l.Link_Id == link_Id);
+            var linkView = (LinkView)App.Mapper.Map(link,
+                        typeof(Link), typeof(LinkView));
+            return linkView;
+        }
+        /// <summary>
         /// Remove current link
         /// </summary>
         /// <param name="link_Id">Id of current link</param>
@@ -110,6 +122,16 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                 App.Rep.Delete<Link>(link, true);
             }
         }
+        /// <summary>
+        /// Edit current link
+        /// </summary>
+        /// <param name="link">Current link</param>
+        public void UpdateLink(LinkView link)
+        {
+            App.Rep.Update<Link>((Link)
+                    App.Mapper.Map(link, typeof(LinkView), typeof(Link)), true);
+        }
+
 
 
         /// <summary>
@@ -133,6 +155,26 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             {
                 App.Rep.Delete<Property>(property, true);
             }
+        }
+        /// <summary>
+        /// Get PropertyView from current property
+        /// </summary>
+        /// <param name="prop_id">Id of current link</param>
+        public PropertyView GetPropertyView(long prop_Id)
+        {
+            Property property = App.Rep.Select<Property>().FirstOrDefault(p => p.Prop_Id == prop_Id);
+            var propertyView = (PropertyView)App.Mapper.Map(property,
+                        typeof(Property), typeof(PropertyView));
+            return propertyView;
+        }
+        /// <summary>
+        /// Edit current property
+        /// </summary>
+        /// <param name="property">Current property</param>
+        public void UpdateProperty(PropertyView property)
+        {
+            App.Rep.Update<Property>((Property)
+                    App.Mapper.Map(property, typeof(PropertyView), typeof(Property)), true);
         }
     }
 }

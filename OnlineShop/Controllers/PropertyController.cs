@@ -54,6 +54,17 @@ namespace OnlineShop.Controllers
             propManager.RemoveLink(link_id);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public ActionResult EditLink(long link_id)
+        {
+            return View(propManager.GetLinkView(link_id));
+        }
+        [HttpPost]
+        public ActionResult EditLink(LinkView link)
+        {
+            propManager.UpdateLink(link);
+            return RedirectToAction("Index");
+        }
 
         [HttpGet]
         public ActionResult CreateProperty(string linkName)
@@ -66,6 +77,18 @@ namespace OnlineShop.Controllers
         public ActionResult CreateProperty(PropertyView property)
         {
             propManager.AddNewProperty(property);
+            return RedirectToAction("Properties", new RouteValueDictionary(
+                new { link_id = property.Link_Id }));
+        }
+        [HttpGet]
+        public ActionResult EditProperty(long prop_id)
+        {
+            return View(propManager.GetPropertyView(prop_id));
+        }
+        [HttpPost]
+        public ActionResult EditProperty(PropertyView property)
+        {
+            propManager.UpdateProperty(property);
             return RedirectToAction("Properties", new RouteValueDictionary(
                 new { link_id = property.Link_Id }));
         }
