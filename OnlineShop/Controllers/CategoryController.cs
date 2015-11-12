@@ -40,7 +40,7 @@ namespace OnlineShop.Controllers
                          + Res.CategoryImagesDirectory
                          + Guid.NewGuid().ToString()
                          + model.ImgFile.FileName;
-                    model.ImgFile.SaveAs(Server.MapPath(Res.RootPath + model.ImagePath));
+                    //model.ImgFile.SaveAs(Server.MapPath(Res.RootPath + model.ImagePath));
                     CategoryManager.SaveNewImage(model);
                 }
                 CategoryManager.UpdateCategory(model);
@@ -65,11 +65,7 @@ namespace OnlineShop.Controllers
             {
                 if (model.ImgFile != null && model.ImgFile.ContentLength > 0)
                 {
-                    model.ImagePath = Res.ImagesDirectory
-                        + Res.CategoryImagesDirectory
-                        + Guid.NewGuid().ToString()
-                        + model.ImgFile.FileName;
-                    model.ImgFile.SaveAs(Server.MapPath(Res.RootPath + model.ImagePath));
+                   
                     CategoryManager.SaveNewImage(model);
                 }
                 CategoryManager.SaveNewCategory(model);

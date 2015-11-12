@@ -221,14 +221,5 @@ namespace OnlineShop {
                 return ResourceManager.GetString("Roles_User", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ~/.
-        /// </summary>
-        public static string RootPath {
-            get {
-                return ResourceManager.GetString("RootPath", resourceCulture);
-            }
-        }
     }
 }

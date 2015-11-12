@@ -5,6 +5,7 @@ using OnlineShop.Models.Db;
 using OnlineShop.Models.Db.Tables;
 using PagedList.Mvc;
 using PagedList;
+using OnlineShop.Models.ImageManager;
 
 namespace OnlineShop.Controllers
 {
@@ -18,7 +19,7 @@ namespace OnlineShop.Controllers
 		public ActionResult Index()
 		{
 			List<Category> category = App.Rep.Select<Category>().Where(c => c.Cat_Level == 1).ToList();
-
+            
 			return View(category);
 		}
         public ActionResult Browse(long id, int? page) //Browse categories and products 

@@ -168,10 +168,7 @@
   <data name="DefaultParentCategoryId" xml:space="preserve">
     <value>-1</value>
   </data>
-  <data name="RootPath" xml:space="preserve">
-    <value>~/</value>
-  </data>
-	<data name="ProductView_Name_of_product" xml:space="preserve">
+  <data name="ProductView_Name_of_product" xml:space="preserve">
     <value>Назва продукту</value>
   </data>
 </root>

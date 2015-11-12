@@ -4,6 +4,7 @@ using OnlineShop.Models.ManageShopModels.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -122,7 +123,25 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 		{
 			if (model.ImgFile != null && model.ImgFile.ContentLength > 0)
 			{
-				App.Rep.Insert<Image>
+                var path = Res.ImagesDirectory
+                       + Res.CategoryImagesDirectory;
+                var fileName = Guid.NewGuid().ToString()
+                       + model.ImgFile.FileName;
+                model.ImagePath = path + fileName;
+
+                byte[] data;
+                using (Stream inputStream = model.ImgFile.InputStream)
+                {
+                    MemoryStream memoryStream = inputStream as MemoryStream;
+                    if (memoryStream == null)
+                    {
+                        memoryStream = new MemoryStream();
+                        inputStream.CopyTo(memoryStream);
+                    }
+                    data = memoryStream.ToArray();
+                }
+                ImageManager.ImageManager.UploadFile(data, fileName, path);
+                App.Rep.Insert<Image>
 					((Image)App.Mapper.Map(model, 
 						typeof(CategoryView), typeof(Image)),true);
 			}
