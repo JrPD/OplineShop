@@ -140,7 +140,13 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                     }
                     data = memoryStream.ToArray();
                 }
-                ImageManager.ImageManager.UploadFile(data, fileName, path);
+                if(!ImageManager.ImageManager.UploadFile(data, fileName, path))
+                {
+                    model.ImagePath = null;
+                    model.ImageId = null;
+                    model.ImgFile = null;
+                    return;
+                }
                 App.Rep.Insert<Image>
 					((Image)App.Mapper.Map(model, 
 						typeof(CategoryView), typeof(Image)),true);
@@ -189,8 +195,8 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 		public static void UpdateCategory(CategoryView model)
 		{
 			//todo save links
-			if (model.ImagePath != null && model.ImagePath.Length != 0 && model.ImageId == null)
-			{//TODO need to fix replacing of picture
+			if (model.ImagePath != null && model.ImagePath.Length != 0)
+			{
 				var img =  App.Rep.Select<Image>()
 					.FirstOrDefault(i => i.Img_Path == model.ImagePath);
 				if (img != null)
@@ -262,7 +268,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 				model.Level = parCat.Cat_Level;
 				model.Level++;
 			}
-			if(model.ImagePath != null && model.ImagePath.Length != 0 && model.ImageId == null)
+			if(model.ImagePath != null && model.ImagePath.Length != 0)
 			{
 				model.ImageId = App.Rep.Select<Image>()
 					.FirstOrDefault(i => i.Img_Path == model.ImagePath).Img_Id;

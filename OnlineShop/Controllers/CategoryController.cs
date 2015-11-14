@@ -1,4 +1,5 @@
-﻿using OnlineShop.Models.ManageShopModels.Managers;
+﻿using OnlineShop.Models.ImageManager;
+using OnlineShop.Models.ManageShopModels.Managers;
 using OnlineShop.Models.ManageShopModels.Views;
 using System;
 using System.Collections.Generic;
@@ -36,11 +37,6 @@ namespace OnlineShop.Controllers
             {
                 if (model.ImgFile != null && model.ImgFile.ContentLength > 0)
                 {
-                    model.ImagePath = Res.ImagesDirectory
-                         + Res.CategoryImagesDirectory
-                         + Guid.NewGuid().ToString()
-                         + model.ImgFile.FileName;
-                    //model.ImgFile.SaveAs(Server.MapPath(Res.RootPath + model.ImagePath));
                     CategoryManager.SaveNewImage(model);
                 }
                 CategoryManager.UpdateCategory(model);
@@ -106,6 +102,11 @@ namespace OnlineShop.Controllers
             SetParentCookie(ViewBag.ParentName);
             ViewBag.IsLastLevel = CategoryManager.IsNextLastLevel(parentId);
             return View(CategoryManager.GetAllCategories(parentId));
+        }
+
+        public ActionResult GetImage(string path)
+        {                              
+            return File(ImageManager.DownloadFile(path), "image/png");
         }
 
         public void SetParentCookie(string parentName)
