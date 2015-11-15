@@ -12,8 +12,7 @@ namespace OnlineShop.Models.ImageManager
         private const string App_key = "b3ihb5o2yp61qeo";
         private const string App_secret = "jg38tvwfxi2n9x4";       
         private const string Token = "uz3ar5zpt2vnnx8x";
-        private const string TokenSecret = "n1rdu5bv3fsz8i6";
-        private const string DefPath = "/OnlineShopGearHost/";
+        private const string TokenSecret = "n1rdu5bv3fsz8i6";       
 
         private static DropNetClient _client = null; 
 
@@ -25,7 +24,7 @@ namespace OnlineShop.Models.ImageManager
 
         public static byte[] DownloadFile(string path)
         {
-            return _client.GetFile(DefPath+path);
+            return _client.GetFile(path);
         }
 
         public static bool UploadFile(byte[] content, string filename, string path)

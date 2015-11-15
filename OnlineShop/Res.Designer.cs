@@ -133,7 +133,7 @@ namespace OnlineShop {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Images/.
+        ///   Looks up a localized string similar to /Images/.
         /// </summary>
         public static string ImagesDirectory {
             get {

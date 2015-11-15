@@ -105,8 +105,16 @@ namespace OnlineShop.Controllers
         }
 
         public ActionResult GetImage(string path)
-        {                              
-            return File(ImageManager.DownloadFile(path), "image/png");
+        {
+            try
+            {
+                return File(ImageManager.DownloadFile(path), "image/png");
+
+            }
+            catch
+                {
+                return null;
+            }                   
         }
 
         public void SetParentCookie(string parentName)
