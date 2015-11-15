@@ -15,6 +15,9 @@ namespace OnlineShop.Models.Db
 		public DbSet<Cart> Carts { get; set; }
 		public DbSet<Image> Images { get; set; }
 		public DbSet<Description> Descriptions { get; set; }
+		public DbSet<Link> Links { get; set; }
+		public DbSet<LinkCategories> LinksCategories { get; set; }
+		public DbSet<Property> Properties { get; set; }
 
 
         public AppContext()//our default context

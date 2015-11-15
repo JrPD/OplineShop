@@ -185,6 +185,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 				Level = GetCurrentLevelFromParentId(parId),
 				HasSubCategories = false
 			};
+            App.Mapper.MapLinksForCategory(ref model);
 			return model;
 		}
 
@@ -208,6 +209,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 					model.ImageId = null;
 				}
 			}
+            SaveProperties(model);
 			App.Rep.Update<Category>((Category)
 					App.Mapper.Map(model, typeof(CategoryView), typeof(Category)), true);
 		}
@@ -222,35 +224,14 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 			var dbCategory = App.Rep.Select<Category>()
 				.FirstOrDefault(c => c.Cat_Id == catId);
 			if (dbCategory != null && dbCategory.Cat_Id > 0)
-			{
-				var catLinks = App.Rep.Select<LinkCategories>()
-					.Where(cl => cl.Category_Cat_Id == dbCategory.Cat_Id);
+			{                                                             
 				var catView = (CategoryView)App.Mapper.Map(dbCategory,
 						typeof(Category), typeof(CategoryView));
-				//foreach (var catLink in catLinks)
-				//{
-					//todo it
-					//var link = MvcApplication.ContextRepository.Select<Link>()
-					//           .FirstOrDefault(l => l.Link_Id == catLink.Link_Link_Id);
-					//if (link != null)
-					//{
-					//    var properties = MvcApplication.ContextRepository.Select<Property>()
-					//        .Where(p=>p.Prop_Link_Id == link.Link_Id);
-					//    var propView = new List<PropertyView>();
-					//    foreach (var prop in properties)
-					//    {
-					//        propView.Add((PropertyView)MvcApplication
-					//            .Mapper.Map(prop,typeof(Property),typeof(PropertyView)));
-					//    }
-					//    catView.Properties.Add((LinkView)MvcApplication
-					//            .Mapper.Map(link, typeof(Link), typeof(LinkView)), propView);
-					//}
-				//}
+                App.Mapper.MapLinksForCategory(ref catView);
 				return catView;
 			}
 			else
 				return null;
-				//throw new Exception(string.Format(Res.IncorrectInput, "Category Id", catId));
 		}
 
 		/// <summary>
@@ -273,22 +254,49 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 				model.ImageId = App.Rep.Select<Image>()
 					.FirstOrDefault(i => i.Img_Path == model.ImagePath).Img_Id;
 			}
-			if (model.Properties != null && model.Properties.Count > 0)
-			{//todo check if we not use some of old links
-				foreach (var item in model.Properties)
-				{
-					//todo check saving for boolean state       
-				}
-			}
-			App.Rep.Insert<Category>((Category)
+            var cat = App.Rep.Insert<Category>((Category)
 				  App.Mapper.Map(model,
 				  typeof(CategoryView), typeof(Category)), true);
+            if (cat != null)
+                model.Id = cat.Cat_Id;
+            SaveProperties(model);
 		}
 
-		/// <summary>
-		/// Same value as Res.DefaultParentCategoryId need to be used in Controller as argument
-		/// </summary>
-		public  const long DefaultParentCategoryId = -1;
+        /// <summary>
+        /// Save All checked Category links from Add or Edit Forms by Category Id
+        /// </summary>                     
+        /// <param name="model">CategoryView model with links and Category Id</param>
+        private static void SaveProperties(CategoryView model)
+        {
+            if (model.Id != 0)
+            {
+                foreach (var link in model.Properties)
+                {
+                    if (!link.IsNew && !link.Checked)
+                    {
+                        var linkCat = App.Rep.Select<LinkCategories>()
+                          .FirstOrDefault(lc => lc.Category_Cat_Id == model.Id
+                          && lc.Link_Link_Id == link.Id);
+                        if (linkCat != null)
+                            App.Rep.Delete<LinkCategories>(linkCat, false);
+                    }
+                    else if (link.Checked && link.IsNew)
+                    {
+                        App.Rep.Insert<LinkCategories>(new LinkCategories()
+                        {
+                            Category_Cat_Id = model.Id,
+                            Link_Link_Id = link.Id
+                        }, false);
+                    }
+                }
+                App.Rep.Save();
+            }
+        }
+
+        /// <summary>
+        /// Same value as Res.DefaultParentCategoryId need to be used in Controller as argument
+        /// </summary>
+        public  const long DefaultParentCategoryId = -1;
 
 		/// <summary>
 		/// Return current level using for it parent Id

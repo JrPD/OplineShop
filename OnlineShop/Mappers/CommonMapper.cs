@@ -82,16 +82,21 @@ namespace OnlineShop.Mappers
 					opt => opt.MapFrom(src => src.ImageId))
 				.ForMember(dest => dest.Img_Path,
 					opt => opt.MapFrom(src => src.ImagePath));
+
 			Mapper.CreateMap<Link,LinkView>()
 				.ForMember(dest=>dest.Id,
 					opt => opt.MapFrom(src=>src.Link_Id))
 				.ForMember(dest=>dest.Name,
-					opt => opt.MapFrom(src=>src.Link_Name));
+					opt => opt.MapFrom(src=>src.Link_Name))
+                .ForMember(dest =>dest.Checked,
+                    opt=>opt.UseValue(false));
+
 			Mapper.CreateMap<LinkView, Link>()
 				.ForMember(dest => dest.Link_Id,
 					opt => opt.MapFrom(src => src.Id))
 				.ForMember(dest => dest.Link_Name,
 					opt => opt.MapFrom(src => src.Name)); 
+
 			Mapper.CreateMap<Property, PropertyView>()
 				.ForMember(dest => dest.Id,
 					opt => opt.MapFrom(src => src.Prop_Id))
@@ -99,6 +104,7 @@ namespace OnlineShop.Mappers
 					opt => opt.MapFrom(src => src.Prop_Name))
 				.ForMember(dest => dest.Link_Id,
 					opt => opt.MapFrom(src => src.Prop_Link_Id));
+
 			Mapper.CreateMap<PropertyView, Property>()
 				.ForMember(dest => dest.Prop_Id,
 					opt => opt.MapFrom(src => src.Id))
@@ -120,20 +126,66 @@ namespace OnlineShop.Mappers
 		/// <param name="model">category with needed to get image details</param>
 		public void MapImageForCategory(ref CategoryView model)
 		{
-			if (model.ImageId != null && model.ImageId.Value != 0)
-			{
-				var imgId = model.ImageId.Value;
-				var img = App.Rep.Select<Image>()
-					.FirstOrDefault(i => i.Img_Id == imgId);
-				if (img != null)
-				{
-					model.ImagePath = img.Img_Path;
-				}
-				else
-				{
-					model.ImageId = null;
-				}
-			}
-		}
+            if (model != null && model.ImageId != null && model.ImageId.Value != 0)
+            {
+                var imgId = model.ImageId.Value;
+                var img = App.Rep.Select<Image>()
+                    .FirstOrDefault(i => i.Img_Id == imgId);
+                if (img != null)
+                {
+                    model.ImagePath = img.Img_Path;
+                }
+                else
+                {
+                    model.ImageId = null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get all links from DB and links with already added to our Category
+        /// </summary>
+        /// <param name="model">CategoryView model where we need to add our links</param>
+        public void MapLinksForCategory(ref CategoryView model)
+        {
+            if (model != null)
+            {
+                var catId = model.Id;
+                var linkCats = App.Rep.Select<LinkCategories>()
+                    .Where(lc => lc.Category_Cat_Id == catId).ToList();
+                var myProp = new List<Link>();
+                if (linkCats != null && linkCats.Count != 0)
+                {
+                    foreach (var linkCat in linkCats)
+                    {
+                        var link = App.Rep.Select<Link>()
+                            .FirstOrDefault(l => l.Link_Id == linkCat.Link_Link_Id);
+                        if (link != null)
+                        {
+                            myProp.Add(link);
+                        }
+                    }
+                }
+                var allLinks = App.Rep.Select<Link>().ToList();
+                if (allLinks != null && allLinks.Count != 0)
+                {
+                    foreach (var link in allLinks)
+                    {
+                        var linkView = (LinkView)App.Mapper.Map(link, typeof(Link), 
+                            typeof(LinkView));
+                        if (myProp.Any(l => l.Link_Id == linkView.Id))
+                        {
+                            linkView.Checked = true;
+                        }
+                        else
+                        {
+                            linkView.IsNew = true;
+                        }
+                        model.Properties.Add(linkView);
+                    }
+                }
+                model.Properties.Sort();
+            }
+        }
 	}
 }
