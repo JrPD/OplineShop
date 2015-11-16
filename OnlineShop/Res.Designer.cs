@@ -97,24 +97,6 @@ namespace OnlineShop {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -2.
-        /// </summary>
-        public static string DefaultCategoryForProductsId {
-            get {
-                return ResourceManager.GetString("DefaultCategoryForProductsId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -1.
-        /// </summary>
-        public static string DefaultParentCategoryId {
-            get {
-                return ResourceManager.GetString("DefaultParentCategoryId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The &apos;{0}&apos; option must be provided..
         /// </summary>
         public static string Exception_OptionMustBeProvided {
@@ -160,11 +142,38 @@ namespace OnlineShop {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Не можливий рівень {0}.
+        /// </summary>
+        public static string IncorrectLevel {
+            get {
+                return ResourceManager.GetString("IncorrectLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Поле імені не може бути пустим.
         /// </summary>
         public static string NameCantBeNull {
             get {
                 return ResourceManager.GetString("NameCantBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вибрана не існуюча категорія.
+        /// </summary>
+        public static string NotAvailableCategory {
+            get {
+                return ResourceManager.GetString("NotAvailableCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вибрана категорія не найнижчого рівня.
+        /// </summary>
+        public static string NotLastLevelCategory {
+            get {
+                return ResourceManager.GetString("NotLastLevelCategory", resourceCulture);
             }
         }
         

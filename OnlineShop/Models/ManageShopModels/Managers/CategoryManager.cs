@@ -24,7 +24,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 		{
 			if (name == null ||
 				name.Length == 0)
-				return Convert.ToInt64(Res.DefaultParentCategoryId);
+				return DefaultParentCategoryId;
 			try
 			{
 				return App.Rep.Select<Category>()
@@ -32,7 +32,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 			}
 			catch(Exception)
 			{
-				return Convert.ToInt64(Res.DefaultParentCategoryId);
+				return DefaultParentCategoryId;
 			}
 		}
 
@@ -60,7 +60,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 			{
 				if (category.ParentName != null)
 					return category.ParentName;
-				else if (category.ParentId != Convert.ToInt64(Res.DefaultParentCategoryId))
+				else if (category.ParentId != DefaultParentCategoryId)
 					return GetNameFromId(category.ParentId);
 			}
 			return null;
@@ -73,7 +73,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 		/// <returns>Name of parent Category</returns>
 		public static string GetNameFromId(long id)
 		{
-			if(id == Convert.ToInt64(Res.DefaultParentCategoryId))
+			if(id == DefaultParentCategoryId)
 			{
 				return null;
 			}
@@ -100,7 +100,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 			if(category != null)
 			{
 				res.Add(category.Cat_Name, category.Cat_Id);
-				if (category.Cat_Parent_Cat_Id != Convert.ToInt64(Res.DefaultParentCategoryId))
+				if (category.Cat_Parent_Cat_Id != DefaultParentCategoryId)
 				{
 					var parCategory = App.Rep.Select<Category>().FirstOrDefault(c => c.Cat_Id == category.Cat_Parent_Cat_Id);
 					if (parCategory != null)
@@ -164,10 +164,10 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 			if (category != null)
 			{
 				if (category.ParentId != 0 ||
-					category.ParentId != Convert.ToInt64(Res.DefaultParentCategoryId))
+					category.ParentId != DefaultParentCategoryId)
 					return category.ParentId;
 			}
-			return Convert.ToInt64(Res.DefaultParentCategoryId);
+			return DefaultParentCategoryId;
 		}
 
 		/// <summary>
@@ -293,19 +293,17 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             }
         }
 
-        /// <summary>
-        /// Same value as Res.DefaultParentCategoryId need to be used in Controller as argument
-        /// </summary>
         public  const long DefaultParentCategoryId = -1;
+        public const long DefaultCategoryForProductsId = -2;
 
-		/// <summary>
-		/// Return current level using for it parent Id
-		/// </summary>
-		/// <param name="parentId">parent id for searching current level</param>
-		/// <returns>current level</returns>
-		public static byte GetCurrentLevelFromParentId(long parentId)
+        /// <summary>
+        /// Return current level using for it parent Id
+        /// </summary>
+        /// <param name="parentId">parent id for searching current level</param>
+        /// <returns>current level</returns>
+        public static byte GetCurrentLevelFromParentId(long parentId)
 		{
-			if (parentId == Convert.ToInt64(Res.DefaultParentCategoryId))
+			if (parentId == DefaultParentCategoryId)
 				return 1;
 			var parCategory = App.Rep.Select<Category>().
 				FirstOrDefault(c => c.Cat_Id == parentId);
@@ -372,9 +370,9 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 			{
 				foreach (var product in products)
 				{
-					product.Pr_Cat_Id = Convert.ToInt64(Res.DefaultCategoryForProductsId);
+					product.Pr_Cat_Id = DefaultCategoryForProductsId;
 					product.Category = App.Rep.Select<Category>()
-						.FirstOrDefault(c => c.Cat_Id == Convert.ToInt64(Res.DefaultCategoryForProductsId));
+						.FirstOrDefault(c => c.Cat_Id == DefaultCategoryForProductsId);
 					App.Rep.Update<Product>(product, false);
 				}
 				App.Rep.Save();
@@ -386,7 +384,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 		public static List<CategoryView> GetAllCategories(long parentId)
 		{
 			var resViewCat = new List<CategoryView>();//collection witch will be return
-			if (parentId == Convert.ToInt64(Res.DefaultParentCategoryId))
+			if (parentId == DefaultParentCategoryId)
 			{
 				var allCatForLevel = App.Rep.Select<Category>()
 					.Where(c=>c.Cat_Level==1);//all cateogires from DB for 1 level

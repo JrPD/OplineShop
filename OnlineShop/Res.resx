@@ -162,13 +162,16 @@
   <data name="ProductImagesDirectory" xml:space="preserve">
     <value>Products/</value>
   </data>
-  <data name="DefaultCategoryForProductsId" xml:space="preserve">
-    <value>-2</value>
-  </data>
-  <data name="DefaultParentCategoryId" xml:space="preserve">
-    <value>-1</value>
-  </data>
   <data name="ProductView_Name_of_product" xml:space="preserve">
     <value>Назва продукту</value>
+  </data>
+  <data name="IncorrectLevel" xml:space="preserve">
+    <value>Не можливий рівень {0}</value>
+  </data>
+  <data name="NotAvailableCategory" xml:space="preserve">
+    <value>Вибрана не існуюча категорія</value>
+  </data>
+  <data name="NotLastLevelCategory" xml:space="preserve">
+    <value>Вибрана категорія не найнижчого рівня</value>
   </data>
 </root>

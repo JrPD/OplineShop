@@ -9,42 +9,62 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 {
 	public static class ProductManager
 	{
-		/// <summary>
-		/// add new created product to db
-		/// </summary>
-		/// <param name="product"></param>
-		public static void SaveNewProduct(Product product)
+        public const long DefaultProductId = -1;
+
+        /// <summary>
+        /// add new created product to db
+        /// </summary>
+        /// <param name="product"></param>
+        public static void SaveNewProduct(Product product)
 		{
 			App.Rep.Insert<Product>(product, true);
 		}
 
-		public static ProductView GetProductById(int id)
+        /// <summary>
+        /// Get some ProductView model by product Id
+        /// Using for see some Details or  Edit
+        /// </summary>
+        /// <param name="id">Product Id</param>
+        /// <returns>ProductView model searched by incoming Id</returns>
+		public static ProductView GetProductById(long id)
 		{
+            if (id == DefaultProductId || id == 0)
+                return null;
 			var dbProduct = App.Rep.Select<Product>()
 			  .FirstOrDefault(p => p.Pr_Id == id);
-			if (dbProduct != null)
-			{
-				var catView = (ProductView) App.Mapper.Map(dbProduct,
-					typeof (Product), typeof (ProductView));
-
-				return catView;
-			}
-			else
-			{
-				throw new Exception("null product");
-			}
+            if (dbProduct != null)
+            {                      
+                return (ProductView)App.Mapper.Map(dbProduct,
+                    typeof(Product), typeof(ProductView));
+            }
+            else
+                return null;
 		}
 
+        /// <summary>
+        /// Map Product model into ProductView using AutoMapper
+        /// </summary>
+        /// <param name="product">model for converting</param>
+        /// <returns>Converted by AutoMapper ProductView model</returns>
 		public static ProductView MapToProductView(Product product)
 		{
-			return (ProductView)App.Mapper.Map(product,
+            if (product != null)
+                return (ProductView)App.Mapper.Map(product,
 				   typeof(Product), typeof(ProductView));
-		}
+            return null;
+        }
 
+        /// <summary>
+        /// UnMap from ProductView into Product DB model
+        /// </summary>
+        /// <param name="product">ProductView model for converting</param>
+        /// <returns>Product DB model</returns>
 		public static Product MapToProduct(ProductView product)
 		{
-			return (Product)App.Mapper.Map(product,
-				   typeof(ProductView), typeof(Product));
+            if (product != null)
+                return (Product)App.Mapper.Map(product,
+                       typeof(ProductView), typeof(Product));
+            return null;
 		}
 
 		public static bool UpdateProduct(Product product)
@@ -89,5 +109,22 @@ namespace OnlineShop.Models.ManageShopModels.Managers
 			return App.Rep.Select<Category>()
 				.Where(c => parent != null && c.Cat_Level == parent.Cat_Level);
 		}
+
+        /// <summary>
+        /// Return IEnumerable collection with All founded Products converted to ProductView class
+        /// </summary>           
+        public static IEnumerable<ProductView> GetAllProducts()
+        {
+            var resProductView = new List<ProductView>();//collection 
+            List<Product> products = App.Rep.Select<Product>().ToList();
+
+            foreach (var product in products)//mapping
+            {
+                var viewProduct = MapToProductView(product);
+                if (viewProduct != null)
+                    resProductView.Add(viewProduct);
+            }
+            return resProductView;
+        }
 	}
 }

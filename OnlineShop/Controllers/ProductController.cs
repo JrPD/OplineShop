@@ -15,29 +15,24 @@ namespace OnlineShop.Controllers
 		[HttpGet]
 		public ActionResult Index()
 		{
-			var resProductView = new List<ProductView>();//collection 
-			List<Product> products = App.Rep.Select<Product>().ToList();
-
-			// no need to convert to linq expression to simgle debug
-			foreach (var product in products)//mapping
-			{
-				var viewProduct = ProductManager.MapToProductView(product);
-				resProductView.Add(viewProduct);
-			}
-			return View(resProductView);
+			
+			return View(ProductManager.GetAllProducts());
 		}
 
-		public ActionResult Details(int id)
+		public ActionResult Details(long id = ProductManager.DefaultProductId)
 		{
-			ProductView productView = ProductManager.GetProductById(id);
-			return View(productView);
+            if (id == ProductManager.DefaultProductId)
+                return RedirectToAction("Index", "Product");
+            var model = ProductManager.GetProductById(id);
+            if (model != null)
+                return View(model);
+            return RedirectToAction("Index", "Product");
 		}
 
 		[HttpGet]
 		public ActionResult Create()
 		{
-			ViewBag.CategoriesID = new SelectList(App.Rep.Select<Category>()
-				.Where(c=>c.Cat_Level==1), "Cat_id", "Cat_Name");
+			ViewBag.CategoriesID = new SelectList(CategoryManager.GetAllCategories(CategoryManager.DefaultParentCategoryId), "Cat_id", "Cat_Name");
 
 			ViewBag.SubCatID = ViewBag.CategoriesID;
 			

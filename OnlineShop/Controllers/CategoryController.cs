@@ -18,7 +18,7 @@ namespace OnlineShop.Controllers
         {
             ViewBag.ParentName = CategoryManager.GetParentName(id);
             SetParentCookie(ViewBag.ParentName);
-            if (id == Convert.ToInt64(Res.DefaultParentCategoryId))
+            if (id == CategoryManager.DefaultParentCategoryId)
                 return AddNewCategory(ViewBag.ParentName);
             try
             {
@@ -75,7 +75,7 @@ namespace OnlineShop.Controllers
         public ActionResult RemoveSomeCategory(long id = CategoryManager.DefaultParentCategoryId)
         {
             var parId = CategoryManager.GetParentId(id);
-            if (id == Convert.ToInt64(Res.DefaultParentCategoryId))
+            if (id == CategoryManager.DefaultParentCategoryId)
             {
                 //todo log it
                 return RedirectToAction("EditCategories", new RouteValueDictionary(
