@@ -10,12 +10,12 @@ namespace OnlineShop.Models.ManageShopModels.Managers
     /// <summary>
     /// Manager for using with View, here we had connecting with PropertyView and LinkView for set valid values
     /// </summary>
-    public class PropertyManager
+    public static class PropertyManager
     {
         /// <summary>
         /// Return all Links from DB
         /// </summary>
-        public List<LinkView> GetAllLinksProperties()
+        public static List<LinkView> GetAllLinksProperties()
         {
             List<LinkView> resListLinkView = new List<LinkView>();//collection 
             List<Link> linksProperties = App.Rep.Select<Link>().ToList();
@@ -32,7 +32,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// Add new link to DB
         /// </summary>
         /// <param name="link">link which will be added</param>
-        public void AddNewLink(LinkView link)
+        public static void AddNewLink(LinkView link)
         {
              var mapLink = (Link)App.Mapper.Map(link, typeof(LinkView), typeof(Link));
              App.Rep.Insert<Link>(mapLink, true);
@@ -42,7 +42,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// Retur all Properties of current link
         /// </summary>
         /// <param name="link_Id">Id of current link</param>
-        public List<PropertyView> GetProperties(long link_Id)
+        public static List<PropertyView> GetProperties(long link_Id)
         {
             List<PropertyView> resListPropertiesView = new List<PropertyView>();
             List<Property> properties = App.Rep.Select<Property>()
@@ -59,7 +59,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// Retur name of current Link
         /// </summary>
         /// <param name="link_Id">Id of current link</param>
-        public string GetLinkName(long link_Id)
+        public static string GetLinkName(long link_Id)
         {
             string linkName = App.Rep.Select<Link>()
                 .FirstOrDefault(l => l.Link_Id == link_Id).Link_Name;
@@ -69,7 +69,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// Retur id of current Link
         /// </summary>
         /// <param name="link_Id">Name of current link</param>
-        public long GetLinkId(string linkName)
+        public static long GetLinkId(string linkName)
         {
             long link_id = App.Rep
                 .Select<Link>().FirstOrDefault(l => l.Link_Name == linkName).Link_Id;
@@ -79,7 +79,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// Retur id of current Link
         /// </summary>
         /// <param name="link_Id">Id of property which contained in this link</param>
-        public long GetLinkId(long prop_id)
+        public static long GetLinkId(long prop_id)
         {
             long link_id = App.Rep.Select<Property>().FirstOrDefault(p => p.Prop_Id == prop_id).Prop_Link_Id;
             return link_id;
@@ -89,7 +89,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// </summary>
         /// <param name="parentName">Parent Name of Category in what we want to create new</param>
         /// <returns>CategoryView model prepared for enter all needed data</returns>
-        public PropertyView CreateNewPropertyModel(long link_id)
+        public static PropertyView CreateNewPropertyModel(long link_id)
         {
             var model = new PropertyView()
             {
@@ -101,7 +101,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// Get LinkView from current link
         /// </summary>
         /// <param name="link_Id">Id of current link</param>
-        public LinkView GetLinkView(long link_Id)
+        public static LinkView GetLinkView(long link_Id)
         {
             //todo Що робити якщо link null?
             Link link = App.Rep.Select<Link>().FirstOrDefault(l => l.Link_Id == link_Id);
@@ -113,7 +113,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// Remove current link
         /// </summary>
         /// <param name="link_Id">Id of current link</param>
-        public void RemoveLink (long link_Id)
+        public static void RemoveLink (long link_Id)
         {
             Link link = App.Rep.Select<Link>()
                .FirstOrDefault(l => l.Link_Id == link_Id);
@@ -126,7 +126,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// Edit current link
         /// </summary>
         /// <param name="link">Current link</param>
-        public void UpdateLink(LinkView link)
+        public static void UpdateLink(LinkView link)
         {
             App.Rep.Update<Link>((Link)
                     App.Mapper.Map(link, typeof(LinkView), typeof(Link)), true);
@@ -138,7 +138,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// Add new property to DB
         /// </summary>
         /// <param name="property">Property which will be added</param>
-        public void AddNewProperty(PropertyView property)
+        public static void AddNewProperty(PropertyView property)
         {
             var mapProperty = (Property)App.Mapper.Map(property, typeof(PropertyView), typeof(Property));
             App.Rep.Insert<Property>(mapProperty, true);
@@ -147,7 +147,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// Remove current Property
         /// </summary>
         /// <param name="prop_id">Id of current link</param>
-        public void RemoveProperty(long prop_id)
+        public static void RemoveProperty(long prop_id)
         {
             Property property = App.Rep.Select<Property>()
                .FirstOrDefault(p => p.Prop_Id == prop_id);
@@ -160,7 +160,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// Get PropertyView from current property
         /// </summary>
         /// <param name="prop_id">Id of current link</param>
-        public PropertyView GetPropertyView(long prop_Id)
+        public static PropertyView GetPropertyView(long prop_Id)
         {
             Property property = App.Rep.Select<Property>().FirstOrDefault(p => p.Prop_Id == prop_Id);
             var propertyView = (PropertyView)App.Mapper.Map(property,
@@ -171,7 +171,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// Edit current property
         /// </summary>
         /// <param name="property">Current property</param>
-        public void UpdateProperty(PropertyView property)
+        public static void UpdateProperty(PropertyView property)
         {
             App.Rep.Update<Property>((Property)
                     App.Mapper.Map(property, typeof(PropertyView), typeof(Property)), true);
