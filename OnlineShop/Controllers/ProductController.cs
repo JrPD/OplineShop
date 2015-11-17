@@ -21,18 +21,18 @@ namespace OnlineShop.Controllers
 
 		public ActionResult Details(long id = ProductManager.DefaultProductId)
 		{
-            if (id == ProductManager.DefaultProductId)
-                return RedirectToAction("Index", "Product");
-            var model = ProductManager.GetProductById(id);
-            if (model != null)
-                return View(model);
-            return RedirectToAction("Index", "Product");
+			if (id == ProductManager.DefaultProductId)
+				return RedirectToAction("Index", "Product");
+			var model = ProductManager.GetProductById(id);
+			if (model != null)
+				return View(model);
+			return RedirectToAction("Index", "Product");
 		}
 
 		[HttpGet]
 		public ActionResult Create()
 		{
-			ViewBag.CategoriesID = new SelectList(CategoryManager.GetAllCategories(CategoryManager.DefaultParentCategoryId), "Cat_id", "Cat_Name");
+			ViewBag.CategoriesID = new SelectList(CategoryManager.GetAllCategories(CategoryManager.DefaultParentCategoryId), "Id", "Name");
 
 			ViewBag.SubCatID = ViewBag.CategoriesID;
 			
@@ -42,6 +42,7 @@ namespace OnlineShop.Controllers
 		[HttpPost]
 		public ActionResult Create(ProductView product)
 		{
+
 			if (!ModelState.IsValid)
 			{
 				throw new Exception("Model is not valid!!!");
@@ -86,6 +87,7 @@ namespace OnlineShop.Controllers
 		{                                                                               
 			if (product.Pr_Cat_Id<0)
 			{
+				// if change getRootCategories mapping, then should change binding in viewbag
 				ViewBag.CategoriesL1 = new  SelectList(ProductManager.GetRootCategories(), "Cat_id", "Cat_Name");
 				ViewBag.CategoriesL2 = new  SelectList(new List<Category>());
 				ViewBag.CategoriesL3 = ViewBag.CategoriesL2;

@@ -55,11 +55,13 @@
 			@Html.LabelFor(model => model.CatId, "Product category", htmlAttributes: new {@class = "control-label col-md-2"})
 			<div class="col-md-10">
 				<div class="checkbox" style="padding-left: 0px">
-					@Html.DropDownList("PrRootCatID", (SelectList) ViewBag.CategoriesId, "Select category", new {@onchange = "getSubCategories(this, PrSubCatID)", @onclick = "getSubCategories(this, PrSubCatID)", @class = "form-control"})
+					@{}
+
+					@Html.DropDownList("PrRootCatID", (SelectList)ViewBag.CategoriesId ?? Enumerable.Empty<SelectListItem>(), "Select category", new { @onchange = "getSubCategories(this, PrSubCatID)", @onclick = "getSubCategories(this, PrSubCatID)", @class = "form-control" })
 					@*@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })*@
 
 					@Html.DropDownList("PrSubCatID", Enumerable.Empty<SelectListItem>(), "Select subcategory", new {@id = "PrSubCatID", @onclick = "getSubCategories(this, CatId)", @onchange = "getSubCategories(this, PrCatId)", @class = "form-control"})
-					@*@Html.ValidationMessageFor(model => model.PrSubCatId, "", new { @class = "text-danger" })*@
+					@Html.ValidationMessageFor(model => model.CatId, "", new { @class = "text-danger" })
 					@Html.DropDownListFor(model => model.CatId, Enumerable.Empty<SelectListItem>(), "Select subcategory", new { @class = "form-control" })
 				</div>
 			</div>
@@ -71,7 +73,7 @@
 		<div><label id="subcat-loading-progress"></label></div>
 		<div class="form-group">
 			<div class="col-md-offset-2 col-md-10">
-				<input type="submit" value="Створити" class="btn btn-default" />
+				<input type="submit" onclick="CheckCategories()" value="Створити" class="btn btn-default" />
 			</div>
 		</div>
 	</div>
@@ -89,11 +91,24 @@
 }
 <script type="text/javascript">
 	// set default value to dropdown list
-	document.onreadystatechange = function () {
+	document.onreadystatechange = function() {
 		a = document.getElementById("PrRootCatID");
 		//a.selectedIndex = 2;
 		//getSubCategories(a, "PrSubCatID");
 	};
+
+	function CheckCategories() {
+		var selected = $("#CatId option:selected").val();
+		if (selected ===""|| selected==null) {
+			var source = $("#PrSubCatID option:selected").val();
+			if (source === "" || source == null) {
+				source = $("#PrRootCatID option:selected").val();
+			}
+			var destination = $("#CatId");
+			destination.children('option').val(source).html("category");
+		}
+	}
+
 	function getSubCategories(option, destination) {
 		var selectedItem = $(option).val();
 		var subCats = $(destination);
@@ -105,8 +120,7 @@
 			url: "@(Url.RouteUrl("GetSubCatsId"))",
 			data: { option: selectedItem },
 			success: function (data) {
-				subCats.html('');
-				$.each(data, function (id, option) {
+								$.each(data, function (id, option) {
 					subCats.append($('<option></option>').val(option.id).html(option.name));
 				});
 				//statesProgress.hide();
