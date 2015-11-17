@@ -12,7 +12,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
     {
         public byte Level { get; set; }
         [Required(ErrorMessageResourceType = typeof(Res),
-            ErrorMessageResourceName = "NameCantBeNull")]
+            ErrorMessageResourceName = "FieldCantBeNull")]
         [Display(Name = "Ім'я категорії")]
         public string Name { get; set; }
         public string ParentName { get; set; }
@@ -46,7 +46,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
 
             if (Name.Length > MaxNameLength)
                 yield return new ValidationResult(
-                    string.Format(Res.IncorrectLength, "Ім'я", Name.Length), new[] { "Name" });
+                    string.Format(Res.IncorrectLength, MaxNameLength, Name.Length), new[] { "Name" });
             if (ParentId != CategoryManager.DefaultParentCategoryId)
             {
                 if (ParentId <= 0)

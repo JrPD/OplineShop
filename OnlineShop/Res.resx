@@ -144,8 +144,8 @@
   <data name="IncorrectLength" xml:space="preserve">
     <value>Довжина поля не може перевищувати {0} знаків, було вписано {1} знаки</value>
   </data>
-  <data name="NameCantBeNull" xml:space="preserve">
-    <value>Поле імені не може бути пустим</value>
+  <data name="FieldCantBeNull" xml:space="preserve">
+    <value>Поле не може бути пустим</value>
   </data>
   <data name="Roles_Admin" xml:space="preserve">
     <value>Admin</value>

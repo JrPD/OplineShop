@@ -115,6 +115,15 @@ namespace OnlineShop {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Поле не може бути пустим.
+        /// </summary>
+        public static string FieldCantBeNull {
+            get {
+                return ResourceManager.GetString("FieldCantBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /Images/.
         /// </summary>
         public static string ImagesDirectory {
@@ -147,15 +156,6 @@ namespace OnlineShop {
         public static string IncorrectLevel {
             get {
                 return ResourceManager.GetString("IncorrectLevel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Поле імені не може бути пустим.
-        /// </summary>
-        public static string NameCantBeNull {
-            get {
-                return ResourceManager.GetString("NameCantBeNull", resourceCulture);
             }
         }
         

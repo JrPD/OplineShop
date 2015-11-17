@@ -83,8 +83,7 @@ namespace OnlineShop.Controllers
 		/// </summary>
 		/// <param name="product"></param>
 		private void SetSelectedValues(Product product)
-		{
-			//todo check if product has all category levels and viewbag`s - in not empty
+		{                                                                               
 			if (product.Pr_Cat_Id<0)
 			{
 				ViewBag.CategoriesL1 = new  SelectList(ProductManager.GetRootCategories(), "Cat_id", "Cat_Name");

@@ -20,16 +20,20 @@ namespace OnlineShop.Models.ManageShopModels.Views
         [Display(Name = "Категорія")]
         public long CatId { get; set; }
 
-        public long Id { get; set; }
+        public long Id { get; set; }     
 
+        [Required(ErrorMessageResourceType = typeof(Res),
+            ErrorMessageResourceName = "FieldCantBeNull")]
         [Display(Name = "Кількість")]
         public int Count { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Res),
-            ErrorMessageResourceName = "NameCantBeNull")]
+            ErrorMessageResourceName = "FieldCantBeNull")]
         [Display(Name = "Назва продукту")]
         public string Name { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(Res),
+            ErrorMessageResourceName = "FieldCantBeNull")]
         [Display(Name = "Ціна")]
         public double Price { get; set; }
 
@@ -57,7 +61,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
                     new[] { "Price" });
             if (Name.Length > MaxNameLength)
                 yield return new ValidationResult(
-                    string.Format(Res.IncorrectLength, "Ім'я", Name.Length), new[] { "Name" });
+                    string.Format(Res.IncorrectLength, MaxNameLength, Name.Length), new[] { "Name" });
             if(Category != null && Category.Cat_Id != 0)
             {
                if(Category.Cat_HasChild)
