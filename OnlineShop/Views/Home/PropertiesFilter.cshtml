@@ -1,0 +1,16 @@
+﻿@model IEnumerable<OnlineShop.Models.Db.Tables.Link>
+
+<ul class="list-group">
+    @foreach(var link in Model)
+    {
+        <li class="list-group-item">
+            @link.Link_Name
+            <ul class="list-group">
+                @foreach (var properties in link.Properties)
+                {
+                    <li class="list-group-item"><span class="badge">@properties.Products.Count</span> @properties.Prop_Name <input type="checkbox" checked></li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

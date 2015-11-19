@@ -16,6 +16,10 @@ namespace OnlineShop.Controllers
         {
             return PartialView(App.Rep.Select<Category>().ToList());
         }
+        public ActionResult PropertiesFilter()
+        {
+            return PartialView(App.Rep.Select<Link>().ToList());
+        }
 		public ActionResult Index()
 		{
 			List<Category> category = App.Rep.Select<Category>().Where(c => c.Cat_Level == 1).ToList();

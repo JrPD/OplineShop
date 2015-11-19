@@ -38,17 +38,8 @@
 		</div>
 	</div>
 </div>
-	
-	<div>
-		<div class="col-md-2 " style="height: 100%">
-
-			@{Html.RenderAction("TestMenu", "Home");}
-		</div>
-		<div class="col-md-10">
-
-
+	        @{Html.RenderAction("TestMenu", "Home");}
 			<div class=" container body-content">
-
 				@RenderBody()
 				<p style="text-align: center">
 					@{ Html.RenderAction("GetPath", "Category"); }
@@ -57,8 +48,7 @@
 			<hr />
 			<footer>
 				<p>&copy; @DateTime.Now.Year - @Res.ApplicationName</p>
-			</footer>
-		</div>       
+			</footer>    
 		
-	</div></body>
+	</body>
 </html>
