@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OnlineShop.Models.Db.Tables;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Web;
-using OnlineShop.Models.Db.Tables;
 
 namespace OnlineShop.Models.Db.Map
 {
@@ -21,6 +17,5 @@ namespace OnlineShop.Models.Db.Map
             Property(c => c.User)//cart user
                 .IsOptional();//can be null
         }
-
     }
 }

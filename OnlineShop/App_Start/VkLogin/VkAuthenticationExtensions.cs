@@ -1,6 +1,5 @@
-using System;
 using Duke.Owin.VkontakteMiddleware;
-using Microsoft.Owin.Security;
+using System;
 
 namespace Owin
 {

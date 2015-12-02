@@ -1,9 +1,7 @@
 ﻿using OnlineShop.Models.Db.Tables;
 using OnlineShop.Models.ManageShopModels.Views;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace OnlineShop.Models.ManageShopModels.Managers
 {
@@ -17,7 +15,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// </summary>
         public static List<LinkView> GetAllLinksProperties()
         {
-            List<LinkView> resListLinkView = new List<LinkView>();//collection 
+            List<LinkView> resListLinkView = new List<LinkView>();//collection
             List<Link> linksProperties = App.Rep.Select<Link>().ToList();
 
             foreach (var linkProperties in linksProperties)//mapping
@@ -28,14 +26,15 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             }
             return resListLinkView;
         }
+
         /// <summary>
         /// Add new link to DB
         /// </summary>
         /// <param name="link">link which will be added</param>
         public static void AddNewLink(LinkView link)
         {
-             var mapLink = (Link)App.Mapper.Map(link, typeof(LinkView), typeof(Link));
-             App.Rep.Insert<Link>(mapLink, true);
+            var mapLink = (Link)App.Mapper.Map(link, typeof(LinkView), typeof(Link));
+            App.Rep.Insert<Link>(mapLink, true);
         }
 
         /// <summary>
@@ -55,6 +54,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             }
             return resListPropertiesView;
         }
+
         /// <summary>
         /// Retur name of current Link
         /// </summary>
@@ -65,6 +65,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                 .FirstOrDefault(l => l.Link_Id == link_Id).Link_Name;
             return linkName;
         }
+
         /// <summary>
         /// Retur id of current Link
         /// </summary>
@@ -75,6 +76,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                 .Select<Link>().FirstOrDefault(l => l.Link_Name == linkName).Link_Id;
             return link_id;
         }
+
         /// <summary>
         /// Retur id of current Link
         /// </summary>
@@ -84,6 +86,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             long link_id = App.Rep.Select<Property>().FirstOrDefault(p => p.Prop_Id == prop_id).Prop_Link_Id;
             return link_id;
         }
+
         /// <summary>
         /// Prepare new model for creating category view
         /// </summary>
@@ -97,6 +100,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             };
             return model;
         }
+
         /// <summary>
         /// Get LinkView from current link
         /// </summary>
@@ -109,19 +113,21 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                         typeof(Link), typeof(LinkView));
             return linkView;
         }
+
         /// <summary>
         /// Remove current link
         /// </summary>
         /// <param name="link_Id">Id of current link</param>
-        public static void RemoveLink (long link_Id)
+        public static void RemoveLink(long link_Id)
         {
             Link link = App.Rep.Select<Link>()
                .FirstOrDefault(l => l.Link_Id == link_Id);
-            if(link != null)
+            if (link != null)
             {
                 App.Rep.Delete<Link>(link, true);
             }
         }
+
         /// <summary>
         /// Edit current link
         /// </summary>
@@ -132,8 +138,6 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                     App.Mapper.Map(link, typeof(LinkView), typeof(Link)), true);
         }
 
-
-
         /// <summary>
         /// Add new property to DB
         /// </summary>
@@ -143,6 +147,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             var mapProperty = (Property)App.Mapper.Map(property, typeof(PropertyView), typeof(Property));
             App.Rep.Insert<Property>(mapProperty, true);
         }
+
         /// <summary>
         /// Remove current Property
         /// </summary>
@@ -156,6 +161,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                 App.Rep.Delete<Property>(property, true);
             }
         }
+
         /// <summary>
         /// Get PropertyView from current property
         /// </summary>
@@ -167,6 +173,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                         typeof(Property), typeof(PropertyView));
             return propertyView;
         }
+
         /// <summary>
         /// Edit current property
         /// </summary>

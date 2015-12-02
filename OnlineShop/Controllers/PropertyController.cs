@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using OnlineShop.Models.ManageShopModels;
-using OnlineShop.Models.Db.Tables;
+﻿using OnlineShop.Models.ManageShopModels.Managers;
 using OnlineShop.Models.ManageShopModels.Views;
-using OnlineShop.Models.ManageShopModels.Managers;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace OnlineShop.Controllers
@@ -26,12 +20,13 @@ namespace OnlineShop.Controllers
             ViewBag.LinkName = PropertyManager.GetLinkName(link_id);
             return View(PropertyManager.GetProperties(link_id));
         }
+
         [HttpGet]
         public ActionResult CreateLink()
         {
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult CreateLink(LinkView link)
         {
@@ -49,11 +44,13 @@ namespace OnlineShop.Controllers
             PropertyManager.RemoveLink(link_id);
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public ActionResult EditLink(long link_id)
         {
             return View(PropertyManager.GetLinkView(link_id));
         }
+
         [HttpPost]
         public ActionResult EditLink(LinkView link)
         {
@@ -68,7 +65,6 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public ActionResult CreateProperty(string linkName)
         {
-
             long link_id = PropertyManager.GetLinkId(linkName);
             return View(PropertyManager.CreateNewPropertyModel(link_id));
         }
@@ -84,11 +80,13 @@ namespace OnlineShop.Controllers
             }
             return View(property);
         }
+
         [HttpGet]
         public ActionResult EditProperty(long prop_id)
         {
             return View(PropertyManager.GetPropertyView(prop_id));
         }
+
         [HttpPost]
         public ActionResult EditProperty(PropertyView property)
         {
@@ -100,6 +98,7 @@ namespace OnlineShop.Controllers
             }
             return View(property);
         }
+
         [HttpGet]
         public ActionResult DeleteProperty(long prop_id)
         {

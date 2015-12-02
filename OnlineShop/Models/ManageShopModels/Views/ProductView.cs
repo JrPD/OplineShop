@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Web;
-using OnlineShop.Models.Db.Tables;
-using System.Linq;
-using System.Collections.Generic;
+﻿using OnlineShop.Models.Db.Tables;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 
 namespace OnlineShop.Models.ManageShopModels.Views
 {
@@ -20,7 +20,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
         [Display(Name = "Категорія")]
         public long CatId { get; set; }
 
-        public long Id { get; set; }     
+        public long Id { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Res),
             ErrorMessageResourceName = "FieldCantBeNull")]
@@ -55,16 +55,20 @@ namespace OnlineShop.Models.ManageShopModels.Views
                 yield return new ValidationResult(string.Format(Res.IncorrectInput,
                     "Кількість", Count.ToString()),
                     new[] { "Count" });
-            if (!Enumerable.Range(MinCountOrPrice, MaxPrice).Contains(Convert.ToInt32(Price+.99)))
+            if (!Enumerable.Range(MinCountOrPrice, MaxPrice).Contains(Convert.ToInt32(Price + .99)))
                 yield return new ValidationResult(string.Format(Res.IncorrectInput,
                     "Ціна", Price.ToString()),
                     new[] { "Price" });
             if (Name.Length > MaxNameLength)
                 yield return new ValidationResult(
                     string.Format(Res.IncorrectLength, MaxNameLength, Name.Length), new[] { "Name" });
-            if(Category != null && Category.Cat_Id != 0)
+            Category cat = App.Rep.Select<Category>()
+                      .FirstOrDefault(c => c.Cat_Id == CatId);
+            if (cat != null)
+                Category = cat;
+            if (Category != null && Category.Cat_Id != 0)
             {
-               if(Category.Cat_HasChild)
+                if (Category.Cat_HasChild)
                 {
                     yield return new ValidationResult(Res.NotLastLevelCategory, new[] { "Category" });
                 }
@@ -73,7 +77,6 @@ namespace OnlineShop.Models.ManageShopModels.Views
             {
                 yield return new ValidationResult(Res.NotAvailableCategory, new[] { "Category" });
             }
-
         }
     }
 }

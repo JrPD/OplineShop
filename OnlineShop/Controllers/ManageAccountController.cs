@@ -1,7 +1,7 @@
-﻿using OnlineShop.Models;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using OnlineShop.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -22,6 +22,7 @@ namespace OnlineShop.Controllers
         }
 
         private ApplicationUserManager _userManager;
+
         public ApplicationUserManager UserManager
         {
             get
@@ -332,6 +333,7 @@ namespace OnlineShop.Controllers
         }
 
         #region Helpers
+
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -388,6 +390,6 @@ namespace OnlineShop.Controllers
             Error
         }
 
-        #endregion
+        #endregion Helpers
     }
 }

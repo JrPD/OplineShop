@@ -1,9 +1,5 @@
-﻿using OnlineShop.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity.Owin;
+using OnlineShop.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -27,6 +23,7 @@ namespace OnlineShop.Controllers
         }
 
         private ApplicationUserManager _userManager;
+
         public ApplicationUserManager UserManager
         {
             get
@@ -40,6 +37,7 @@ namespace OnlineShop.Controllers
         }
 
         private ApplicationRoleManager _roleManager;
+
         public ApplicationRoleManager RoleManager
         {
             get
@@ -93,7 +91,7 @@ namespace OnlineShop.Controllers
                 var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email };
                 var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
 
-                //Add User to the selected Roles 
+                //Add User to the selected Roles
                 if (adminresult.Succeeded)
                 {
                     if (selectedRoles != null)
@@ -112,7 +110,6 @@ namespace OnlineShop.Controllers
                     ModelState.AddModelError("", adminresult.Errors.First());
                     ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
                     return View();
-
                 }
                 return RedirectToAction("Index");
             }

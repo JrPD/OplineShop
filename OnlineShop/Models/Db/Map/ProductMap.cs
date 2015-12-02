@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Web;
-using OnlineShop.Models.Db.Tables;
-using System.Data.Entity.Infrastructure.Annotations;
+﻿using OnlineShop.Models.Db.Tables;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Infrastructure.Annotations;
+using System.Data.Entity.ModelConfiguration;
 
 namespace OnlineShop.Models.Db.Map
 {
@@ -19,9 +15,8 @@ namespace OnlineShop.Models.Db.Map
                 .HasMaxLength(200)//max length
                 .IsRequired()//is required to fill
                 .HasColumnAnnotation(//is unique
-                    IndexAnnotation.AnnotationName,new IndexAnnotation(
+                    IndexAnnotation.AnnotationName, new IndexAnnotation(
                         new IndexAttribute("Pr_Name_UN", 1) { IsUnique = true }));
-            
 
             Property(p => p.Pr_Price)//price of product if
                 .IsRequired();//is required to fill
@@ -52,7 +47,6 @@ namespace OnlineShop.Models.Db.Map
             Property(p => p.Pr_Descr_Id)
                 .IsOptional();//this FK can be null
 
-
             HasMany<Cart>(p => p.Carts)//many-to-many relation
                .WithMany(p => p.Products)//from carts to products
                .Map(pc =>
@@ -73,7 +67,7 @@ namespace OnlineShop.Models.Db.Map
 
             HasMany<Property>(prod => prod.Properties)//many-to-many
                 .WithMany(prop => prop.Products)//from Property to Product
-                .Map(pp => 
+                .Map(pp =>
                 {
                     pp.MapLeftKey("Pr_Id");//for product
                     pp.MapRightKey("Prop_Id");//for property

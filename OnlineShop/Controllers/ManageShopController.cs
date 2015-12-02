@@ -2,15 +2,14 @@
 
 namespace OnlineShop.Controllers
 {
-	[Authorize(Roles = "Admin")]
-	public class ManageShopController : Controller
-	{
-
-		[HttpGet]
-		public ActionResult Index()
-		{
-			return View();
-		}
+    [Authorize(Roles = "Admin")]
+    public class ManageShopController : Controller
+    {
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         [HttpGet]
         public ActionResult EditProducts()
@@ -29,6 +28,5 @@ namespace OnlineShop.Controllers
         {
             return RedirectToAction("Index", "Property");
         }
-
-	}
+    }
 }

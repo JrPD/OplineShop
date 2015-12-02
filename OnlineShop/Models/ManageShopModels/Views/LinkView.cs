@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace OnlineShop.Models.ManageShopModels.Views
 {
-    public class LinkView : IComparable<LinkView> , IValidatableObject
+    public class LinkView : IComparable<LinkView>, IValidatableObject
     {
         //todo Запитати про булеві поля і CompareTo
         public const byte MaxNameLength = 200;
@@ -22,7 +20,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
 
         public bool IsNew { get; set; }
 
-        public bool Checked { get; set; }       
+        public bool Checked { get; set; }
 
         public int CompareTo(LinkView other)
         {

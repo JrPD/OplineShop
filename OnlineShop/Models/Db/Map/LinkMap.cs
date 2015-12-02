@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Web;
-using OnlineShop.Models.Db.Tables;
-using System.Data.Entity.Infrastructure.Annotations;
+﻿using OnlineShop.Models.Db.Tables;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Infrastructure.Annotations;
+using System.Data.Entity.ModelConfiguration;
 
 namespace OnlineShop.Models.Db.Map
 {
@@ -13,7 +9,7 @@ namespace OnlineShop.Models.Db.Map
     {
         public LinkMap()
         {
-            HasKey(l=>l.Link_Id);//PK
+            HasKey(l => l.Link_Id);//PK
             Property(i => i.Link_Name)//name for view of link
                 .IsRequired()//is required
                 .HasMaxLength(200)//max length of field
@@ -21,6 +17,5 @@ namespace OnlineShop.Models.Db.Map
                     IndexAnnotation.AnnotationName, new IndexAnnotation(
                         new IndexAttribute("Link_Name_UN", 1) { IsUnique = true }));
         }
-
     }
 }

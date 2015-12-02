@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Duke.Owin.VkontakteMiddleware.Provider;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using Duke.Owin.VkontakteMiddleware.Provider;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Net.Http;
 
 namespace Duke.Owin.VkontakteMiddleware
 {
@@ -62,7 +58,7 @@ namespace Duke.Owin.VkontakteMiddleware
 
         /// <summary>
         /// The HttpMessageHandler used to communicate with Vkontakte.
-        /// This cannot be set at the same time as BackchannelCertificateValidator unless the value 
+        /// This cannot be set at the same time as BackchannelCertificateValidator unless the value
         /// can be downcast to a WebRequestHandler.
         /// </summary>
         public HttpMessageHandler BackchannelHttpHandler { get; set; }
@@ -99,7 +95,7 @@ namespace Duke.Owin.VkontakteMiddleware
         public ISecureDataFormat<AuthenticationProperties> StateDataFormat { get; set; }
 
         /// <summary>
-        /// Gets or sets the site redirect url after login 
+        /// Gets or sets the site redirect url after login
         /// </summary>
         public string StoreState { get; set; }
 

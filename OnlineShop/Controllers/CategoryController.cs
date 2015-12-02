@@ -2,7 +2,6 @@
 using OnlineShop.Models.ManageShopModels.Managers;
 using OnlineShop.Models.ManageShopModels.Views;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +11,6 @@ namespace OnlineShop.Controllers
 {
     public class CategoryController : Controller
     {
-
         [HttpGet]
         public ActionResult EditSomeCategory(long id = CategoryManager.DefaultParentCategoryId)
         {
@@ -61,7 +59,6 @@ namespace OnlineShop.Controllers
             {
                 if (model.ImgFile != null && model.ImgFile.ContentLength > 0)
                 {
-                   
                     CategoryManager.SaveNewImage(model);
                 }
                 CategoryManager.SaveNewCategory(model);
@@ -109,12 +106,11 @@ namespace OnlineShop.Controllers
             try
             {
                 return File(ImageManager.DownloadFile(path), "image/png");
-
             }
             catch
-                {
+            {
                 return null;
-            }                   
+            }
         }
 
         public void SetParentCookie(string parentName)
@@ -130,6 +126,5 @@ namespace OnlineShop.Controllers
                 this.ControllerContext.HttpContext.Response.Cookies.Add(cookie);
             }
         }
-
     }
 }

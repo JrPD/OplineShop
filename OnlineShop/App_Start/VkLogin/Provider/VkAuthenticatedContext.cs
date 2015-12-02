@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Provider;
+using System;
+using System.Globalization;
+using System.Security.Claims;
+using System.Xml;
 
 namespace Duke.Owin.VkontakteMiddleware.Provider
 {
@@ -43,7 +39,6 @@ namespace Duke.Owin.VkontakteMiddleware.Provider
             Nickname = TryGetValue("nickname");
             Email = TryGetValue("email");
             Link = TryGetValue("photo_50");
-
         }
 
         /// <summary>
@@ -86,7 +81,6 @@ namespace Duke.Owin.VkontakteMiddleware.Provider
                 return Name + " " + LastName;
             }
         }
-
 
         /// <summary>
         /// Gets the user's DefaultName

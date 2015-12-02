@@ -1,21 +1,22 @@
 ﻿      @model Dictionary<string,long>
-<ol class="breadcrumb">
     @if (Model != null)
-    {        
-        while (Model.Count > 0)
-        {
-            var item = Model.Last();
+    {
+        <ol class="breadcrumb">
+
+            @while (Model.Count > 0)
+            {
+                var item = Model.Last();
             <li>
                 @Html.ActionLink(item.Key,
-                      "EditCategories",
-                      "Category",
-                      new RouteValueDictionary(
-                          new
-                          {
-                              parentId = item.Value
-                          }), null)
+                           "EditCategories",
+                           "Category",
+                           new RouteValueDictionary(
+                               new
+                               {
+                                   parentId = item.Value
+                               }), null)
             </li>
-            Model.Remove(item.Key);
-        }
+                Model.Remove(item.Key);
+            }
+        </ol>
     }
-    </ol>

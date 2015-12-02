@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using Duke.Owin.VkontakteMiddleware.Provider;
 using Microsoft.Owin;
 using Microsoft.Owin.Infrastructure;
 using Microsoft.Owin.Logging;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
 using Newtonsoft.Json;
-using Duke.Owin.VkontakteMiddleware.Provider;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Xml;
 
 namespace Duke.Owin.VkontakteMiddleware
 {
@@ -23,7 +21,7 @@ namespace Duke.Owin.VkontakteMiddleware
         private const string GraphApiEndpoint = "https://api.vk.com/method/";
 
         private readonly ILogger _logger;
-        private readonly HttpClient _httpClient;        
+        private readonly HttpClient _httpClient;
 
         public VkAuthenticationHandler(HttpClient httpClient, ILogger logger)
         {
@@ -104,7 +102,7 @@ namespace Duke.Owin.VkontakteMiddleware
 
         //step 2.1
         //called at start of page request - checking if request match with "{host}/signin-vkontakte" url {?code=*******************}
-        //if matched - making AuthenticationTicket 
+        //if matched - making AuthenticationTicket
         private async Task<bool> InvokeReplyPathAsync()
         {
             if (Options.CallbackPath.HasValue && Options.CallbackPath == Request.Path)
@@ -122,7 +120,6 @@ namespace Duke.Owin.VkontakteMiddleware
                 context.RedirectUri = ticket.Properties.RedirectUri;
 
                 await Options.Provider.ReturnEndpoint(context);
-
 
                 if (context.SignInAsAuthenticationType != null &&
                     context.Identity != null)
@@ -247,7 +244,6 @@ namespace Duke.Owin.VkontakteMiddleware
                 await Options.Provider.Authenticated(context);
 
                 return new AuthenticationTicket(context.Identity, context.Properties);
-
             }
             catch (Exception ex)
             {

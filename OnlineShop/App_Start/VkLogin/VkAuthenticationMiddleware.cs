@@ -1,15 +1,15 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Net.Http;
+﻿using Duke.Owin.VkontakteMiddleware.Provider;
 using Microsoft.Owin;
 using Microsoft.Owin.Logging;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler;
 using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Infrastructure;
-using Owin;
-using Duke.Owin.VkontakteMiddleware.Provider;
 using OnlineShop;
+using Owin;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Net.Http;
 
 namespace Duke.Owin.VkontakteMiddleware
 {
@@ -35,7 +35,6 @@ namespace Duke.Owin.VkontakteMiddleware
 
             _logger = app.CreateLogger<VkAuthenticationMiddleware>();
 
-
             if (Options.Provider == null)
             {
                 Options.Provider = new VkAuthenticationProvider();
@@ -58,7 +57,7 @@ namespace Duke.Owin.VkontakteMiddleware
         }
 
         /// <summary>
-        /// Provides the <see cref="AuthenticationHandler"/> object for processing authentication-related requests. 
+        /// Provides the <see cref="AuthenticationHandler"/> object for processing authentication-related requests.
         /// Called at start of every page request.
         /// </summary>
         /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="VkkAuthenticationOptions"/> supplied to the constructor.</returns>

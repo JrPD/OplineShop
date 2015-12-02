@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace OnlineShop.Models.Db.Tables
 {
@@ -10,6 +6,7 @@ namespace OnlineShop.Models.Db.Tables
     {
         [Key]
         public long LC_Id { get; set; }
+
         public long Category_Cat_Id { get; set; }
         public long Link_Link_Id { get; set; }
     }

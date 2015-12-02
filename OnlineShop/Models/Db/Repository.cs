@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace OnlineShop.Models.Db
 {
     public class Repository<TContext> : IRepository
-        where TContext: AppContext, new()
+        where TContext : AppContext, new()
     {//implementation of our repository for right using our context
         public Repository()
         {
             Context = new TContext();//template for our context
         }
+
         public TContext Context { get; private set; }
 
         /// <summary>
@@ -48,7 +47,7 @@ namespace OnlineShop.Models.Db
                 Save();
 
             return item;
-        }                           
+        }
 
         /// <summary>
         /// Save changes immediately
@@ -58,12 +57,11 @@ namespace OnlineShop.Models.Db
         {
             try
             {
-
                 return Context.SaveChanges();
             }
             catch (Exception ex)
-            {                                 
-                    throw;   
+            {
+                throw;
             }
         }
 
@@ -97,5 +95,5 @@ namespace OnlineShop.Models.Db
     /// <summary>
     /// Implementation using our Context => AppContext
     /// </summary>
-    public class ContextRepository : Repository<AppContext>{}
+    public class ContextRepository : Repository<AppContext> { }
 }

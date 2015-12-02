@@ -18,7 +18,6 @@ $(function () {
 });
 
 (function($) {
-
 	var menuTrees = [],
 		IE = !!window.createPopup, // detect it for the iframe shim
 		mouse = false, // optimize for touch by default - we will detect for mouse input
@@ -1142,7 +1141,7 @@ $(function () {
 				if (!('onorientationchange' in window) || e.type == 'orientationchange') {
 					var isCollapsible = this.isCollapsible();
 					// if it was collapsible before resize and still is, don't do it
-					if (!(this.wasCollapsible && isCollapsible)) { 
+					if (!(this.wasCollapsible && isCollapsible)) {
 						if (this.activatedItems.length) {
 							this.activatedItems[this.activatedItems.length - 1][0].blur();
 						}
@@ -1224,5 +1223,4 @@ $(function () {
 		bottomToTopSubMenus:	false,		// bottom to top display of the sub menus
 		overlapControlsInIE:	true		// make sure sub menus appear on top of special OS controls in IE (i.e. SELECT, OBJECT, EMBED, etc.)
 	};
-
 })(jQuery);

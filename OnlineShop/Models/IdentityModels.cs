@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using OnlineShop.Models.Db;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -21,9 +20,8 @@ namespace OnlineShop.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-
-		//public DbSet<Category> Categories { get; set; }
-		//public DbSet<Product> Products { get; set; }
+        //public DbSet<Category> Categories { get; set; }
+        //public DbSet<Product> Products { get; set; }
 
         public ApplicationDbContext()
             : base("DataBaseConnection", throwIfV1Schema: false)

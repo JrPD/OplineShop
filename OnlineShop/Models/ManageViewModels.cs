@@ -58,7 +58,6 @@ namespace OnlineShop.Models
         public string ConfirmPassword { get; set; }
     }
 
-
     public class AddPhoneNumberViewModel
     {
         [Required]
@@ -84,5 +83,4 @@ namespace OnlineShop.Models
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
     }
-
 }

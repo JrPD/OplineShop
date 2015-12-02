@@ -1,13 +1,13 @@
-﻿using OnlineShop.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using OnlineShop.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Collections.Generic;
 
 namespace OnlineShop.Controllers
 {
@@ -26,6 +26,7 @@ namespace OnlineShop.Controllers
         }
 
         private ApplicationUserManager _userManager;
+
         public ApplicationUserManager UserManager
         {
             get
@@ -39,6 +40,7 @@ namespace OnlineShop.Controllers
         }
 
         private ApplicationRoleManager _roleManager;
+
         public ApplicationRoleManager RoleManager
         {
             get
@@ -130,7 +132,6 @@ namespace OnlineShop.Controllers
         //
         // POST: /Roles/Edit/5
         [HttpPost]
-
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Name,Id")] RoleViewModel roleModel)
         {

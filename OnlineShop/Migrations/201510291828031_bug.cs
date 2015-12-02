@@ -1,8 +1,7 @@
 namespace OnlineShop.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class bug : DbMigration
     {
         public override void Up()
@@ -10,159 +9,158 @@ namespace OnlineShop.Migrations
             CreateTable(
                 "dbo.Carts",
                 c => new
-                    {
-                        Cart_Id = c.Long(nullable: false, identity: true),
-                        Cart_Pr_Id = c.Long(nullable: false),
-                        Cart_Count = c.Byte(nullable: false),
-                        Cart_DataCreation = c.DateTime(),
-                        User = c.String(),
-                    })
+                {
+                    Cart_Id = c.Long(nullable: false, identity: true),
+                    Cart_Pr_Id = c.Long(nullable: false),
+                    Cart_Count = c.Byte(nullable: false),
+                    Cart_DataCreation = c.DateTime(),
+                    User = c.String(),
+                })
                 .PrimaryKey(t => t.Cart_Id);
-            
+
             CreateTable(
                 "dbo.Products",
                 c => new
-                    {
-                        Pr_Id = c.Long(nullable: false, identity: true),
-                        Pr_Cat_Id = c.Long(nullable: false),
-                        Pr_Descr_Id = c.Long(),
-                        Pr_Name = c.String(nullable: false, maxLength: 200),
-                        Pr_Price = c.Double(nullable: false),
-                        Pr_IsAvailable = c.Boolean(nullable: false),
-                        Pr_Count = c.Int(),
-                    })
+                {
+                    Pr_Id = c.Long(nullable: false, identity: true),
+                    Pr_Cat_Id = c.Long(nullable: false),
+                    Pr_Descr_Id = c.Long(),
+                    Pr_Name = c.String(nullable: false, maxLength: 200),
+                    Pr_Price = c.Double(nullable: false),
+                    Pr_IsAvailable = c.Boolean(nullable: false),
+                    Pr_Count = c.Int(),
+                })
                 .PrimaryKey(t => t.Pr_Id)
                 .ForeignKey("dbo.Categories", t => t.Pr_Cat_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Descriptions", t => t.Pr_Descr_Id)
                 .Index(t => t.Pr_Cat_Id)
                 .Index(t => t.Pr_Descr_Id)
                 .Index(t => t.Pr_Name, unique: true, name: "Pr_Name_UN");
-            
+
             CreateTable(
                 "dbo.Categories",
                 c => new
-                    {
-                        Cat_Id = c.Long(nullable: false, identity: true),
-                        Cat_Level = c.Byte(nullable: false),
-                        Cat_Parent_Cat_Id = c.Long(nullable: false),
-                        Cat_Name = c.String(nullable: false, maxLength: 200),
-                        Cat_HasChild = c.Boolean(nullable: false),
-                        Cat_Img_Id = c.Long(),
-                        Image_Img_Id = c.Long(),
-                    })
+                {
+                    Cat_Id = c.Long(nullable: false, identity: true),
+                    Cat_Level = c.Byte(nullable: false),
+                    Cat_Parent_Cat_Id = c.Long(nullable: false),
+                    Cat_Name = c.String(nullable: false, maxLength: 200),
+                    Cat_HasChild = c.Boolean(nullable: false),
+                    Cat_Img_Id = c.Long(),
+                    Image_Img_Id = c.Long(),
+                })
                 .PrimaryKey(t => t.Cat_Id)
                 .ForeignKey("dbo.Images", t => t.Image_Img_Id)
                 .Index(t => t.Cat_Name, unique: true, name: "Cat_Name_UN")
                 .Index(t => t.Image_Img_Id);
-            
+
             CreateTable(
                 "dbo.Images",
                 c => new
-                    {
-                        Img_Id = c.Long(nullable: false, identity: true),
-                        Img_Path = c.String(nullable: false),
-                    })
+                {
+                    Img_Id = c.Long(nullable: false, identity: true),
+                    Img_Path = c.String(nullable: false),
+                })
                 .PrimaryKey(t => t.Img_Id);
-            
+
             CreateTable(
                 "dbo.Links",
                 c => new
-                    {
-                        Link_Id = c.Long(nullable: false, identity: true),
-                        Link_Name = c.String(nullable: false, maxLength: 200),
-                    })
+                {
+                    Link_Id = c.Long(nullable: false, identity: true),
+                    Link_Name = c.String(nullable: false, maxLength: 200),
+                })
                 .PrimaryKey(t => t.Link_Id)
                 .Index(t => t.Link_Name, unique: true, name: "Link_Name_UN");
-            
+
             CreateTable(
                 "dbo.Properties",
                 c => new
-                    {
-                        Prop_Id = c.Long(nullable: false, identity: true),
-                        Prop_Name = c.String(nullable: false, maxLength: 200),
-                        Prop_Link_Id = c.Long(nullable: false),
-                    })
+                {
+                    Prop_Id = c.Long(nullable: false, identity: true),
+                    Prop_Name = c.String(nullable: false, maxLength: 200),
+                    Prop_Link_Id = c.Long(nullable: false),
+                })
                 .PrimaryKey(t => t.Prop_Id)
                 .ForeignKey("dbo.Links", t => t.Prop_Link_Id, cascadeDelete: true)
                 .Index(t => t.Prop_Name, unique: true, name: "Prop_Name_UN")
                 .Index(t => t.Prop_Link_Id);
-            
+
             CreateTable(
                 "dbo.Descriptions",
                 c => new
-                    {
-                        Desc_Id = c.Long(nullable: false, identity: true),
-                        Desc_Path = c.String(nullable: false),
-                    })
+                {
+                    Desc_Id = c.Long(nullable: false, identity: true),
+                    Desc_Path = c.String(nullable: false),
+                })
                 .PrimaryKey(t => t.Desc_Id);
-            
+
             CreateTable(
                 "dbo.ProductsCarts",
                 c => new
-                    {
-                        Pr_Id = c.Long(nullable: false),
-                        Cart_Id = c.Long(nullable: false),
-                    })
+                {
+                    Pr_Id = c.Long(nullable: false),
+                    Cart_Id = c.Long(nullable: false),
+                })
                 .PrimaryKey(t => new { t.Pr_Id, t.Cart_Id })
                 .ForeignKey("dbo.Products", t => t.Pr_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Carts", t => t.Cart_Id, cascadeDelete: true)
                 .Index(t => t.Pr_Id)
                 .Index(t => t.Cart_Id);
-            
+
             CreateTable(
                 "dbo.LinkCategories",
                 c => new
-                    {
-                        Link_Link_Id = c.Long(nullable: false),
-                        Category_Cat_Id = c.Long(nullable: false),
-                    })
+                {
+                    Link_Link_Id = c.Long(nullable: false),
+                    Category_Cat_Id = c.Long(nullable: false),
+                })
                 .PrimaryKey(t => new { t.Link_Link_Id, t.Category_Cat_Id })
                 .ForeignKey("dbo.Links", t => t.Link_Link_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Categories", t => t.Category_Cat_Id, cascadeDelete: true)
                 .Index(t => t.Link_Link_Id)
                 .Index(t => t.Category_Cat_Id);
-            
+
             CreateTable(
                 "dbo.ProductsImages",
                 c => new
-                    {
-                        Pr_Id = c.Long(nullable: false),
-                        Img_Id = c.Long(nullable: false),
-                    })
+                {
+                    Pr_Id = c.Long(nullable: false),
+                    Img_Id = c.Long(nullable: false),
+                })
                 .PrimaryKey(t => new { t.Pr_Id, t.Img_Id })
                 .ForeignKey("dbo.Products", t => t.Pr_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Images", t => t.Img_Id, cascadeDelete: true)
                 .Index(t => t.Pr_Id)
                 .Index(t => t.Img_Id);
-            
+
             CreateTable(
                 "dbo.ProductsLinks",
                 c => new
-                    {
-                        Pr_Id = c.Long(nullable: false),
-                        Link_Id = c.Long(nullable: false),
-                    })
+                {
+                    Pr_Id = c.Long(nullable: false),
+                    Link_Id = c.Long(nullable: false),
+                })
                 .PrimaryKey(t => new { t.Pr_Id, t.Link_Id })
                 .ForeignKey("dbo.Products", t => t.Pr_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Links", t => t.Link_Id, cascadeDelete: true)
                 .Index(t => t.Pr_Id)
                 .Index(t => t.Link_Id);
-            
+
             CreateTable(
                 "dbo.ProductsProperties",
                 c => new
-                    {
-                        Pr_Id = c.Long(nullable: false),
-                        Prop_Id = c.Long(nullable: false),
-                    })
+                {
+                    Pr_Id = c.Long(nullable: false),
+                    Prop_Id = c.Long(nullable: false),
+                })
                 .PrimaryKey(t => new { t.Pr_Id, t.Prop_Id })
                 .ForeignKey("dbo.Products", t => t.Pr_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Properties", t => t.Prop_Id, cascadeDelete: true)
                 .Index(t => t.Pr_Id)
                 .Index(t => t.Prop_Id);
-            
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.ProductsProperties", "Prop_Id", "dbo.Properties");
