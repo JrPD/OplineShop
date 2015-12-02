@@ -1,13 +1,11 @@
 ﻿@model OnlineShop.Models.ManageShopModels.Views.CategoryView
-
 @{
     ViewBag.Title = "Додати нову категорію";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>AddNewCategory</h2>
-
-@using (Html.BeginForm("AddNewCategory","Category",FormMethod.Post, new { enctype = "multipart/form-data", @data_ajax = "false" }))
+@using (Html.BeginForm("AddNewCategory", "Category", FormMethod.Post, new { enctype = "multipart/form-data", @data_ajax = "false" }))
 {
     @Html.AntiForgeryToken()
 
@@ -34,31 +32,34 @@
                 <input type="file" id="ImgFile" name="ImgFile" class="btn btn-default" />
             </div>
         </div>
-        <ul class="nav navbar-nav">
+        <ul style="list-style-type:none">
             @if (Model.Properties != null && Model.Properties.Count != 0)
             {
                 for (var i = 0; i < Model.Properties.Count; i++)
                 {
                     <li>
-                        <span class="input-group-addon">
-                            @Html.CheckBoxFor(m => m.Properties[i].Checked, new { id = Model.Properties[i].Id })
-                            @Html.HiddenFor(m => m.Properties[i].Name)
-                            @Html.HiddenFor(m => m.Properties[i].Id)
-                            @Html.HiddenFor(m => m.Properties[i].IsNew)
-                            @Html.DisplayFor(m => m.Properties[i].Name)
-                        </span>
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-md-1">
+                                @Html.CheckBoxFor(m => m.Properties[i].Checked, new { id = Model.Properties[i].Id })
+                            </div>
+                                <div class="col-md-1">
+                                    @Html.HiddenFor(m => m.Properties[i].Name)
+                                    @Html.HiddenFor(m => m.Properties[i].Id)
+                                    @Html.HiddenFor(m => m.Properties[i].IsNew)
+                                    @Html.DisplayFor(m => m.Properties[i].Name)
+                                </div>
+                            </div>
                     </li>
                 }
             }
-        </ul>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Створити" class="btn btn-primary" />
+            </ul>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Створити" class="btn btn-primary" />
+                </div>
             </div>
-        </div>
-    </div>
+            </div>
 }
-
 <div>
-    @Html.ActionLink("Назад до списку", "Index","ManageShop")
+    @Html.ActionLink("Назад до списку", "Index", "ManageShop")
 </div>
