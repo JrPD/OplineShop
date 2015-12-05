@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace OnlineShop.Models.ManageShopModels.Views
 {
@@ -19,7 +20,9 @@ namespace OnlineShop.Models.ManageShopModels.Views
         public const double MaxPrice = 999999.99;
 
         [Display(Name = "Категорія")]
-        public long CatId { get; set; }
+        public long SelectedCategoryId { get; set; }
+
+        public List<SelectListItem> CategoryList { get; set; }
 
         public long Id { get; set; }
 
@@ -50,6 +53,11 @@ namespace OnlineShop.Models.ManageShopModels.Views
         [Display(Name = "Опис продукту")]
         public Description Description { get; set; }
 
+        public ProductView()
+        {
+            CategoryList = new List<SelectListItem>();
+        }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (!Enumerable.Range(MinCount, MaxCount).Contains(Count))
@@ -64,7 +72,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
                 yield return new ValidationResult(
                     string.Format(Res.IncorrectLength, MaxNameLength, Name.Length), new[] { "Name" });
             Category cat = App.Rep.Select<Category>()
-                      .FirstOrDefault(c => c.Cat_Id == CatId);
+                      .FirstOrDefault(c => c.Cat_Id == SelectedCategoryId);
             if (cat != null)
                 Category = cat;
             if (Category != null && Category.Cat_Id != 0)

@@ -57,7 +57,7 @@ namespace OnlineShop.Mappers
                 .ForMember(dest => dest.Pr_Id,
                     opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Pr_Cat_Id,
-                    opt => opt.MapFrom(src => src.CatId));
+                    opt => opt.MapFrom(src => src.SelectedCategoryId));
 
             Mapper.CreateMap<Product, ProductView>()
                 .ForMember(dest => dest.Count,
@@ -70,7 +70,7 @@ namespace OnlineShop.Mappers
                     opt => opt.MapFrom(src => src.Pr_IsAvailable))
                 .ForMember(dest => dest.Id,
                     opt => opt.MapFrom(src => src.Pr_Id))
-                .ForMember(dest => dest.CatId,
+                .ForMember(dest => dest.SelectedCategoryId,
                     opt => opt.MapFrom(src => src.Pr_Cat_Id));
 
             Mapper.CreateMap<CategoryView, Image>()

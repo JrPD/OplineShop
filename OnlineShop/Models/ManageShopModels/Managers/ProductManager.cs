@@ -3,6 +3,7 @@ using OnlineShop.Models.ManageShopModels.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace OnlineShop.Models.ManageShopModels.Managers
 {
@@ -41,11 +42,65 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         }
 
         /// <summary>
+        /// Return all IEnumerable list with SelectList
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<SelectListItem> GetCategoryList()
+        {
+            var resList = new List<SelectListItem>();
+            //todo це погано по швидкості виконання потрібно поправити
+            var catList = App.Rep.Select<Category>().Where(c => !c.Cat_HasChild);
+            foreach (var category in catList)
+            {
+                resList.Add(GetCategorySelectedItem(category));
+            }
+            return resList;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        private static SelectListItem GetCategorySelectedItem(Category category)
+        {
+            var resItem = new SelectListItem();
+            if (category.Cat_Parent_Cat_Id != CategoryManager.DefaultParentCategoryId)
+            {
+                resItem.Text = GetParentCategoryName(category.Cat_Parent_Cat_Id) + " / " + category.Cat_Name;
+            }
+            else
+            {
+                resItem.Text = category.Cat_Name;
+            }
+            resItem.Value = category.Cat_Id.ToString();
+            return resItem;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        private static string GetParentCategoryName(long parentId)
+        {
+            var resString = string.Empty;
+            var category = App.Rep.Select<Category>().FirstOrDefault(c => c.Cat_Id == parentId);
+
+            if (category != null)
+                if (category.Cat_Parent_Cat_Id != CategoryManager.DefaultParentCategoryId)
+                    resString = GetParentCategoryName(category.Cat_Parent_Cat_Id) + " / " + category.Cat_Name;
+                else
+                    resString = category.Cat_Name;
+            return resString;
+        }
+
+        /// <summary>
         /// Map Product model into ProductView using AutoMapper
         /// </summary>
         /// <param name="product">model for converting</param>
         /// <returns>Converted by AutoMapper ProductView model</returns>
-		public static ProductView MapToProductView(Product product)
+        public static ProductView MapToProductView(Product product)
         {
             if (product != null)
                 return (ProductView)App.Mapper.Map(product,
@@ -69,7 +124,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         public static void UpdateProduct(ProductView product)
         {                                             //todo може і bool треба вертити а не void 
             Category cat = App.Rep.Select<Category>()
-                    .FirstOrDefault(c => c.Cat_Id == product.CatId);
+                    .FirstOrDefault(c => c.Cat_Id == product.SelectedCategoryId);
             product.Category = cat;
 
             App.Rep.Update<Product>(ProductManager.MapToProduct(product),true); //todo може бути Exception, ЧОМУ?????

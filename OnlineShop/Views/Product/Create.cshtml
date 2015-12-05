@@ -50,17 +50,11 @@
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.CatId, "Product category", htmlAttributes: new {@class = "control-label col-md-2"})
+			@Html.LabelFor(model => model.SelectedCategoryId, "Product category", htmlAttributes: new {@class = "control-label col-md-2"})
 			<div class="col-md-10">
 				<div class="checkbox" style="padding-left: 0px">
-					@{}
-
-					@Html.DropDownList("PrRootCatID", (SelectList)ViewBag.CategoriesId ?? Enumerable.Empty<SelectListItem>(), "Select category", new { @onchange = "getSubCategories(this, PrSubCatID)", @onclick = "getSubCategories(this, PrSubCatID)", @class = "form-control" })
-					@*@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })*@
-
-					@Html.DropDownList("PrSubCatID", Enumerable.Empty<SelectListItem>(), "Select subcategory", new {@id = "PrSubCatID", @onclick = "getSubCategories(this, CatId)", @onchange = "getSubCategories(this, PrCatId)", @class = "form-control"})
-					@Html.ValidationMessageFor(model => model.CatId, "", new { @class = "text-danger" })
-					@Html.DropDownListFor(model => model.CatId, Enumerable.Empty<SelectListItem>(), "Select subcategory", new { @class = "form-control" })
+					@Html.DropDownListFor(model => model.SelectedCategoryId,Model.CategoryList, "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SelectedCategoryId, "Поле категорія є обов'яковим", new { @class = "text-danger" })
 				</div>
 			</div>
 		</div>

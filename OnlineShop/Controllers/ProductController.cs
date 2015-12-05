@@ -29,10 +29,9 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.CategoriesID = new SelectList(CategoryManager.GetAllCategories(CategoryManager.DefaultParentCategoryId), "Id", "Name");
-            ViewBag.SubCatID = ViewBag.CategoriesID;
-
-            return View(new ProductView());
+            var product = new ProductView();
+            product.CategoryList.AddRange(ProductManager.GetCategoryList());
+            return View(product);
         }
 
         [HttpPost]
@@ -55,9 +54,10 @@ namespace OnlineShop.Controllers
             Product product = App.Rep.
                 Select<Product>().FirstOrDefault(p => p.Pr_Id == id);
 
-            SetSelectedValues(product);
+            //SetSelectedValues(product);
 
             var editProduct = ProductManager.GetProductById(id);
+            editProduct.CategoryList.AddRange(ProductManager.GetCategoryList());
 
             return View(editProduct);
         }
@@ -129,7 +129,7 @@ namespace OnlineShop.Controllers
                 ProductManager.UpdateProduct(product);
                 return RedirectToAction("Index");
             }
-            SetSelectedValues(ProductManager.MapToProduct(product));  //todo це теж фігово видалити або переробити цю ф-цію
+            //SetSelectedValues(ProductManager.MapToProduct(product));  //todo це теж фігово видалити або переробити цю ф-цію
             return View(product);
         }
 

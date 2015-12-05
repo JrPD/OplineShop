@@ -45,14 +45,11 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CatId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SelectedCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox" style="padding-left: 0px">
-                    @Html.DropDownList("PrRootCatID", (SelectList)ViewBag.CategoriesL1, "Виберіть кореневу категорію", new { @onchange = "getSubCategories(this, PrSubCatID)", @class = "form-control" })
-                    @*@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })*@
-                    @Html.DropDownList("PrSubCatID", (SelectList)ViewBag.CategoriesL2, "Виберіть підкатегорію", new { @id = "PrSubCatID", @onchange = "getSubCategories(this, CatId)", @class = "form-control" })
-                    @Html.DropDownListFor(model => model.CatId, (SelectList)ViewBag.CategoriesL3, "Поточна категорія", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.CatId, "Поле категорія є обов'яковим", new { @class = "text-danger" })
+                   @Html.DropDownListFor(model => model.SelectedCategoryId, Model.CategoryList, "", new { @class = "form-control" })
+                   @Html.ValidationMessageFor(model => model.SelectedCategoryId, "Поле категорія є обов'яковим", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
