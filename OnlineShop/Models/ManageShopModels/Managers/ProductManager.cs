@@ -66,17 +66,13 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             return null;
         }
 
-        public static bool UpdateProduct(Product product)
-        {
-            try
-            {
-                App.Rep.Update<Product>(product, true);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+        public static void UpdateProduct(ProductView product)
+        {                                             //todo може і bool треба вертити а не void 
+            Category cat = App.Rep.Select<Category>()
+                    .FirstOrDefault(c => c.Cat_Id == product.CatId);
+            product.Category = cat;
+
+            App.Rep.Update<Product>(ProductManager.MapToProduct(product),true); //todo може бути Exception, ЧОМУ?????
         }
 
         public static Category GetParentCategory(Category current)

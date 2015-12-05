@@ -13,9 +13,10 @@ namespace OnlineShop.Models.ManageShopModels.Views
     public class ProductView : IValidatableObject
     {
         public const byte MaxNameLength = 200;
-        public const byte MinCountOrPrice = 0;
+        public const byte MinCount = 0;
+        public const double MinPrice = 0.01;
         public const byte MaxCount = 255;
-        public const int MaxPrice = 999999;
+        public const double MaxPrice = 999999.99;
 
         [Display(Name = "Категорія")]
         public long CatId { get; set; }
@@ -51,11 +52,11 @@ namespace OnlineShop.Models.ManageShopModels.Views
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (!Enumerable.Range(MinCountOrPrice, MaxCount).Contains(Count))
+            if (!Enumerable.Range(MinCount, MaxCount).Contains(Count))
                 yield return new ValidationResult(string.Format(Res.IncorrectInput,
                     "Кількість", Count.ToString()),
                     new[] { "Count" });
-            if (!Enumerable.Range(MinCountOrPrice, MaxPrice).Contains(Convert.ToInt32(Price + .99)))
+            if (Price<MinPrice || Price>MaxPrice)
                 yield return new ValidationResult(string.Format(Res.IncorrectInput,
                     "Ціна", Price.ToString()),
                     new[] { "Price" });

@@ -123,31 +123,14 @@ namespace OnlineShop.Controllers
 
         [HttpPost]
         public ActionResult Edit(ProductView product)
-        {
-            if (!ModelState.IsValid)
+        { 
+            if (ModelState.IsValid)
             {
-                throw new Exception("Model is not valid!!!");
-            }
-
-            try
-            {
-                Category cat = App.Rep.Select<Category>()
-                    .FirstOrDefault(c => c.Cat_Id == product.CatId);
-                product.Category = cat;
-
-                Product mapProduct = ProductManager.MapToProduct(product);
-                bool res = ProductManager.UpdateProduct(mapProduct);
-
-                if (!res)
-                {
-                    throw new Exception("Cannot update product");
-                }
+                ProductManager.UpdateProduct(product);
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
-            {
-                return View(ex.ToString() + ex.Message);
-            }
+            SetSelectedValues(ProductManager.MapToProduct(product));  //todo це теж фігово видалити або переробити цю ф-цію
+            return View(product);
         }
 
         [HttpGet]
