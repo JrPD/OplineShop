@@ -1,6 +1,6 @@
 ﻿@model OnlineShop.Models.ManageShopModels.Views.ProductView
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Редагування";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Редагування продукта @Model.Name</h2>
@@ -64,9 +64,6 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
 <script type="text/javascript">
     // set default value to dropdown list
     document.onreadystatechange = function () {

@@ -5,70 +5,60 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Деталі продукту</h2>
+<h2>Деталі продукту @Model.Id.ToString()</h2>
+<hr />
 
-<div>
-	<h4>Продукт</h4>
-	<hr />
-	<dl class="dl-horizontal">
-		<dt>
-			@Html.DisplayNameFor(model => model.Id)
-		</dt>
-
-		<dd>
-			@Html.DisplayFor(model => model.Id)
-		</dd>
-
-		<dt>
-			@Html.DisplayNameFor(model => model.Category)
-		</dt>
-
-		<dd>
-			@Html.DisplayFor(model => model.Category.Cat_Name)
-		</dd>
-
-		<dt>
-			@Html.DisplayNameFor(model => model.Description)
-		</dt>
-
-		<dd>
-			@Html.DisplayFor(model => model.Description)
-		</dd>
-
-		<dt>
-			@Html.DisplayNameFor(model => model.Name)
-		</dt>
-
-		<dd>
-			@Html.DisplayFor(model => model.Name)
-		</dd>
-
-		<dt>
-			@Html.DisplayNameFor(model => model.Price)
-		</dt>
-
-		<dd>
-			@Html.DisplayFor(model => model.Price)
-		</dd>
-
-		<dt>
-			@Html.DisplayNameFor(model => model.IsAvailable)
-		</dt>
-
-		<dd>
-			@Html.DisplayFor(model => model.IsAvailable)
-		</dd>
-
-		<dt>
-			@Html.DisplayNameFor(model => model.Count)
-		</dt>
-
-		<dd>
-			@Html.DisplayFor(model => model.Count)
-		</dd>
-	</dl>
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.DisplayNameFor(model => model.Id)  
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.DisplayNameFor(model => model.Category)
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Category.Cat_Name)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.DisplayNameFor(model => model.Description)
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.DisplayNameFor(model => model.Name)
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+    </div>
+        <div class="form-group">
+            @Html.DisplayNameFor(model => model.Price)
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </div>
+        </div>
+    <div class="form-group">
+        @Html.DisplayNameFor(model => model.IsAvailable)
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.IsAvailable)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.DisplayNameFor(model => model.Count)
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Count)
+        </div>
+    </div>
+    <ul class="pager">
+        <li>
+            @Html.ActionLink("Редагувати", "Edit", new { id = Model.Id })
+        </li>
+        <li>
+            @Html.ActionLink("Назад до списку", "Index")
+        </li>
+    </ul>
 </div>
-<p>
-	@Html.ActionLink("Редагувати", "Edit", new { /* id = Model.PrimaryKey */ }) |
-	@Html.ActionLink("Назад до списку", "Index")
-</p>
+
+
