@@ -10,55 +10,61 @@
 
 <div class="form-horizontal">
     <div class="form-group">
-        @Html.DisplayNameFor(model => model.Id)  
+        @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })  
         <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
+            @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
         </div>
     </div>
     <div class="form-group">
-        @Html.DisplayNameFor(model => model.Category)
+        @Html.LabelFor(model => model.Category.Cat_Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Category.Cat_Name)
+            @Html.EditorFor(model => model.Category.Cat_Name, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
         </div>
     </div>
     <div class="form-group">
-        @Html.DisplayNameFor(model => model.Description)
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
         </div>
     </div>
     <div class="form-group">
-        @Html.DisplayNameFor(model => model.Name)
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
         </div>
     </div>
         <div class="form-group">
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-sm-10">
-                @Html.DisplayFor(model => model.Price)
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
             </div>
         </div>
     <div class="form-group">
-        @Html.DisplayNameFor(model => model.IsAvailable)
+        @Html.LabelFor(model => model.IsAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-sm-10">
-            @Html.DisplayFor(model => model.IsAvailable)
+            @Html.EditorFor(model => model.IsAvailable, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
         </div>
     </div>
     <div class="form-group">
-        @Html.DisplayNameFor(model => model.Count)
+        @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Count)
+            @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
         </div>
     </div>
-    <ul class="pager">
-        <li>
-            @Html.ActionLink("Редагувати", "Edit", new { id = Model.Id })
-        </li>
-        <li>
-            @Html.ActionLink("Назад до списку", "Index")
-        </li>
-    </ul>
-</div>
+    <div class="col-sm-2">
+    </div>
 
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default"><span aria-hidden="true">&larr;</span>@Html.ActionLink("Назад до списку", "Index")</button>
+            <button type="button" class="btn btn-default">@Html.ActionLink("Редагувати", "Edit", new { id = Model.Id })</button>
+    </div>
 
+        @*<ul class="pager">
+                <li class="previous">
+                        @Html.ActionLink("Редагувати", "Edit", new { id = Model.Id })
+                </li>
+                <li class="previous">
+                        @Html.ActionLink("Назад до списку", "Index")
+                </li>
+            </ul>*@
+    </div>
