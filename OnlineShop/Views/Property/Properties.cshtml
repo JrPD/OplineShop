@@ -20,8 +20,10 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.ActionLink("Редагувати", "EditProperty", new { prop_id = item.Id }) |
-                @Html.ActionLink("Видалити", "DeleteProperty", new { prop_id = item.Id })
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Редагувати", "EditProperty", new { prop_id = item.Id })</li>
+                    <li>@Html.ActionLink("Видалити", "DeleteProperty", new { prop_id = item.Id })</li>
+                </ul>
             </td>
         </tr>
     }

@@ -36,20 +36,20 @@
 {
 	<tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Id)
+            @Html.EditorFor(modelItem => item.Id, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @style="width: 100px" } })  
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.EditorFor(modelItem => item.Name, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @style = "width: 100px" } })
         </td>
 		<td>
-			@Html.DisplayFor(modelItem => item.Count)
+			@Html.EditorFor(modelItem => item.Count, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @style = "width: 100px" } })
 		</td>
 		<td>
-			@Html.DisplayFor(modelItem => item.Price)
+			@Html.EditorFor(modelItem => item.Price, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @style = "width: 100px" } })
 		</td>
 		
 		<td>
-			@Html.DisplayFor(modelItem => item.IsAvailable)
+			@Html.EditorFor(modelItem => item.IsAvailable, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @style = "width: 100px" } })
 		</td>
 		<td>
             <ul class="nav navbar-nav">

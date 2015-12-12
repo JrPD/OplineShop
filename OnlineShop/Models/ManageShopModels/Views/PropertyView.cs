@@ -11,7 +11,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
         public long Id { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Res),
-            ErrorMessageResourceName = "NameCantBeNull")]
+            ErrorMessageResourceName = "FieldCantBeNull")]
         [Display(Name = "Ім'я властивості")]
         public string Name { get; set; }
 
