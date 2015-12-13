@@ -4,9 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>@ViewBag.Title</h2>
-<p>
-    @Html.ActionLink("Створити нову групу властивостей", "CreateLink")
-</p>
+<ul class="nav navbar-nav">
+    <li>@Html.ActionLink("Створити нову групу властивостей", "CreateLink")</li>
+</ul>
 <table class="table">
     <tr>
         <th>

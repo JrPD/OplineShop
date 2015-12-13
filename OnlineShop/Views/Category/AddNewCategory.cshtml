@@ -32,36 +32,22 @@
                 <input type="file" id="ImgFile" name="ImgFile" class="btn btn-default" />
             </div>
         </div>
-        @* <ul style="list-style-type:none">*@
-        @if (Model.Properties != null && Model.Properties.Count != 0)
-        {
-            for (var i = 0; i < Model.Properties.Count; i++)
+        <div class="btn-group col-md-offset-2" data-toggle="buttons">
+            @if (Model.Properties != null && Model.Properties.Count != 0)
             {
-                @*<li>*@
+                for (var i = 0; i < Model.Properties.Count; i++)
+                {
+                    <label class="btn btn-primary">
+                        @Html.CheckBoxFor(m => m.Properties[i].Checked)
+                        @Html.DisplayFor(m => m.Properties[i].Name)
 
-                <div class="col-sm-1">
-                </div>
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-primary">
-                                @Html.CheckBoxFor(m => m.Properties[i].Checked)
-                                @Html.DisplayFor(m => m.Properties[i].Name)
-                            </label>
-                        </div>
-                        @*<div class="form-group">
-                            <div class="col-sm-offset-1 col-md-1">
-                                @Html.CheckBoxFor(m => m.Properties[i].Checked, new { id = Model.Properties[i].Id })
-                            </div>
-                                <div class="col-md-1">
-                                    @Html.HiddenFor(m => m.Properties[i].Name)
-                                    @Html.HiddenFor(m => m.Properties[i].Id)
-                                    @Html.HiddenFor(m => m.Properties[i].IsNew)
-                                    @Html.DisplayFor(m => m.Properties[i].Name)
-                                </div>
-                            </div>*@
-                        @*</li>*@
+                        @Html.HiddenFor(m => m.Properties[i].Name)
+                        @Html.HiddenFor(m => m.Properties[i].Id)
+                        @Html.HiddenFor(m => m.Properties[i].IsNew)
+                    </label>
+                }
             }
-        }
-        @*</ul>*@
+        </div>
         <div class="form-group">
         </div>
         <div class="form-group">

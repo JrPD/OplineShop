@@ -38,7 +38,7 @@
             @Html.LabelFor(model => model.IsAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.IsAvailable, new { htmlAttributes = new { @style = "margin-left: 0px;" } })
+                    @Html.EditorFor(model => model.IsAvailable, new { htmlAttributes = new { @class = "form-control", @style = "margin-left: 0px;" } })
                     @Html.ValidationMessageFor(model => model.IsAvailable, "", new { @class = "text-danger" })
                 </div>
             </div>
