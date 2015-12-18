@@ -1,0 +1,31 @@
+﻿@model IEnumerable<OnlineShop.Models.ManageShopModels.Views.LinkView>
+@{
+    ViewBag.Title = "Список груп властивостей";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>@ViewBag.Title</h2>
+<ul class="nav navbar-nav">
+    <li>@Html.ActionLink("Створити нову групу властивостей", "CreateLink")</li>
+</ul>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <ul class="nav navbar-nav">
+                    <li>  @Html.ActionLink("Редагувати", "EditLink", new { link_id = item.Id })    </li>
+                    <li>  @Html.ActionLink("Видалити", "DeleteLink", new { link_id = item.Id })    </li>
+                    <li>  @Html.ActionLink("Властивості", "Properties", new { link_id = item.Id }) </li>
+</td>
+        </tr>
+    }
+</table>

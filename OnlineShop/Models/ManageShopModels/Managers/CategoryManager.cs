@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using WebGrease.Css.Extensions;
 
 namespace OnlineShop.Models.ManageShopModels.Managers
 {
@@ -238,15 +239,11 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <param name="model">Category with will be saved</param>
         public static void SaveNewCategory(CategoryView model)
         {
-            var parCat = App.Rep.Select<Category>()
-                .FirstOrDefault(c => c.Cat_Id == model.ParentId);
-            if (parCat != null)
+            if (model.ParentId != DefaultParentCategoryId)
             {
-                parCat.Cat_HasChild = true;
-                App.Rep.Update<Category>(parCat, false);
-                model.Level = parCat.Cat_Level;
-                model.Level++;
+                ChangeParentCategory(model.ParentId);
             }
+
             if (model.ImagePath != null && model.ImagePath.Length != 0)
             {
                 model.ImageId = App.Rep.Select<Image>()
@@ -256,8 +253,41 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                   App.Mapper.Map(model,
                   typeof(CategoryView), typeof(Category)), true);
             if (cat != null)
+            {
                 model.Id = cat.Cat_Id;
-            SaveProperties(model);
+                MoveProductsIfExist(model);
+                SaveProperties(model);
+            }
+        }
+
+        /// <summary>
+        /// If parent Category has some products these products will be moved into new Category 
+        /// </summary>
+        /// <param name="model">New model with could take new </param>
+        internal static void MoveProductsIfExist(CategoryView model)
+        {
+            if (model != null && model.Id != 0 && model.ParentId != DefaultParentCategoryId)
+            {
+                App.Rep.Select<Product>()
+                    .Where(p => p.Pr_Cat_Id == model.ParentId)
+                    .ForEach(p => ProductManager.SetNewCategoryIdAndUpdate(p, model.Id));
+                App.Rep.Save();
+            }
+        }
+
+        /// <summary>
+        /// Change parent category into category with has childs
+        /// </summary>
+        /// <param name="parentId">Id of Parent Category</param>
+        internal static void ChangeParentCategory(long parentId)
+        {
+            var parCat = App.Rep.Select<Category>()
+                .FirstOrDefault(c => c.Cat_Id == parentId);
+            if (parCat != null)
+            {
+                parCat.Cat_HasChild = true;
+                App.Rep.Update<Category>(parCat, false);
+            }
         }
 
         /// <summary>
@@ -266,7 +296,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         /// <param name="model">CategoryView model with links and Category Id</param>
         private static void SaveProperties(CategoryView model)
         {
-            if (model.Id != 0)
+            if (model != null && model.Id != 0)
             {
                 foreach (var link in model.Properties)
                 {
@@ -308,7 +338,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             if (parCategory == null)
                 return 1;
             else
-                return parCategory.Cat_Level++;
+                return (byte)(parCategory.Cat_Level+1);
         }
 
         /// <summary>

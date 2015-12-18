@@ -316,13 +316,14 @@
     <Compile Include="App_Start\VkLogin\VkAuthenticationHandler.cs" />
     <Compile Include="App_Start\VkLogin\VkAuthenticationMiddleware.cs" />
     <Compile Include="App_Start\VkLogin\VkAuthenticationOptions.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageAccountController.cs" />
-    <Compile Include="Controllers\ManageShopController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\PropertyController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageShopController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PropertyController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -413,12 +414,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <None Include="Properties\PublishProfiles\onlineshop - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\onlineshop - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\GetSubcategories.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -481,26 +483,26 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Category\EditCategories.cshtml" />
-    <Content Include="Views\ManageShop\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\EditCategories.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageShop\Index.cshtml" />
     <Content Include="Views\Home\Browse.cshtml" />
     <Content Include="Views\Home\BrowseProducts.cshtml" />
     <Content Include="Views\Home\TestMenu.cshtml" />
-    <Content Include="Views\Category\EditSomeCategory.cshtml" />
-    <Content Include="Views\Category\AddNewCategory.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\Create.cshtml" />
-    <Content Include="Views\Category\GetPath.cshtml" />
-    <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\EditSomeCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\AddNewCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\GetPath.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
     <Content Include="Views\RolesAdmin\Delete.cshtml" />
     <Content Include="Views\RolesAdmin\Details.cshtml" />
-    <Content Include="Views\Property\Index.cshtml" />
-    <Content Include="Views\Property\Properties.cshtml" />
-    <Content Include="Views\Property\CreateLink.cshtml" />
-    <Content Include="Views\Property\CreateProperty.cshtml" />
-    <Content Include="Views\Product\Edit.cshtml" />
-    <Content Include="Views\Property\EditLink.cshtml" />
-    <Content Include="Views\Property\EditProperty.cshtml" />
+    <Content Include="Areas\Admin\Views\Property\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Property\Properties.cshtml" />
+    <Content Include="Areas\Admin\Views\Property\CreateLink.cshtml" />
+    <Content Include="Areas\Admin\Views\Property\CreateProperty.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Property\EditLink.cshtml" />
+    <Content Include="Areas\Admin\Views\Property\EditProperty.cshtml" />
     <Content Include="Views\Home\PropertiesFilter.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -519,7 +521,9 @@
       <LastGenOutput>Res.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

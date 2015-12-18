@@ -1,0 +1,125 @@
+﻿@model IEnumerable<OnlineShop.Models.ManageShopModels.Views.CategoryView>
+@{
+    ViewBag.Title = " Редагування категорій";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.ParentName != null && ViewBag.ParentName.Length != 0)
+{
+    ViewBag.NewHeader = "для категорії " + ViewBag.ParentName;
+}
+<p>
+    <h2>
+        Редагування категорій @ViewBag.NewHeader
+    </h2>
+</p>
+<div class="row">
+    @if (ViewBag.IsLastLevel != null && ViewBag.IsLastLevel == true)
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <button type="button">
+                        @if (item.ImagePath != null && item.ImagePath.Length != 0)
+                            {
+                                <img src="@Url.Action("GetImage", "Category",new { path = item.ImagePath })"
+                                      width="300px"  height="300px"  alt="Category" />
+                        }
+                        else
+                        {
+                            <img src="http://www.nyctransitforums.com/forums/fcontent/default.png" alt="Category">
+                        }
+                    </button>
+                    @*//todo тут повинен бути потім норм зображння*@
+                    <div class="caption">
+                        <h2>@item.Name</h2>
+                        <p>
+                            <a href="@Url.Action(
+    "EditSomeCategory",
+    "Category",
+    new RouteValueDictionary(
+        new
+        {
+			id = item.Id
+        }), "http")" class="btn btn-primary" role="button">
+                                Редагувати
+                            </a>
+                            <a href="@Url.Action(
+    "RemoveSomeCategory",
+    "Category",
+    new RouteValueDictionary(
+        new
+        {
+            id = item.Id
+        }))" class="btn btn-default" role="button">Видалити</a>
+                        </p>
+                    </div>
+                </div>
+            </div>   }
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <button type="button" onclick="location.href='@Url.Action(
+                "EditCategories",
+                "Category",
+                new RouteValueDictionary(
+                    new
+                    {
+                        parentId = item.Id
+    }))'">
+                        @if (item.ImagePath != null && item.ImagePath.Length != 0)
+                        {
+                            <img src="@Url.Action("GetImage", "Category",new { path = item.ImagePath })"
+                                      width="300px"  height="300px"  alt="Category" />
+                        }
+                        else
+                        {
+                            <img src="http://www.nyctransitforums.com/forums/fcontent/default.png" alt="Category">
+                        }
+                    </button>
+                    @*//todo тут повинен бути потім норм зображння*@
+                    <div class="caption">
+                        <h2>@item.Name</h2>
+                        <p>
+                            <a href="@Url.Action(
+                "EditSomeCategory",
+                "Category",
+                new RouteValueDictionary(
+                    new
+                    {
+                        id = item.Id
+                    }), "http")" class="btn btn-primary" role="button">
+                                Редагувати
+                            </a>
+                            <a href="@Url.Action(
+                "RemoveSomeCategory",
+                "Category",
+                new RouteValueDictionary(
+                    new
+                    {
+                        id = item.Id
+                    }))" class="btn btn-default" role="button">Видалити</a>
+                        </p>
+                    </div>
+                </div>
+            </div>   }
+    }
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <button type="button" onclick="location.href='@Url.Action(
+        "AddNewCategory",
+        "Category",
+        new RouteValueDictionary(
+            new
+            {
+                parentName = ViewBag.ParentName
+            }))'">
+                <img alt="New" title="New" src="http://programme.uk.solarenergyevents.com/images/made/images/remote/http_uk.solarenergyevents.com/assets/images/energy-plus-icon_300_300.png">
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+﻿@model OnlineShop.Models.ManageShopModels.Views.CategoryView
+@{
+    ViewBag.Title = "Додати нову категорію";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml"; 
+}
+
+<h2>AddNewCategory</h2>
+@using (Html.BeginForm("AddNewCategory", "Category", FormMethod.Post, new { enctype = "multipart/form-data", @data_ajax = "false" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Створення категорії</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.HasSubCategories)
+        @Html.HiddenFor(model => model.Level)
+        @Html.HiddenFor(model => model.ImagePath)
+        @Html.HiddenFor(model => model.ParentName)
+        @Html.HiddenFor(model => model.ParentId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImgFile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="ImgFile" name="ImgFile" class="btn btn-default" />
+            </div>
+        </div>
+        <div class="btn-group col-md-offset-2" data-toggle="buttons">
+            @if (Model.Properties != null && Model.Properties.Count != 0)
+            {
+                for (var i = 0; i < Model.Properties.Count; i++)
+                {
+                    <label class="btn btn-primary">
+                        @Html.CheckBoxFor(m => m.Properties[i].Checked)
+                        @Html.DisplayFor(m => m.Properties[i].Name)
+
+                        @Html.HiddenFor(m => m.Properties[i].Name)
+                        @Html.HiddenFor(m => m.Properties[i].Id)
+                        @Html.HiddenFor(m => m.Properties[i].IsNew)
+                    </label>
+                }
+            }
+        </div>
+        <div class="form-group">
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default"><span aria-hidden="true">&larr;</span>@Html.ActionLink("Назад до списку", "Index", "ManageShop")</button>
+                <input type="submit" value="Створити" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}

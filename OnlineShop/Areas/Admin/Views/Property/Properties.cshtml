@@ -1,0 +1,33 @@
+﻿@model IEnumerable<OnlineShop.Models.ManageShopModels.Views.PropertyView>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>Список властивостей з групи @ViewBag.LinkName</h2>
+<ul class="nav navbar-nav">
+    <li>@Html.ActionLink("Створити нову властивість", "CreateProperty", new { linkName = ViewBag.LinkName })</li>
+</ul>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Редагувати", "EditProperty", new { prop_id = item.Id })</li>
+                    <li>@Html.ActionLink("Видалити", "DeleteProperty", new { prop_id = item.Id })</li>
+                </ul>
+            </td>
+        </tr>
+    }
+</table>
+<div>
+    @Html.ActionLink("Назад до списку", "Index")
+</div>

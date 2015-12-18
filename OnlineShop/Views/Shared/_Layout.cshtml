@@ -18,29 +18,19 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			@Html.ActionLink("Online Shop", "Index", "Home", null, new {@class = "navbar-brand"})
+			@Html.ActionLink("Online Shop", "Index", "Home", new { area = "" }, new {@class = "navbar-brand"})
 		</div>
 		<div class="navbar-collapse collapse nav-menu">
 			<ul class="nav navbar-nav">
-				<li>@Html.ActionLink("Головна", "Index", "Home")</li>
-				@if (Request.IsAuthenticated && User.IsInRole("Admin"))
-				{
-					<li>@Html.ActionLink("Редактор ролей", "Index", "RolesAdmin")</li>
-					<li>@Html.ActionLink("Назначення ролей", "Index", "UsersAdmin")</li>
-					//todo Змінити на роль суб адміна або як її там ну кароч з 4 ролей до неї має мати доступ адмін і суб адмін і все
-					<li>@Html.ActionLink("Менеджмент", "Index", "ManageShop")</li>
-				}
+				<li>@Html.ActionLink("Головна", "Index", "Home", new { area = "" })</li>          
 			</ul>
 			@Html.Partial("_LoginPartial")
 		</div>
 	</div>
 </div>
-	        @{Html.RenderAction("TestMenu", "Home");}
+	        @{Html.RenderAction("TestMenu", "Home", new { area = "" });} 
 			<div class=" container body-content">
-				@RenderBody()
-				<p style="text-align: center">
-					@{ Html.RenderAction("GetPath", "Category"); }
-				</p>
+				@RenderBody()                                                  
 			</div>
 			<hr />
 			<footer>

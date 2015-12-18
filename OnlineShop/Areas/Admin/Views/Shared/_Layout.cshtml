@@ -1,0 +1,54 @@
+﻿@using System.Resources
+@using OnlineShop
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title - My ASP.NET Application</title>
+	@Styles.Render("~/Content/css")
+	@RenderSection("scripts", required: false)
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			@Html.ActionLink("Online Shop", "Index", "Home",  new { area = "" }, new {@class = "navbar-brand"})
+		</div>
+		<div class="navbar-collapse collapse nav-menu">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Головна", "Index", "Home", new { area = "" })</li>
+                @*//todo тут кароч ф-цію треба шоб вона бабахаля шо до чого кароч*@
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <li>@Html.ActionLink("Редактор ролей", "Index", "RolesAdmin", new { area = "Admin" }, null)</li>
+                    <li>@Html.ActionLink("Назначення ролей", "Index", "UsersAdmin", new { area = "Admin" }, null)</li>
+                    <li>@Html.ActionLink("Менеджмент", "Index", "ManageShop", new { area = "Admin" }, null)</li>
+                }
+            </ul>
+			@Html.Partial("_LoginPartial")
+		</div>
+	</div>
+</div>
+	        @{Html.RenderAction("TestMenu", "Home", new { area = "" });}
+			<div class=" container body-content">
+				@RenderBody()
+				<p style="text-align: center">
+					@{ Html.RenderAction("GetPath", "Category", new { area = "Admin" }); }
+				</p>
+			</div>
+			<hr />
+			<footer>
+				<p>&copy; @DateTime.Now.Year - @Res.ApplicationName</p>
+			</footer>
+	</body>
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jqueryval")
+</html>

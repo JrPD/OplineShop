@@ -1,0 +1,82 @@
+﻿@model OnlineShop.Models.ManageShopModels.Views.CategoryView
+@{
+    ViewBag.Title = "Редагування категорії";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<p><h2>Редагувати категорію</h2></p>
+@using (Html.BeginForm("EditSomeCategory", "Category", FormMethod.Post, new { enctype = "multipart/form-data", @data_ajax = "false" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Редагування</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.HasSubCategories)
+        @Html.HiddenFor(model => model.Level)
+        @Html.HiddenFor(model => model.ImagePath)
+        @Html.HiddenFor(model => model.ParentName)
+        @Html.HiddenFor(model => model.ParentId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="ImgFile" name="ImgFile" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div class="btn-group col-md-offset-2" data-toggle="buttons">
+            @if (Model.Properties != null && Model.Properties.Count != 0)
+            {
+                for (var i = 0; i < Model.Properties.Count; i++)
+                {
+                    <label class="btn btn-primary">
+                        @Html.CheckBoxFor(m => m.Properties[i].Checked)
+                        @Html.DisplayFor(m => m.Properties[i].Name)
+
+                        @Html.HiddenFor(m => m.Properties[i].Name)
+                        @Html.HiddenFor(m => m.Properties[i].Id)
+                        @Html.HiddenFor(m => m.Properties[i].IsNew)
+                    </label>
+                }
+            }
+        </div>
+         <div class="form-group">
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default">
+                    <span aria-hidden="true">&larr;</span>
+                    @Html.ActionLink(
+                        "Назад до списку",
+                        "EditCategories",
+                        "Category",
+                        new RouteValueDictionary(
+                            new
+                            {
+                                parentId = Model.ParentId
+                            }))
+                </button>
+
+                <button type="button" class="btn btn-default">
+                    @Html.ActionLink(
+                        "Видалити",
+                        "RemoveSomeCategory",
+                        "Category",
+                        new RouteValueDictionary(
+                            new
+                            {
+                                id = Model.Id
+                            }))
+                </button>
+                <input type="submit" value="Оновити" class="btn btn-primary" />
+            </div>
+        </div>
+ </div>    
+}

@@ -1,6 +1,5 @@
 ﻿using OnlineShop.Models.Db.Tables;
 using OnlineShop.Models.ManageShopModels.Views;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -127,7 +126,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                     .FirstOrDefault(c => c.Cat_Id == product.SelectedCategoryId);
             product.Category = cat;
 
-            App.Rep.Update<Product>(ProductManager.MapToProduct(product),true); //todo може бути Exception, ЧОМУ?????
+            App.Rep.Update<Product>(ProductManager.MapToProduct(product), true); //todo може бути Exception, ЧОМУ?????
         }
 
         public static Category GetParentCategory(Category current)
@@ -175,6 +174,21 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                     resProductView.Add(viewProduct);
             }
             return resProductView;
+        }
+
+        /// <summary>
+        /// Update parent category id for some product, but NOT save changes, just update in DB
+        /// </summary>
+        /// <param name="product">product where we need to replace parent category id</param>
+        /// <param name="id">new parent category id</param>
+        internal static void SetNewCategoryIdAndUpdate(Product product, long id)
+        {
+            if (product != null && product.Pr_Id != 0
+                && id != 0 && id != CategoryManager.DefaultParentCategoryId)
+            {
+                product.Pr_Cat_Id = id;
+                App.Rep.Update<Product>(product, false);
+            }
         }
     }
 }
