@@ -174,4 +174,16 @@
   <data name="NotLastLevelCategory" xml:space="preserve">
     <value>Вибрана категорія не найнижчого рівня</value>
   </data>
+  <data name="SameCategoryName" xml:space="preserve">
+    <value>Вибране ім'я категорії вже існує</value>
+  </data>
+  <data name="SameProductName" xml:space="preserve">
+    <value>Вибране ім'я продукта вже існує</value>
+  </data>
+  <data name="SameLinkGroupName" xml:space="preserve">
+    <value>Вибране ім'я таких груп властивостей вже існує</value>
+  </data>
+  <data name="SameLinkPropName" xml:space="preserve">
+    <value>Вибране ім'я такої властивості вже додано до груп властивостей</value>
+  </data>
 </root>

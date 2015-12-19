@@ -47,6 +47,7 @@ namespace OnlineShop.Models.ManageShopModels.Views
             if (Name.Length > MaxNameLength)
                 yield return new ValidationResult(
                     string.Format(Res.IncorrectLength, MaxNameLength, Name.Length), new[] { "Name" });
+
             if (ParentId != CategoryManager.DefaultParentCategoryId)
             {
                 if (ParentId <= 0)
@@ -74,6 +75,13 @@ namespace OnlineShop.Models.ManageShopModels.Views
                 {
                     ParentId = category.Cat_Id;
                 }
+            }
+
+            var sameNameCategories = App.Rep.Select<Category>().Where(c => c.Cat_Name.ToLower() == Name.ToLower());
+            if (sameNameCategories != null && sameNameCategories.Count() > 0)
+            {
+                yield return new ValidationResult(
+                    string.Format(Res.SameCategoryName), new[] { "Name" });
             }
         }
     }

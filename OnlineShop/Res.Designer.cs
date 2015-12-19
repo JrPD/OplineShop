@@ -230,5 +230,41 @@ namespace OnlineShop {
                 return ResourceManager.GetString("Roles_User", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вибране ім&apos;я категорії вже існує.
+        /// </summary>
+        public static string SameCategoryName {
+            get {
+                return ResourceManager.GetString("SameCategoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вибране ім&apos;я таких груп властивостей вже існує.
+        /// </summary>
+        public static string SameLinkGroupName {
+            get {
+                return ResourceManager.GetString("SameLinkGroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вибране ім&apos;я такої властивості вже додано до груп властивостей.
+        /// </summary>
+        public static string SameLinkPropName {
+            get {
+                return ResourceManager.GetString("SameLinkPropName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вибране ім&apos;я продукта вже існує.
+        /// </summary>
+        public static string SameProductName {
+            get {
+                return ResourceManager.GetString("SameProductName", resourceCulture);
+            }
+        }
     }
 }

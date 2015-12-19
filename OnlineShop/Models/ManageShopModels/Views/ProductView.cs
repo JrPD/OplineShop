@@ -1,5 +1,4 @@
 ﻿using OnlineShop.Models.Db.Tables;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -64,15 +63,18 @@ namespace OnlineShop.Models.ManageShopModels.Views
                 yield return new ValidationResult(string.Format(Res.IncorrectInput,
                     "Кількість", Count.ToString()),
                     new[] { "Count" });
-            if (Price<MinPrice || Price>MaxPrice)
+
+            if (Price < MinPrice || Price > MaxPrice)
                 yield return new ValidationResult(string.Format(Res.IncorrectInput,
                     "Ціна", Price.ToString()),
                     new[] { "Price" });
+
             if (Name.Length > MaxNameLength)
                 yield return new ValidationResult(
                     string.Format(Res.IncorrectLength, MaxNameLength, Name.Length), new[] { "Name" });
             Category cat = App.Rep.Select<Category>()
                       .FirstOrDefault(c => c.Cat_Id == SelectedCategoryId);
+
             if (cat != null)
                 Category = cat;
             if (Category != null && Category.Cat_Id != 0)
@@ -85,6 +87,13 @@ namespace OnlineShop.Models.ManageShopModels.Views
             else
             {
                 yield return new ValidationResult(Res.NotAvailableCategory, new[] { "Category" });
+            }
+
+            var sameNameProducts = App.Rep.Select<Product>().Where(p => p.Pr_Name.ToLower() == Name.ToLower());
+            if (sameNameProducts != null && sameNameProducts.Count() > 0)
+            {
+                yield return new ValidationResult(
+                    string.Format(Res.SameProductName), new[] { "Name" });
             }
         }
     }

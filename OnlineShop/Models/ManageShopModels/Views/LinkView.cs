@@ -1,6 +1,8 @@
-﻿using System;
+﻿using OnlineShop.Models.Db.Tables;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace OnlineShop.Models.ManageShopModels.Views
 {
@@ -32,6 +34,13 @@ namespace OnlineShop.Models.ManageShopModels.Views
             if (Name.Length > MaxNameLength)
                 yield return new ValidationResult(
                     string.Format(Res.IncorrectLength, MaxNameLength, Name.Length), new[] { "Name" });
+
+            var sameNameLinks = App.Rep.Select<Link>().Where(p => p.Link_Name.ToLower() == Name.ToLower());
+            if (sameNameLinks != null && sameNameLinks.Count() > 0)
+            {
+                yield return new ValidationResult(
+                    string.Format(Res.SameLinkGroupName), new[] { "Name" });
+            }
         }
     }
 }

@@ -17,7 +17,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.EditorFor(modelItem => item.Name, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @style = "width: 100px" } })
             </td>
             <td>
                 <ul class="nav navbar-nav">
