@@ -98,7 +98,7 @@ namespace OnlineShop.Mappers
                     opt => opt.MapFrom(src => src.Prop_Id))
                 .ForMember(dest => dest.Name,
                     opt => opt.MapFrom(src => src.Prop_Name))
-                .ForMember(dest => dest.Link_Id,
+                .ForMember(dest => dest.LinkId,
                     opt => opt.MapFrom(src => src.Prop_Link_Id));
 
             Mapper.CreateMap<PropertyView, Property>()
@@ -107,7 +107,7 @@ namespace OnlineShop.Mappers
                 .ForMember(dest => dest.Prop_Name,
                     opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Prop_Link_Id,
-                    opt => opt.MapFrom(src => src.Link_Id));
+                    opt => opt.MapFrom(src => src.LinkId));
         }
 
         public object Map(object source, Type sourceType, Type destinationType)
@@ -174,7 +174,7 @@ namespace OnlineShop.Mappers
                         }
                         else
                         {
-                            linkView.IsNew = true;
+                            linkView.IsChanged = true;
                         }
                         model.Properties.Add(linkView);
                     }

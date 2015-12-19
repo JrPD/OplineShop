@@ -9,28 +9,44 @@ namespace OnlineShop.Models.ManageShopModels.Views
 {
     public class CategoryView : IValidatableObject
     {
+
+        public const byte MinLevel = 1;
+        public const byte MaxLevel = 3;
+        public const byte MaxNameLength = 200;
+        public const byte MinNameLength = 3;
+
+        [Required]
+        [Range(MinLevel, MaxLevel,
+            ErrorMessageResourceType = typeof(Res),
+            ErrorMessageResourceName = "OutOfRangeLevelCategory")]
         public byte Level { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Res),
             ErrorMessageResourceName = "FieldCantBeNull")]
         [Display(Name = "Ім'я категорії")]
+        [StringLength(MaxNameLength,
+            MinimumLength = MinNameLength,
+            ErrorMessageResourceType = typeof(Res),
+            ErrorMessageResourceName = "IncorrectLengthAttributeDefault")]
         public string Name { get; set; }
 
         public string ParentName { get; set; }
+
         public long ParentId { get; set; }
 
         [Display(Name = "Зображення категорії")]
         public HttpPostedFileBase ImgFile { get; set; }
 
         public string ImagePath { get; set; }
-        public long? ImageId { get; set; }
-        public bool HasSubCategories { get; set; }
-        public long Id { get; set; }
-        public List<LinkView> Properties { get; set; }
 
-        public const byte MinLevel = 1;
-        public const byte MaxLevel = 3;
-        public const byte MaxNameLength = 200;
+        public long? ImageId { get; set; }
+
+        public bool HasSubCategories { get; set; }
+
+        [Required]
+        public long Id { get; set; }
+
+        public List<LinkView> Properties { get; set; }
 
         public CategoryView()
         {
@@ -47,6 +63,10 @@ namespace OnlineShop.Models.ManageShopModels.Views
             if (Name.Length > MaxNameLength)
                 yield return new ValidationResult(
                     string.Format(Res.IncorrectLength, MaxNameLength, Name.Length), new[] { "Name" });
+
+            if (Name.Length < MinNameLength)
+                yield return new ValidationResult(
+                    string.Format(Res.IncorrectMinLength, MaxNameLength, Name.Length), new[] { "Name" });
 
             if (ParentId != CategoryManager.DefaultParentCategoryId)
             {

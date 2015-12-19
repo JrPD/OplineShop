@@ -300,7 +300,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
             {
                 foreach (var link in model.Properties)
                 {
-                    if (!link.IsNew && !link.Checked)
+                    if (!link.IsChanged && !link.Checked)
                     {
                         var linkCat = App.Rep.Select<LinkCategories>()
                           .FirstOrDefault(lc => lc.Category_Cat_Id == model.Id
@@ -308,7 +308,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
                         if (linkCat != null)
                             App.Rep.Delete<LinkCategories>(linkCat, false);
                     }
-                    else if (link.Checked && link.IsNew)
+                    else if (link.Checked && link.IsChanged)
                     {
                         App.Rep.Insert<LinkCategories>(new LinkCategories()
                         {

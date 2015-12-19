@@ -48,7 +48,7 @@
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.SelectedCategoryId, "Product category", htmlAttributes: new {@class = "control-label col-md-2"})
+			@Html.LabelFor(model => model.SelectedCategoryId,"", htmlAttributes: new {@class = "control-label col-md-2"})
 			<div class="col-md-10">
 				<div class="checkbox" style="padding-left: 0px">
 					@Html.DropDownListFor(model => model.SelectedCategoryId,Model.CategoryList, "", new { @class = "form-control" })
@@ -71,7 +71,3 @@
 <div>
 	@Html.ActionLink("Назад до списку", "Index")
 </div>
-
-@section Scripts {
-	@Scripts.Render("~/bundles/jqueryval")
-}

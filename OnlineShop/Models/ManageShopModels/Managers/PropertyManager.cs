@@ -96,7 +96,7 @@ namespace OnlineShop.Models.ManageShopModels.Managers
         {
             var model = new PropertyView()
             {
-                Link_Id = link_id
+                LinkId = link_id
             };
             return model;
         }

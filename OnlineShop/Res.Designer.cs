@@ -151,11 +151,47 @@ namespace OnlineShop {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Довжина поля не може  мати менше 3 і більше 200 знаків.
+        /// </summary>
+        public static string IncorrectLengthAttributeDefault {
+            get {
+                return ResourceManager.GetString("IncorrectLengthAttributeDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Не можливий рівень {0}.
         /// </summary>
         public static string IncorrectLevel {
             get {
                 return ResourceManager.GetString("IncorrectLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вибрана група властивостей не існує!!! Попробуйте її вибрати знов..
+        /// </summary>
+        public static string IncorrectLinkId {
+            get {
+                return ResourceManager.GetString("IncorrectLinkId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Довжина поля не може  мати менше {0} знаків, було вписано {1} знаки.
+        /// </summary>
+        public static string IncorrectMinLength {
+            get {
+                return ResourceManager.GetString("IncorrectMinLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Довжина поля не може  мати менше {0} і більше {1} знаків.
+        /// </summary>
+        public static string IncorrectMinMaxLength {
+            get {
+                return ResourceManager.GetString("IncorrectMinMaxLength", resourceCulture);
             }
         }
         
@@ -174,6 +210,42 @@ namespace OnlineShop {
         public static string NotLastLevelCategory {
             get {
                 return ResourceManager.GetString("NotLastLevelCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ви повинні задати число в діапазоні від {0} до {1}.
+        /// </summary>
+        public static string OutOfRange {
+            get {
+                return ResourceManager.GetString("OutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ви повинні задати число в діапазоні від 1 до 3.
+        /// </summary>
+        public static string OutOfRangeLevelCategory {
+            get {
+                return ResourceManager.GetString("OutOfRangeLevelCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ви повинні задати число в діапазоні від 0 до 255.
+        /// </summary>
+        public static string OutOfRangeProductCount {
+            get {
+                return ResourceManager.GetString("OutOfRangeProductCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ви повинні задати число в діапазоні від 0.01 до 999999.99.
+        /// </summary>
+        public static string OutOfRangeProductPrice {
+            get {
+                return ResourceManager.GetString("OutOfRangeProductPrice", resourceCulture);
             }
         }
         

@@ -13,37 +13,49 @@ namespace OnlineShop.Models.ManageShopModels.Views
     public class ProductView : IValidatableObject
     {
         public const byte MaxNameLength = 200;
+        public const byte MinNameLength = 3;
         public const byte MinCount = 0;
         public const double MinPrice = 0.01;
         public const byte MaxCount = 255;
         public const double MaxPrice = 999999.99;
 
         [Display(Name = "Категорія")]
+        [Required]
         public long SelectedCategoryId { get; set; }
 
         public List<SelectListItem> CategoryList { get; set; }
 
+        [Required]
         public long Id { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Res),
             ErrorMessageResourceName = "FieldCantBeNull")]
         [Display(Name = "Кількість")]
+        [Range(MinCount, MaxCount,
+            ErrorMessageResourceType = typeof(Res),
+            ErrorMessageResourceName = "OutOfRangeProductCount")]
         public int Count { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Res),
             ErrorMessageResourceName = "FieldCantBeNull")]
         [Display(Name = "Назва продукту")]
+        [StringLength(MaxNameLength,
+            MinimumLength = MinNameLength,
+            ErrorMessageResourceType = typeof(Res),
+            ErrorMessageResourceName = "IncorrectLengthAttributeDefault")]
         public string Name { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Res),
             ErrorMessageResourceName = "FieldCantBeNull")]
         [Display(Name = "Ціна")]
+        [Range(MinPrice, MaxPrice,
+            ErrorMessageResourceType = typeof(Res),
+            ErrorMessageResourceName = "OutOfRangeProductPrice")]
         public double Price { get; set; }
 
         [Display(Name = "Доступність")]
         public bool IsAvailable { get; set; }
 
-        [Display(Name = "Категорія")]
         public Category Category { get; set; }
 
         [Display(Name = "Зображення категорії")]
@@ -72,6 +84,11 @@ namespace OnlineShop.Models.ManageShopModels.Views
             if (Name.Length > MaxNameLength)
                 yield return new ValidationResult(
                     string.Format(Res.IncorrectLength, MaxNameLength, Name.Length), new[] { "Name" });
+
+            if (Name.Length < MinNameLength)
+                yield return new ValidationResult(
+                    string.Format(Res.IncorrectMinLength, MinNameLength, Name.Length), new[] { "Name" });
+
             Category cat = App.Rep.Select<Category>()
                       .FirstOrDefault(c => c.Cat_Id == SelectedCategoryId);
 

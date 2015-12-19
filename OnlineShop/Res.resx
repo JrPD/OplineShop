@@ -135,6 +135,9 @@
   <data name="Exception_ValidatorHandlerMismatch" xml:space="preserve">
     <value>An ICertificateValidator cannot be specified at the same time as an HttpMessageHandler unless it is a WebRequestHandler.</value>
   </data>
+  <data name="FieldCantBeNull" xml:space="preserve">
+    <value>Поле не може бути пустим</value>
+  </data>
   <data name="ImagesDirectory" xml:space="preserve">
     <value>/Images/</value>
   </data>
@@ -144,8 +147,44 @@
   <data name="IncorrectLength" xml:space="preserve">
     <value>Довжина поля не може перевищувати {0} знаків, було вписано {1} знаки</value>
   </data>
-  <data name="FieldCantBeNull" xml:space="preserve">
-    <value>Поле не може бути пустим</value>
+  <data name="IncorrectLengthAttributeDefault" xml:space="preserve">
+    <value>Довжина поля не може  мати менше 3 і більше 200 знаків</value>
+  </data>
+  <data name="IncorrectLevel" xml:space="preserve">
+    <value>Не можливий рівень {0}</value>
+  </data>
+  <data name="IncorrectLinkId" xml:space="preserve">
+    <value>Вибрана група властивостей не існує!!! Попробуйте її вибрати знов.</value>
+  </data>
+  <data name="IncorrectMinLength" xml:space="preserve">
+    <value>Довжина поля не може  мати менше {0} знаків, було вписано {1} знаки</value>
+  </data>
+  <data name="IncorrectMinMaxLength" xml:space="preserve">
+    <value>Довжина поля не може  мати менше {0} і більше {1} знаків</value>
+  </data>
+  <data name="NotAvailableCategory" xml:space="preserve">
+    <value>Вибрана не існуюча категорія</value>
+  </data>
+  <data name="NotLastLevelCategory" xml:space="preserve">
+    <value>Вибрана категорія не найнижчого рівня</value>
+  </data>
+  <data name="OutOfRange" xml:space="preserve">
+    <value>Ви повинні задати число в діапазоні від {0} до {1}</value>
+  </data>
+  <data name="OutOfRangeLevelCategory" xml:space="preserve">
+    <value>Ви повинні задати число в діапазоні від 1 до 3</value>
+  </data>
+  <data name="OutOfRangeProductCount" xml:space="preserve">
+    <value>Ви повинні задати число в діапазоні від 0 до 255</value>
+  </data>
+  <data name="OutOfRangeProductPrice" xml:space="preserve">
+    <value>Ви повинні задати число в діапазоні від 0.01 до 999999.99</value>
+  </data>
+  <data name="ProductImagesDirectory" xml:space="preserve">
+    <value>Products/</value>
+  </data>
+  <data name="ProductView_Name_of_product" xml:space="preserve">
+    <value>Назва продукту</value>
   </data>
   <data name="Roles_Admin" xml:space="preserve">
     <value>Admin</value>
@@ -159,31 +198,16 @@
   <data name="Roles_User" xml:space="preserve">
     <value>User</value>
   </data>
-  <data name="ProductImagesDirectory" xml:space="preserve">
-    <value>Products/</value>
-  </data>
-  <data name="ProductView_Name_of_product" xml:space="preserve">
-    <value>Назва продукту</value>
-  </data>
-  <data name="IncorrectLevel" xml:space="preserve">
-    <value>Не можливий рівень {0}</value>
-  </data>
-  <data name="NotAvailableCategory" xml:space="preserve">
-    <value>Вибрана не існуюча категорія</value>
-  </data>
-  <data name="NotLastLevelCategory" xml:space="preserve">
-    <value>Вибрана категорія не найнижчого рівня</value>
-  </data>
   <data name="SameCategoryName" xml:space="preserve">
     <value>Вибране ім'я категорії вже існує</value>
-  </data>
-  <data name="SameProductName" xml:space="preserve">
-    <value>Вибране ім'я продукта вже існує</value>
   </data>
   <data name="SameLinkGroupName" xml:space="preserve">
     <value>Вибране ім'я таких груп властивостей вже існує</value>
   </data>
   <data name="SameLinkPropName" xml:space="preserve">
     <value>Вибране ім'я такої властивості вже додано до груп властивостей</value>
+  </data>
+  <data name="SameProductName" xml:space="preserve">
+    <value>Вибране ім'я продукта вже існує</value>
   </data>
 </root>

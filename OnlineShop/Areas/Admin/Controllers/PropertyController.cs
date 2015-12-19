@@ -76,7 +76,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             {
                 PropertyManager.AddNewProperty(property);
                 return RedirectToAction("Properties", new RouteValueDictionary(
-                    new { link_id = property.Link_Id }));
+                    new { link_id = property.LinkId }));
             }
             return View(property);
         }
@@ -94,7 +94,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             {
                 PropertyManager.UpdateProperty(property);
                 return RedirectToAction("Properties", new RouteValueDictionary(
-                    new { link_id = property.Link_Id }));
+                    new { link_id = property.LinkId }));
             }
             return View(property);
         }
